@@ -2,9 +2,9 @@ from setuptools import setup
 
 setup(
     name='solspec',
-    version='0.1',
+    version='1.0.dev1',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 1 - Development',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3.5',
         'Topic :: Scientific Computing :: Solar',
