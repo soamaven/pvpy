@@ -1,0 +1,24 @@
+from setuptools import setup
+
+setup(
+    name='solspec',
+    version='0.1',
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3.5',
+        'Topic :: Scientific Computing :: Solar',
+      ],
+    description='Some utilities relating to the ASTM1.5G solar spectrum',
+    url='https://github.com/soamaven/solspec.git',
+    author='Colton Bukowsky',
+    author_email='cb@caltech.edu',
+    license='MIT',
+    packages=['solspec'],
+    install_requires=[
+        'numpy',
+        'scipy'
+    ],
+    include_package_data=True,
+    zip_safe=False
+)
