@@ -9,7 +9,7 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Topic :: Scientific Computing :: Solar',
       ],
-    description='Some utilities relating to the ASTM1.5G solar spectrum',
+    description='Some routines relating to the ASTM G173-03 solar spectrum',
     url='https://github.com/soamaven/solspec.git',
     author='Colton Bukowsky',
     author_email='cb@caltech.edu',
