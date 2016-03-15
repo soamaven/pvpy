@@ -1,20 +1,15 @@
 import numpy as np
 from scipy import interpolate, integrate
-from ASTMGspectrum import ASTMGspectrum
 
-class SolarSpectrum(object):
-    """
-    An interpolator that returns the integrated power in ASTM 1.5 Global spectrum over a given wavelength range.
-     Based on some code by Steve J. Byrnes at sjbyrnes.com/ultimate_PV.html
-    """
+
+class Spectrum:
     def __init__(self):
         # the first column should be the wavelength in nanometers, the second is the power density/nm in
         # W/(m**2 nm) = J s^-1 m^-2 nm^-1 = C V m^-2 nm^-1
-        spec = ASTMGspectrum
-        self.spectrum = spec.spectrum
-        self.interp = spec.interp
+        self.spectrum = np.genfromtxt("ASTMG173.csv", delimiter=",", skip_header=2)[:, [0, 2]]
+        self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 
-    def powerDensity(self, start_w: float, stop_w: float):
+    def power_density(self, start_w: float, stop_w: float):
         """
         Integrates the AM15G solar spectrum to get the power density in a sub-spectrum
         :param start_w: (float) shortest wavelength in m

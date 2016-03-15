@@ -14,7 +14,9 @@ setup(
     author='Colton Bukowsky',
     author_email='cb@caltech.edu',
     license='MIT',
-    packages=['solspec'],
+    packages=[
+        'solspec',
+    ],
     install_requires=[
         'numpy',
         'scipy'

@@ -1,10 +1,11 @@
-from photocurrent import photocurrent
+from Spectrum import Spectrum
 
-try:
-    with open('ASTMG173.csv') as file:
-        pass
-except IOError as e:
-    print("Unable to open file")  # Does not exist OR no read permissions
+
+#try:
+#    with open('ASTMG173.csv') as file:
+#        pass
+#except IOError as e:
+#    print("Unable to open file")  # Does not exist OR no read permissions
 # TODO: Maybe allow direct download of ASTM1.5G spectrum if it is missing? It shoudln't be missing.
 #    import os
 #    if not os.path.isfile('ASTMG173.csv'):
