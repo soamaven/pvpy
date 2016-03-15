@@ -3,7 +3,7 @@ from scipy import interpolate, integrate
 
 
 class Spectrum:
-    def __init__(self, start_w: float = 280.0e-9, stop_w: float = 4000.0e-9, spectra: str = "AM1.5G"):
+    def __init__(self, start_w: float = 280.0, stop_w: float = 4000.0, spectra: str = "AM1.5G"):
         """
         Initilizer for Spectrum class. Builds custom spectrum if variables are changed.
         :param start_w: starting wavelength in nanometers
@@ -29,7 +29,8 @@ class Spectrum:
 
     def __bounds_check(self, w: float):
         """
-        :param w: (float) wavelength in meters
+        Checks that the given wavelength is within the bounds of the Spectrum
+        :param w: (float) wavelength in nanometers
         :returns: none
         """
         lowerb = self.spectrum[:, 0][0]
