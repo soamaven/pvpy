@@ -1,4 +1,5 @@
 # solspec
+By: Colton Bukowsky, California Institute of Technology, 2016
 ## Abstract:
 `solspec` is a collection of [python 3.5](https://docs.python.org/3.5/#) routines related to
 the [ASTM Solar Spectral Irradiance Air Mass 1.5](http://rredc.nrel.gov/solar/spectra/am1.5/#about) spectrum. The main
