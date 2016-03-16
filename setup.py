@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='solspec',
-    version='1.0.dev1',
+    version='1.0.beta',
     classifiers=[
         'Development Status :: 1 - Development',
         'License :: OSI Approved :: MIT License',

@@ -25,7 +25,7 @@ def jsc(spec_in: np.ndarray, kind: str ="linear", spectra: str ="AM1.5G"):
     """
     Gives the absorbed photocurrent in mA/cm**2 of a normalized spectrum.
     :param spec_in: ((N,2) numpy array) with spec_in[:,0] as the wavelengths in nm and spec_in[:,1] as the values
-    :param kind: (str) interpolation kind. see scipy.interpolate.trapz
+    :param kind: (str) interpolation kind. see scipy.interpolate.interp1d
     :param spectra:
     :return:
     """
