@@ -1,4 +1,4 @@
-from solspec import Spectrum
+from solspec import PowerSpectrum
 
 
 try:
