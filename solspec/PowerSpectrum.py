@@ -24,7 +24,7 @@ class PowerSpectrum:
         self.stop_w = stop_w
         # build custom spectrum if necessary
         if start_w != 280.0 or stop_w != 4000.0:
-            self.spectrum = self.sub_spectrum(start_w, stop_w).copy()
+            self.spectrum = self.sub_spectrum(start_w, stop_w)
 
         # create the PowerSpectrum interpolator
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
@@ -123,6 +123,8 @@ class PowerSpectrum:
         spec_in = np.squeeze(spec_in)
         assert spec_in.shape[1] == 2, "Weight spectrum is not a 2D numpy array."
         spec_fun = interpolate.interp1d(spec_in[:, 0], spec_in[:, 1], kind=kind)
+        if spec_in[0, 0] != self.start_w or spec_in[-1, 0] != self.stop_w:
+            self.spectrum = self.sub_spectrum(spec_in[0, 0], spec_in[-1, 0])
         spec_wt = self.spectrum
         spec_wt[:, 1] = spec_fun(spec_wt[:, 0]) * spec_wt[:, 1]
         return
