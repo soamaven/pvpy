@@ -1,5 +1,6 @@
 import numpy as np
 from scipy import interpolate, integrate, constants
+from os import path
 
 
 class PowerSpectrum:
@@ -17,7 +18,8 @@ class PowerSpectrum:
         # the first column should be the wavelength in nanometers, the second is the tilt power density/nm in
         # W/(m**2 nm) = J s^-1 m^-2 nm^-1 = C V m^-2 nm^-1
         spectras = {"AM0Etr": 1, "AM1.5G": 2, "AM1.5D": 3}
-        self.spectrum = np.genfromtxt("ASTMG173.csv", delimiter=",", skip_header=2)[:, [0, spectras[spectra]]]
+        self.spectrum = np.genfromtxt(path.join(path.dirname(__file__), './ASTMG173.csv'), delimiter=",",
+                                      skip_header=2)[:, [0, spectras[spectra]]]
         self.start_w = start_w
         self.stop_w = stop_w
         # build custom spectrum if necessary

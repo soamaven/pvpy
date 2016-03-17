@@ -1,11 +1,13 @@
-from solspec import PowerSpectrum
+from os import path
 import numpy as np
+from solspec import PowerSpectrum
 
 try:
-    with open('ASTMG173.csv') as file:
+    filename = 'ASTMG173.csv'
+    with open(path.join(__path__[0], filename)) as file:
         pass
 except IOError as e:
-    print("Unable to open file")  # Does not exist OR no read permissions
+    print("Unable to open file %s" % filename)  # Does not exist OR no read permissions
 # TODO: Maybe allow direct download of ASTM1.5G spectrum if it is missing? It shoudln't be missing.
 #    import os
 #    if not os.path.isfile('ASTMG173.csv'):

@@ -1,2 +1,2 @@
 include README.md
-include ASTMG173.csv
+include solspec/ASTMG173.csv
