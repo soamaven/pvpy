@@ -23,19 +23,25 @@ except IOError as e:
 #            raise
 
 
-def jsc(spec_in: np.ndarray, kind: str ="linear", spectra: str ="AM1.5G"):
+def jsc(*args, kind: str ="linear", spectra: str ="AM1.5G", **kwargs):
     """
     Gives the absorbed photocurrent in mA/cm**2 of a normalized spectrum.
-    :param spec_in: ((N,2) numpy array) with spec_in[:,0] as the wavelengths in nm and spec_in[:,1] as the values
+    :param args: (array like) ideally (N,2)D numpy array with spec_in[:,0] as the wavelengths in nm and spec_in[:,1] as
+     the values, but can also be two lists/vectors
     :param kind: (str) interpolation kind. see scipy.interpolate.interp1d
     :param spectra:
     :return:
     """
-    if spec_in.shape[1] != 2:
-        try:
-            spec_in = spec_in.transpose()
-        except:
-            pass
+    if len(args) > 1:
+        assert args[0].size == args[1].size, \
+            "arg1 is %g, arg2 is %g. The inputs should be the same sizes." % (args[0].size, args[1].size)
+        args = [np.asarray(arg) if type(arg) is list else arg for arg in args]
+        spec_in = np.column_stack((args[0], args[1]))
+        assert np.shape(spec_in)[1] == 2, "The input arguments could not be converted to a (N,2) dimensional array."
+    elif len(args[0].shape) > 1 and args[0].shape[1] != 1:
+        spec_in = args[0].transpose()
+    else:
+        spec_in = args[0]
     spec_in = np.squeeze(spec_in)
     spec = PowerSpectrum.PhotocurrentSpectrum(spec_in[0, 0], spec_in[-1, 0], spectra)
     spec.weight_spectrum(spec_in, kind=kind)
