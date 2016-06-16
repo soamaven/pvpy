@@ -156,3 +156,5 @@ class PhotocurrentSpectrum(PhotonSpectrum):
         super().__init__(start_w, stop_w, spectra)
         self.spectrum[:, 1] *= constants.e
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
+
+#TODO: add custom spectrum input support for user defined spectra
