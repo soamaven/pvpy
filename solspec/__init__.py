@@ -23,7 +23,7 @@ except IOError as e:
 #            raise
 
 
-def jsc(*args, kind: str ="linear", spectra: str ="AM1.5G", **kwargs):
+def jsc(*args, **kwargs):
     """
     Gives the absorbed photocurrent in mA/cm**2 of a normalized spectrum.
     :param args: (array like) ideally (N,2)D numpy array with spec_in[:,0] as the wavelengths in nm and spec_in[:,1] as
@@ -32,6 +32,8 @@ def jsc(*args, kind: str ="linear", spectra: str ="AM1.5G", **kwargs):
     :param spectra:
     :return:
     """
+    kind = kwargs.pop('kind', 'linear')
+    spectra = kwargs.pop('spectra', "AM1.5G")
     if len(args) > 1:
         assert args[0].size == args[1].size, \
             "arg1 is %g, arg2 is %g. The inputs should be the same sizes." % (args[0].size, args[1].size)

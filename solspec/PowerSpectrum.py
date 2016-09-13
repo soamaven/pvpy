@@ -4,7 +4,7 @@ from os import path
 
 
 class PowerSpectrum:
-    def __init__(self, start_w: float = 280.0, stop_w: float = 4000.0, spectra: str = "AM1.5G"):
+    def __init__(self, start_w = 280.0, stop_w = 4000.0, spectra = "AM1.5G"):
         """
         Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
         :param start_w: shortest wavelength in nanometers
@@ -29,7 +29,7 @@ class PowerSpectrum:
         # create the PowerSpectrum interpolator
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 
-    def sub_spectrum(self, start_w: float, stop_w: float):
+    def sub_spectrum(self, start_w, stop_w):
         """
         Returns a subset of the PowerSpectrum specified by some bounding wavelengths
         :param start_w: shortest wavelength
@@ -42,7 +42,7 @@ class PowerSpectrum:
         subspec = self.spectrum[start_ind:stop_ind, :].copy()
         return subspec
 
-    def __bounds_check(self, *wavelengths: float):
+    def __bounds_check(self, *wavelengths):
         """
         Checks that the given wavelength is between the shortest and longest wavelengths of the PowerSpectrum
         :param wavelengths: (float) wavelength in nanometers
@@ -62,7 +62,7 @@ class PowerSpectrum:
                 pass
         return
 
-    def value_at_wavelength(self, *wavelengths: float):
+    def value_at_wavelength(self, *wavelengths):
         """
         Interpolates the spectrum to give the value of the spectrum at the given wavelength(s).
         :param: wavelengths (float, list) wavelength(s) of interest in nanometers
@@ -104,7 +104,7 @@ class PowerSpectrum:
         """
         return self.spectrum.copy()
 
-    def weight_spectrum(self, spec_in: np.ndarray, kind="cubic"):
+    def weight_spectrum(self, spec_in, kind="cubic"):
         """
         Weights a spectrum by a normalized spectrum, e.g. absorption, reflection, transmission at wavelengths in nm
         :param kind: (str or int, optional)interpolation method specification in scipy.interpolat.interp1d:
@@ -131,7 +131,7 @@ class PowerSpectrum:
 
 
 class PhotonSpectrum(PowerSpectrum):
-    def __init__(self, start_w: float = 280.0, stop_w: float = 4000.0, spectra: str = "AM1.5G"):
+    def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra = "AM1.5G"):
         """
         Gives the spectrum in photon flux-- changes units from Watts/(meter**2 nm) to #/(s meter**2 nm)
         :param start_w: shortest wavelength
@@ -139,13 +139,13 @@ class PhotonSpectrum(PowerSpectrum):
         :param spectra: the ASTM standard spectrum to use
         :return: None
         """
-        super().__init__(start_w, stop_w, spectra)
+        super(PowerSpectrum, self).__init__(start_w, stop_w, spectra)
         self.spectrum[:, 1] = self.spectrum[:, 1] * (self.spectrum[:, 0] * 1e-9 / (constants.c * constants.h))
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 
 
 class PhotocurrentSpectrum(PhotonSpectrum):
-    def __init__(self, start_w: float = 280.0, stop_w: float = 4000.0, spectra: str = "AM1.5G"):
+    def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra= "AM1.5G"):
         """
         Gives the spectrum in photocurrent -- changes units from A/(meter**2 nm) to Amps/(meter**2 nm)
         :param start_w: shortest wavelength
@@ -153,7 +153,7 @@ class PhotocurrentSpectrum(PhotonSpectrum):
         :param spectra: the ASTM standard spectrum to use
         :return: None
         """
-        super().__init__(start_w, stop_w, spectra)
+        super(PhotonSpectrum, self).__init__(start_w, stop_w, spectra)
         self.spectrum[:, 1] *= constants.e
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 
