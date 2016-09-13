@@ -6,7 +6,7 @@ setup(
     classifiers=[
         'Development Status :: 1 - Development',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 2.7',
         'Topic :: Scientific Computing :: Solar',
       ],
     description='Some routines relating to the ASTM G173-03 solar spectrum',
