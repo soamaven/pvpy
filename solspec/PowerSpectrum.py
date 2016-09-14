@@ -1,3 +1,4 @@
+# coding=utf-8
 import numpy as np
 from scipy import interpolate, integrate, constants
 from os import path
@@ -62,7 +63,7 @@ class PowerSpectrum(object):
                 pass
         return
 
-    def value_at_wavelength(self, *wavelengths):
+    def value_at_wavelength(self, wavelengths):
         """
         Interpolates the spectrum to give the value of the spectrum at the given wavelength(s).
         :param: wavelengths (float, list) wavelength(s) of interest in nanometers
@@ -122,6 +123,7 @@ class PowerSpectrum(object):
                 pass
         spec_in = np.squeeze(spec_in)
         assert spec_in.shape[1] == 2, "Weight spectrum is not a 2D numpy array."
+        #TODO: Catch errors for when there aren't enough points for default kind, i.e. uncommon case of <4 points in weight
         spec_fun = interpolate.interp1d(spec_in[:, 0], spec_in[:, 1], kind=kind)
         if spec_in[0, 0] != self.start_w or spec_in[-1, 0] != self.stop_w:
             self.spectrum = self.sub_spectrum(spec_in[0, 0], spec_in[-1, 0])
