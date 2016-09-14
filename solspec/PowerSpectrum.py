@@ -3,7 +3,7 @@ from scipy import interpolate, integrate, constants
 from os import path
 
 
-class PowerSpectrum:
+class PowerSpectrum(object):
     def __init__(self, start_w = 280.0, stop_w = 4000.0, spectra = "AM1.5G"):
         """
         Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
@@ -139,7 +139,7 @@ class PhotonSpectrum(PowerSpectrum):
         :param spectra: the ASTM standard spectrum to use
         :return: None
         """
-        super(PowerSpectrum, self).__init__(start_w, stop_w, spectra)
+        super(PhotonSpectrum, self).__init__(start_w, stop_w, spectra)
         self.spectrum[:, 1] = self.spectrum[:, 1] * (self.spectrum[:, 0] * 1e-9 / (constants.c * constants.h))
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 
@@ -153,7 +153,7 @@ class PhotocurrentSpectrum(PhotonSpectrum):
         :param spectra: the ASTM standard spectrum to use
         :return: None
         """
-        super(PhotonSpectrum, self).__init__(start_w, stop_w, spectra)
+        super(PhotocurrentSpectrum, self).__init__(start_w, stop_w, spectra)
         self.spectrum[:, 1] *= constants.e
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 
