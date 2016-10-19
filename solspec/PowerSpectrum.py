@@ -5,7 +5,7 @@ from os import path
 
 
 class PowerSpectrum(object):
-    def __init__(self, start_w = 280.0, stop_w = 4000.0, spectra = "AM1.5G", BBtemp = 5800, BBrefindex = 1):
+    def __init__(self, start_w = 280.0, stop_w = 4000.0, spectra = "AM1.5G", BBtemp = 5800, mediumrefindex = 1):
         """
         Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
         :param start_w: shortest wavelength in nanometers
@@ -18,21 +18,27 @@ class PowerSpectrum(object):
         """
         # the first column should be the wavelength in nanometers, the second is the tilt power density/nm in
         # W/(m**2 nm) = J s^-1 m^-2 nm^-1 = C V m^-2 nm^-1
-        spectras = {"AM0Etr": 1, "AM1.5G": 2, "AM1.5D": 3, "BlackBody":4}
-        spectra = spectras[spectra]
-        if spectra in range(4):
+        spectras = {
+            "AM0Etr": 1,
+            "AM1.5G": 2,
+            "AM1.5D": 3,
+            "BlackBody": 4}
+        spectra_ind = spectras[spectra]
+        if spectra_ind in range(4):
             self.spectrum = np.genfromtxt(path.join(path.dirname(__file__), './ASTMG173.csv'), delimiter=",",
-                                          skip_header=2)[:, [0, spectra]]
+                                          skip_header=2)[:, [0, spectra_ind]]
             self.start_w = start_w
             self.stop_w = stop_w
             # build custom spectrum if necessary
             if start_w != 280.0 or stop_w != 4000.0:
                 self.spectrum = self.sub_spectrum(start_w, stop_w)
-        elif spectra == 4:
-            self.spectrum = np.zeros(stop_w-start_w, 2)
-            self.spectrum[:, 0] = np.arange(start_w, stop_w)
-            exponential = np.exp(constants.h*constants.c/(constants.k*self.spectrum*BBtemp))
-            self.spectrum[:, 1] = self.2*BBrefindex**2*constants.h*constants.c/(self.spectrum**5*(exponential-1))
+        elif spectra_ind == 4:
+            self.spectrum = np.zeros((stop_w-start_w, 2))
+            self.spectrum[:, 0] = np.arange(start_w, stop_w)*1e-9
+            exponential = np.exp(constants.h*constants.c/(constants.k*self.spectrum[:, 0]*BBtemp))
+            self.spectrum[:, 1] = 2*mediumrefindex**2*constants.h*constants.c/(self.spectrum[:, 0]**5*(exponential-1))
+            self.spectrum[:, 1] *= 1e-9
+            self.spectrum[:, 0] *= 1e9
 
         # create the PowerSpectrum interpolator
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
@@ -51,7 +57,7 @@ class PowerSpectrum(object):
         return subspec
 
     def get_spectrum(self):
-        return self.sub_spectrum(self.start_w, self.stop_w)
+        return self.spectrum
 
     def __bounds_check(self, *wavelengths):
         """
@@ -143,7 +149,7 @@ class PowerSpectrum(object):
 
 
 class PhotonSpectrum(PowerSpectrum):
-    def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra = "AM1.5G"):
+    def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra = "AM1.5G", BBtemp = 5800, mediumrefindex = 1):
         """
         Gives the spectrum in photon flux-- changes units from Watts/(meter**2 nm) to #/(s meter**2 nm)
         :param start_w: shortest wavelength
@@ -151,13 +157,13 @@ class PhotonSpectrum(PowerSpectrum):
         :param spectra: the ASTM standard spectrum to use
         :return: None
         """
-        super(PhotonSpectrum, self).__init__(start_w, stop_w, spectra)
+        super(PhotonSpectrum, self).__init__(start_w, stop_w, spectra, BBtemp, mediumrefindex)
         self.spectrum[:, 1] = self.spectrum[:, 1] * (self.spectrum[:, 0] * 1e-9 / (constants.c * constants.h))
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 
 
 class PhotocurrentSpectrum(PhotonSpectrum):
-    def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra= "AM1.5G"):
+    def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra= "AM1.5G", BBtemp = 5800, mediumrefindex = 1):
         """
         Gives the spectrum in photocurrent -- changes units from A/(meter**2 nm) to Amps/(meter**2 nm)
         :param start_w: shortest wavelength
@@ -165,7 +171,7 @@ class PhotocurrentSpectrum(PhotonSpectrum):
         :param spectra: the ASTM standard spectrum to use
         :return: None
         """
-        super(PhotocurrentSpectrum, self).__init__(start_w, stop_w, spectra)
+        super(PhotocurrentSpectrum, self).__init__(start_w, stop_w, spectra, BBtemp, mediumrefindex)
         self.spectrum[:, 1] *= constants.e
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 

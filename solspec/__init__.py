@@ -1,5 +1,6 @@
 from os import path
 import numpy as np
+from solspec.PowerSpectrum import *
 from solspec import PowerSpectrum
 
 try:
