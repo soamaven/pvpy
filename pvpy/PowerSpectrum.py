@@ -18,6 +18,11 @@ class PowerSpectrum(object):
         global tilt standard,
         the AM1.5D is the direct+circumsolar standard,
         the AM0Etr spectrum is a non-standard zero air-mass spectrum -- Please compare to the ASTM E490 standard
+        :param BBtemp: Temperature of the blackbody, default is about that of the Sun
+        :param mediumrefindex: refractive index of the medium surrounding the blackbody
+        :param solidangle: solid angle of the black body seen by the viewer. E.g. the sun's solid angle on the earth is
+        the default value, ~5.79e-5 steradians. The solid angle seen by two parallel plates is 2pi. A solar cell with
+        a source encompassing the whole sphere it can see is 4pi.
         :return:
         """
         # the first column should be the wavelength in nanometers, the second is the tilt power density/nm in
@@ -63,8 +68,7 @@ class PowerSpectrum(object):
     @staticmethod
     def circular_solid_angle(half_angle, degrees=True):
         if degrees:
-            theta *= constants.pi/180.
-            phi *= constants.pi / 180.
+            half_angle *= constants.pi/180.
         return 2*constants.pi * (1 - np.cos(half_angle))
 
     def sub_spectrum(self, start_w, stop_w):
@@ -176,11 +180,19 @@ class PhotonSpectrum(PowerSpectrum):
     def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra= "AM1.5G", BBtemp = 5800, mediumrefindex=1,
                  solidangle=SOLAR_SOLID_ANGLE):
         """
-        Gives the spectrum in photon flux-- changes units from Watts/(meter**2 nm) to #/(s meter**2 nm)
-        :param start_w: shortest wavelength
-        :param stop_w: longest wavelength
-        :param spectra: the ASTM standard spectrum to use
-        :return: None
+        Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
+        :param start_w: shortest wavelength in nanometers
+        :param stop_w: longest wavelength in nanometers
+        :param spectra: the name of the spectrum you want to use. AM1.5G is most popular and is the ASTMG173-03
+        global tilt standard,
+        the AM1.5D is the direct+circumsolar standard,
+        the AM0Etr spectrum is a non-standard zero air-mass spectrum -- Please compare to the ASTM E490 standard
+        :param BBtemp: Temperature of the blackbody, default is about that of the Sun
+        :param mediumrefindex: refractive index of the medium surrounding the blackbody
+        :param solidangle: solid angle of the black body seen by the viewer. E.g. the sun's solid angle on the earth is
+        the default value, ~5.79e-5 steradians. The solid angle seen by two parallel plates is 2pi. A solar cell with
+        a source encompassing the whole sphere it can see is 4pi.
+        :return:
         """
         super(PhotonSpectrum, self).__init__(start_w, stop_w, spectra, BBtemp, mediumrefindex, solidangle)
         self.spectrum[:, 1] = self.spectrum[:, 1] * (self.spectrum[:, 0] * 1e-9 / (constants.c * constants.h))
@@ -191,11 +203,19 @@ class PhotocurrentSpectrum(PhotonSpectrum):
     def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra= "AM1.5G", BBtemp = 5800, mediumrefindex=1,
                  solidangle=SOLAR_SOLID_ANGLE):
         """
-        Gives the spectrum in photocurrent -- changes units from A/(meter**2 nm) to Amps/(meter**2 nm)
-        :param start_w: shortest wavelength
-        :param stop_w: longest wavelength
-        :param spectra: the ASTM standard spectrum to use
-        :return: None
+        Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
+        :param start_w: shortest wavelength in nanometers
+        :param stop_w: longest wavelength in nanometers
+        :param spectra: the name of the spectrum you want to use. AM1.5G is most popular and is the ASTMG173-03
+        global tilt standard,
+        the AM1.5D is the direct+circumsolar standard,
+        the AM0Etr spectrum is a non-standard zero air-mass spectrum -- Please compare to the ASTM E490 standard
+        :param BBtemp: Temperature of the blackbody, default is about that of the Sun
+        :param mediumrefindex: refractive index of the medium surrounding the blackbody
+        :param solidangle: solid angle of the black body seen by the viewer. E.g. the sun's solid angle on the earth is
+        the default value, ~5.79e-5 steradians. The solid angle seen by two parallel plates is 2pi. A solar cell with
+        a source encompassing the whole sphere it can see is 4pi.
+        :return:
         """
         super(PhotocurrentSpectrum, self).__init__(start_w, stop_w, spectra, BBtemp, mediumrefindex, solidangle)
         self.spectrum[:, 1] *= constants.e
