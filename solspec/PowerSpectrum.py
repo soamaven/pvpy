@@ -34,8 +34,8 @@ class PowerSpectrum(object):
             exponential = np.exp(constants.h*constants.c/(constants.k*self.spectrum*BBtemp))
             self.spectrum[:, 1] = self.2*BBrefindex**2*constants.h*constants.c/(self.spectrum**5*(exponential-1))
 
-    # create the PowerSpectrum interpolator
-    self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
+        # create the PowerSpectrum interpolator
+        self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 
     def sub_spectrum(self, start_w, stop_w):
         """
@@ -49,6 +49,9 @@ class PowerSpectrum(object):
         stop_ind = np.where(self.spectrum[:, 0] <= stop_w)[0][-1] + 1
         subspec = self.spectrum[start_ind:stop_ind, :].copy()
         return subspec
+
+    def get_spectrum(self):
+        return self.sub_spectrum(self.start_w, self.stop_w)
 
     def __bounds_check(self, *wavelengths):
         """
