@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/pvpy/PowerSpectrum.py" line="44" mnemonic="0" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="5585c180-ca0b-412d-8811-e1a52b376147" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -42,10 +39,12 @@
       <file leaf-file-name="PowerSpectrum.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pvpy/PowerSpectrum.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="70" column="22" selection-start-line="70" selection-start-column="22" selection-end-line="70" selection-end-column="22" />
+            <state relative-caret-position="197">
+              <caret line="48" column="91" selection-start-line="48" selection-start-column="91" selection-end-line="48" selection-end-column="91" />
               <folding>
                 <element signature="e#15#33#0" expanded="true" />
+                <element signature="e#2755#4055#0" expanded="false" />
+                <element signature="e#2755#3232#1" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -526,7 +525,14 @@
       <option name="project" value="LOCAL" />
       <updated>1476916695014</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Fixed some static method bugs and updated the docstrings">
+      <created>1476917571256</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1476917571256</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -594,7 +600,8 @@
     <MESSAGE value="Added pip install" />
     <MESSAGE value="Correctly implemented blackbody radiation for arbitrary solid angle, default is the solid angle subtended by the sun on earth's surface at 1AMU." />
     <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;" />
+    <MESSAGE value="Fixed some static method bugs and updated the docstrings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed some static method bugs and updated the docstrings" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -631,6 +638,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#15#33#0" expanded="true" />
+            <element signature="e#2755#4055#0" expanded="false" />
+            <element signature="e#2755#3232#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -671,6 +680,8 @@
           <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
           <folding>
             <element signature="e#15#33#0" expanded="true" />
+            <element signature="e#2755#4055#0" expanded="false" />
+            <element signature="e#2755#3232#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -711,6 +722,8 @@
           <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
           <folding>
             <element signature="e#15#33#0" expanded="true" />
+            <element signature="e#2755#4055#0" expanded="false" />
+            <element signature="e#2755#3232#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -751,6 +764,8 @@
           <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
           <folding>
             <element signature="e#15#33#0" expanded="true" />
+            <element signature="e#2755#4055#0" expanded="false" />
+            <element signature="e#2755#3232#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -791,6 +806,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#15#33#0" expanded="true" />
+            <element signature="e#2755#4055#0" expanded="false" />
+            <element signature="e#2755#3232#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -834,6 +851,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#15#33#0" expanded="true" />
+            <element signature="e#2755#4055#0" expanded="false" />
+            <element signature="e#2755#3232#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -866,6 +885,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#15#33#0" expanded="true" />
+            <element signature="e#2755#4055#0" expanded="false" />
+            <element signature="e#2755#3232#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -887,6 +908,8 @@
           <caret line="129" column="14" selection-start-line="129" selection-start-column="14" selection-end-line="129" selection-end-column="14" />
           <folding>
             <element signature="e#15#33#0" expanded="true" />
+            <element signature="e#2755#4055#0" expanded="false" />
+            <element signature="e#2755#3232#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -908,6 +931,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#15#33#0" expanded="true" />
+            <element signature="e#2755#4055#0" expanded="false" />
+            <element signature="e#2755#3232#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -929,6 +954,8 @@
           <caret line="129" column="14" selection-start-line="129" selection-start-column="14" selection-end-line="129" selection-end-column="14" />
           <folding>
             <element signature="e#15#33#0" expanded="true" />
+            <element signature="e#2755#4055#0" expanded="false" />
+            <element signature="e#2755#3232#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -950,6 +977,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#15#33#0" expanded="true" />
+            <element signature="e#2755#4055#0" expanded="false" />
+            <element signature="e#2755#3232#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -971,6 +1000,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#15#33#0" expanded="true" />
+            <element signature="e#2755#4055#0" expanded="false" />
+            <element signature="e#2755#3232#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1089,10 +1120,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pvpy/PowerSpectrum.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="70" column="22" selection-start-line="70" selection-start-column="22" selection-end-line="70" selection-end-column="22" />
+        <state relative-caret-position="197">
+          <caret line="48" column="91" selection-start-line="48" selection-start-column="91" selection-end-line="48" selection-end-column="91" />
           <folding>
             <element signature="e#15#33#0" expanded="true" />
+            <element signature="e#2755#4055#0" expanded="false" />
+            <element signature="e#2755#3232#1" expanded="true" />
           </folding>
         </state>
       </provider>

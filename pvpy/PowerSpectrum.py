@@ -25,6 +25,8 @@ class PowerSpectrum(object):
         a source encompassing the whole sphere it can see is 4pi.
         :return:
         """
+        self.start_w = start_w
+        self.stop_w = stop_w
         # the first column should be the wavelength in nanometers, the second is the tilt power density/nm in
         # W/(m**2 nm) = J s^-1 m^-2 nm^-1 = C V m^-2 nm^-1
         spectras = {
@@ -36,27 +38,37 @@ class PowerSpectrum(object):
         if spectra_ind in range(4):
             self.spectrum = np.genfromtxt(path.join(path.dirname(__file__), './ASTMG173.csv'), delimiter=",",
                                           skip_header=2)[:, [0, spectra_ind]]
-            self.start_w = start_w
-            self.stop_w = stop_w
             # build custom spectrum if necessary
             if start_w != 280.0 or stop_w != 4000.0:
                 self.spectrum = self.sub_spectrum(start_w, stop_w)
-        elif spectra_ind == 4:
-            # Initilize wavelengths
-            self.spectrum = np.zeros((stop_w-start_w, 2))
-            self.spectrum[:, 0] = np.arange(start_w, stop_w)*1e-9
-            # 2hc^2/lambda^5*(exp(-hc/k lambda T)-1) gives units of W sr^-1 m^-3
-            numerator = 2 * (mediumrefindex**2) * constants.h * constants.c**2
-            exponential = np.exp(constants.h * constants.c / (constants.k * self.spectrum[:, 0] * BBtemp))
-            self.spectrum[:, 1] = numerator / ((self.spectrum[:, 0]**5) * (exponential - 1))
-            # Use provided solid angle to and 1m=1-9 get Power Flux per nanometer
-            self.solidangle = solidangle
-            self.spectrum[:, 1] *= 1e-9 * self.solidangle
-            #convert back to nm
-            self.spectrum[:, 0] *= 1e9
-
+        elif spectra == "BlackBody":
+            self.spectrum = self.blackbody_spectrum(mediumrefindex, solidangle, BBtemp)
         # create the PowerSpectrum interpolator
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
+
+    def blackbody_spectrum(self, mediumrefindex=1, solidangle=4*constants.pi, BBtemp=5800):
+        """
+        Creates a blackbody distribution of power flux for a given solid angle. Default is entire sphere for the sun.
+        :param mediumrefindex: refractive index of medium surrounding blackbody
+        :param solidangle: solid angle that source subtends to viewer's perspective
+        :param BBtemp: temperature of the blackbody in Kelvin
+        :return: Nx2 numpy array with a black body spectrum for the spectrum object with start_w and stop_w as limits
+        """
+        self.solidangle = solidangle
+        self.mediumrefindex = mediumrefindex
+        self.BBtemp = BBtemp
+        # Initilize wavelengths
+        spectrum = np.zeros((self.stop_w - self.start_w, 2))
+        spectrum[:, 0] = np.arange(self.start_w, self.stop_w) * 1e-9
+        # 2hc^2/lambda^5*(exp(-hc/k lambda T)-1) gives units of W sr^-1 m^-3
+        numerator = 2 * (self.mediumrefindex ** 2) * constants.h * constants.c ** 2
+        exponential = np.exp(constants.h * constants.c / (constants.k * spectrum[:, 0] * BBtemp))
+        spectrum[:, 1] = numerator / ((spectrum[:, 0] ** 5) * (exponential - 1))
+        # Use provided solid angle to and 1m=1-9 get Power Flux per nanometer
+        spectrum[:, 1] *= 1e-9 * self.solidangle
+        # convert back to nm
+        spectrum[:, 0] *= 1e9
+        return spectrum
 
     @staticmethod
     def solid_angle(theta, phi, degrees=True):
