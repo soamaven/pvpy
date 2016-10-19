@@ -1,7 +1,7 @@
 from os import path
 import numpy as np
-from solspec.PowerSpectrum import *
-from solspec import PowerSpectrum
+from pvpy.PowerSpectrum import *
+from pvpy import PowerSpectrum
 
 try:
     filename = 'ASTMG173.csv'

@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='solspec',
+    name='pvpy',
     version='1.0.alpha',
     classifiers=[
         'Development Status :: 1 - Development',
@@ -10,12 +10,12 @@ setup(
         'Topic :: Scientific Computing :: Solar',
       ],
     description='Some routines relating to the ASTM G173-03 solar spectrum',
-    url='https://github.com/soamaven/solspec.git',
+    url='https://github.com/soamaven/pvpy.git',
     author='Colton Bukowsky',
     author_email='cb@caltech.edu',
     license='MIT',
     packages=[
-        'solspec',
+        'pvpy',
     ],
     install_requires=[
         'numpy',

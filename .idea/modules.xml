@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/solspec.iml" filepath="$PROJECT_DIR$/.idea/solspec.iml" />
+      <module fileurl="file://$USER_HOME$/PycharmProjects/pvpy/.idea/pvpy.iml" filepath="$USER_HOME$/PycharmProjects/pvpy/.idea/pvpy.iml" />
     </modules>
   </component>
 </project>

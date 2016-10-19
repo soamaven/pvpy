@@ -1,2 +1,2 @@
 include README.md
-include solspec/ASTMG173.csv
+include pvpy/ASTMG173.csv
