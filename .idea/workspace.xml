@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5585c180-ca0b-412d-8811-e1a52b376147" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solspec/PowerSpectrum.py" afterPath="$PROJECT_DIR$/solspec/PowerSpectrum.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/solspec/__init__.py" afterPath="$PROJECT_DIR$/solspec/__init__.py" />
     </list>
     <ignored path="solspec.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,7 +38,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PowerSpectrum.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PowerSpectrum.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/solspec/PowerSpectrum.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
@@ -64,12 +62,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="198">
-                <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+              <first_editor relative-caret-position="108">
+                <caret line="6" column="66" selection-start-line="6" selection-start-column="66" selection-end-line="6" selection-end-column="66" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -100,6 +98,7 @@
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/solspec/__init__.py" />
         <option value="$PROJECT_DIR$/solspec/PowerSpectrum.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -401,14 +400,28 @@
       <option name="project" value="LOCAL" />
       <updated>1476841547311</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Added a Black-body spectrum with the solar temperature 5800K as default.">
+      <created>1476843793030</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1476843793030</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Added a Black-body spectrum with the solar temperature 5800K as default.">
+      <created>1476843851441</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1476843851441</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="30" width="1366" height="738" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24962743" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962743" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21528861" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -448,7 +461,8 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;" />
     <MESSAGE value="Adding blackbody spectrum to PowerSpectrum" />
     <MESSAGE value="Added get_spectrum to PowerSpectrum for easier use" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added get_spectrum to PowerSpectrum for easier use" />
+    <MESSAGE value="Added a Black-body spectrum with the solar temperature 5800K as default." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a Black-body spectrum with the solar temperature 5800K as default." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -898,17 +912,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="198">
-            <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
@@ -937,6 +940,17 @@
             <element signature="e#7421#7706#1" expanded="true" />
             <element signature="e#8162#8446#1" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="108">
+            <caret line="6" column="66" selection-start-line="6" selection-start-column="66" selection-end-line="6" selection-end-column="66" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
