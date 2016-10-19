@@ -37,14 +37,16 @@ class PowerSpectrum(object):
             if start_w != 280.0 or stop_w != 4000.0:
                 self.spectrum = self.sub_spectrum(start_w, stop_w)
         elif spectra_ind == 4:
+            # Initilize wavelengths
             self.spectrum = np.zeros((stop_w-start_w, 2))
             self.spectrum[:, 0] = np.arange(start_w, stop_w)*1e-9
-            self.solidangle = solidangle
-            numerator = 2 * (mediumrefindex**2) * constants.h * constants.c**2 * self.solidangle
+            # 2hc^2/lambda^5*(exp(-hc/k lambda T)-1) gives units of W sr^-1 m^-3
+            numerator = 2 * (mediumrefindex**2) * constants.h * constants.c**2
             exponential = np.exp(constants.h * constants.c / (constants.k * self.spectrum[:, 0] * BBtemp))
             self.spectrum[:, 1] = numerator / ((self.spectrum[:, 0]**5) * (exponential - 1))
-            # convert to per nm
-            self.spectrum[:, 1] *= 1e-9
+            # Use provided solid angle to and 1m=1-9 get Power Flux per nanometer
+            self.solidangle = solidangle
+            self.spectrum[:, 1] *= 1e-9 * self.solidangle
             #convert back to nm
             self.spectrum[:, 0] *= 1e9
 
