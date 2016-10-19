@@ -3,9 +3,13 @@ import numpy as np
 from scipy import interpolate, integrate, constants
 from os import path
 
+#Solar Solid angular diameter from earth surface is 1919 arcseconds = 0.009303575 radians
+# Source: http://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html accessed on on October 19 2016
+SOLAR_SOLID_ANGLE = 2 * constants.pi * (1 - np.cos(.009303575/2))
 
 class PowerSpectrum(object):
-    def __init__(self, start_w = 280.0, stop_w = 4000.0, spectra = "AM1.5G", BBtemp = 5800, mediumrefindex = 1):
+    def __init__(self, start_w = 280.0, stop_w = 4000.0, spectra = "AM1.5G", BBtemp = 5800, mediumrefindex=1,
+                 solidangle=SOLAR_SOLID_ANGLE):
         """
         Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
         :param start_w: shortest wavelength in nanometers
@@ -35,13 +39,31 @@ class PowerSpectrum(object):
         elif spectra_ind == 4:
             self.spectrum = np.zeros((stop_w-start_w, 2))
             self.spectrum[:, 0] = np.arange(start_w, stop_w)*1e-9
-            exponential = np.exp(constants.h*constants.c/(constants.k*self.spectrum[:, 0]*BBtemp))
-            self.spectrum[:, 1] = 2*mediumrefindex**2*constants.h*constants.c/(self.spectrum[:, 0]**5*(exponential-1))
+            self.solidangle = solidangle
+            numerator = 2 * (mediumrefindex**2) * constants.h * constants.c**2 * self.solidangle
+            exponential = np.exp(constants.h * constants.c / (constants.k * self.spectrum[:, 0] * BBtemp))
+            self.spectrum[:, 1] = numerator / ((self.spectrum[:, 0]**5) * (exponential - 1))
+            # convert to per nm
             self.spectrum[:, 1] *= 1e-9
+            #convert back to nm
             self.spectrum[:, 0] *= 1e9
 
         # create the PowerSpectrum interpolator
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
+
+    @staticmethod
+    def solid_angle(theta, phi, degrees=True):
+        if degrees:
+            theta *= constants.pi/180.
+            phi *= constants.pi / 180.
+        return phi - phi * np.cos(theta)
+
+    @staticmethod
+    def circular_solid_angle(half_angle, degrees=True):
+        if degrees:
+            theta *= constants.pi/180.
+            phi *= constants.pi / 180.
+        return 2*constants.pi * (1 - np.cos(half_angle))
 
     def sub_spectrum(self, start_w, stop_w):
         """
@@ -121,7 +143,7 @@ class PowerSpectrum(object):
         """
         return self.spectrum.copy()
 
-    def weight_spectrum(self, spec_in, kind="cubic"):
+    def weight_spectrum(self, spec_in, kind="linear"):
         """
         Weights a spectrum by a normalized spectrum, e.g. absorption, reflection, transmission at wavelengths in nm
         :param kind: (str or int, optional)interpolation method specification in scipy.interpolat.interp1d:
@@ -149,7 +171,8 @@ class PowerSpectrum(object):
 
 
 class PhotonSpectrum(PowerSpectrum):
-    def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra = "AM1.5G", BBtemp = 5800, mediumrefindex = 1):
+    def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra= "AM1.5G", BBtemp = 5800, mediumrefindex=1,
+                 solidangle=SOLAR_SOLID_ANGLE):
         """
         Gives the spectrum in photon flux-- changes units from Watts/(meter**2 nm) to #/(s meter**2 nm)
         :param start_w: shortest wavelength
@@ -157,13 +180,14 @@ class PhotonSpectrum(PowerSpectrum):
         :param spectra: the ASTM standard spectrum to use
         :return: None
         """
-        super(PhotonSpectrum, self).__init__(start_w, stop_w, spectra, BBtemp, mediumrefindex)
+        super(PhotonSpectrum, self).__init__(start_w, stop_w, spectra, BBtemp, mediumrefindex, solidangle)
         self.spectrum[:, 1] = self.spectrum[:, 1] * (self.spectrum[:, 0] * 1e-9 / (constants.c * constants.h))
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 
 
 class PhotocurrentSpectrum(PhotonSpectrum):
-    def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra= "AM1.5G", BBtemp = 5800, mediumrefindex = 1):
+    def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra= "AM1.5G", BBtemp = 5800, mediumrefindex=1,
+                 solidangle=SOLAR_SOLID_ANGLE):
         """
         Gives the spectrum in photocurrent -- changes units from A/(meter**2 nm) to Amps/(meter**2 nm)
         :param start_w: shortest wavelength
@@ -171,7 +195,7 @@ class PhotocurrentSpectrum(PhotonSpectrum):
         :param spectra: the ASTM standard spectrum to use
         :return: None
         """
-        super(PhotocurrentSpectrum, self).__init__(start_w, stop_w, spectra, BBtemp, mediumrefindex)
+        super(PhotocurrentSpectrum, self).__init__(start_w, stop_w, spectra, BBtemp, mediumrefindex, solidangle)
         self.spectrum[:, 1] *= constants.e
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 
