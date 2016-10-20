@@ -1,14 +1,15 @@
 # coding=utf-8
+from copy import copy
 import numpy as np
 from scipy import interpolate, integrate, constants
 from os import path
 
 #Solar Solid angular diameter from earth surface is 1919 arcseconds = 0.009303575 radians
 # Source: http://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html accessed on on October 19 2016
-SOLAR_SOLID_ANGLE = 2 * constants.pi * (1 - np.cos(.009303575/2))
+SOLAR_SOLID_ANGLE = 2 * constants.pi * (1 - np.cos(.009303575/2))  # ~6.798e-05 steradians
 
 class PowerSpectrum(object):
-    def __init__(self, start_w = 280.0, stop_w = 4000.0, spectra = "AM1.5G", BBtemp = 5800, mediumrefindex=1,
+    def __init__(self, start_w=280.0, stop_w=4000.0, spectra="AM1.5G", bbtemp=5800, mediumrefindex=1,
                  solidangle=SOLAR_SOLID_ANGLE):
         """
         Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
@@ -18,15 +19,15 @@ class PowerSpectrum(object):
         global tilt standard,
         the AM1.5D is the direct+circumsolar standard,
         the AM0Etr spectrum is a non-standard zero air-mass spectrum -- Please compare to the ASTM E490 standard
-        :param BBtemp: Temperature of the blackbody, default is about that of the Sun
+        :param bbtemp: Temperature of the blackbody, default is about that of the Sun
         :param mediumrefindex: refractive index of the medium surrounding the blackbody
         :param solidangle: solid angle of the black body seen by the viewer. E.g. the sun's solid angle on the earth is
         the default value, ~5.79e-5 steradians. The solid angle seen by two parallel plates is 2pi. A solar cell with
         a source encompassing the whole sphere it can see is 4pi.
         :return:
         """
-        self.start_w = start_w
-        self.stop_w = stop_w
+        self.start_w = int(round(start_w))
+        self.stop_w = int(round(stop_w))
         # the first column should be the wavelength in nanometers, the second is the tilt power density/nm in
         # W/(m**2 nm) = J s^-1 m^-2 nm^-1 = C V m^-2 nm^-1
         spectras = {
@@ -42,27 +43,27 @@ class PowerSpectrum(object):
             if start_w != 280.0 or stop_w != 4000.0:
                 self.spectrum = self.sub_spectrum(start_w, stop_w)
         elif spectra == "BlackBody":
-            self.spectrum = self.blackbody_spectrum(mediumrefindex, solidangle, BBtemp)
+            self.spectrum = self.blackbody_spectrum(mediumrefindex, solidangle, bbtemp)
         # create the PowerSpectrum interpolator
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 
-    def blackbody_spectrum(self, mediumrefindex=1, solidangle=4*constants.pi, BBtemp=5800):
+    def blackbody_spectrum(self, mediumrefindex=1, solidangle=4*constants.pi, bbtemp=5800):
         """
         Creates a blackbody distribution of power flux for a given solid angle. Default is entire sphere for the sun.
         :param mediumrefindex: refractive index of medium surrounding blackbody
         :param solidangle: solid angle that source subtends to viewer's perspective
-        :param BBtemp: temperature of the blackbody in Kelvin
+        :param bbtemp: temperature of the blackbody in Kelvin
         :return: Nx2 numpy array with a black body spectrum for the spectrum object with start_w and stop_w as limits
         """
         self.solidangle = solidangle
         self.mediumrefindex = mediumrefindex
-        self.BBtemp = BBtemp
+        self.bbtemp = bbtemp
         # Initilize wavelengths
         spectrum = np.zeros((self.stop_w - self.start_w, 2))
         spectrum[:, 0] = np.arange(self.start_w, self.stop_w) * 1e-9
-        # 2hc^2/lambda^5*(exp(-hc/k lambda T)-1) gives units of W sr^-1 m^-3
+        # 2n^2hc^2/lambda^5*(exp(-hc/k lambda T)-1) gives units of W sr^-1 m^-3
         numerator = 2 * (self.mediumrefindex ** 2) * constants.h * constants.c ** 2
-        exponential = np.exp(constants.h * constants.c / (constants.k * spectrum[:, 0] * BBtemp))
+        exponential = np.exp(constants.h * constants.c / (constants.k * spectrum[:, 0] * bbtemp))
         spectrum[:, 1] = numerator / ((spectrum[:, 0] ** 5) * (exponential - 1))
         # Use provided solid angle to and 1m=1-9 get Power Flux per nanometer
         spectrum[:, 1] *= 1e-9 * self.solidangle
@@ -95,9 +96,6 @@ class PowerSpectrum(object):
         stop_ind = np.where(self.spectrum[:, 0] <= stop_w)[0][-1] + 1
         subspec = self.spectrum[start_ind:stop_ind, :].copy()
         return subspec
-
-    def get_spectrum(self):
-        return self.spectrum
 
     def __bounds_check(self, *wavelengths):
         """
@@ -140,7 +138,7 @@ class PowerSpectrum(object):
         # deal with subspectrums if necessary
         if not w:
             spectrum = self.spectrum
-            interp = self.interp
+            # interp = self.interp
         else:
             assert len(w) >= 2 and w[0] < w[
                 1], 'Error: Too few wavelengths or start wavelength is not shorter than the longest wavelength.'
@@ -187,9 +185,12 @@ class PowerSpectrum(object):
         spec_wt[:, 1] = spec_fun(spec_wt[:, 0]) * spec_wt[:, 1]
         return
 
+    def copy(self):
+        return copy(self)
+
 
 class PhotonSpectrum(PowerSpectrum):
-    def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra= "AM1.5G", BBtemp = 5800, mediumrefindex=1,
+    def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra= "AM1.5G", bbtemp = 5800, mediumrefindex=1,
                  solidangle=SOLAR_SOLID_ANGLE):
         """
         Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
@@ -199,20 +200,20 @@ class PhotonSpectrum(PowerSpectrum):
         global tilt standard,
         the AM1.5D is the direct+circumsolar standard,
         the AM0Etr spectrum is a non-standard zero air-mass spectrum -- Please compare to the ASTM E490 standard
-        :param BBtemp: Temperature of the blackbody, default is about that of the Sun
+        :param bbtemp: Temperature of the blackbody, default is about that of the Sun
         :param mediumrefindex: refractive index of the medium surrounding the blackbody
         :param solidangle: solid angle of the black body seen by the viewer. E.g. the sun's solid angle on the earth is
         the default value, ~5.79e-5 steradians. The solid angle seen by two parallel plates is 2pi. A solar cell with
         a source encompassing the whole sphere it can see is 4pi.
         :return:
         """
-        super(PhotonSpectrum, self).__init__(start_w, stop_w, spectra, BBtemp, mediumrefindex, solidangle)
+        super(PhotonSpectrum, self).__init__(start_w, stop_w, spectra, bbtemp, mediumrefindex, solidangle)
         self.spectrum[:, 1] = self.spectrum[:, 1] * (self.spectrum[:, 0] * 1e-9 / (constants.c * constants.h))
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 
 
 class PhotocurrentSpectrum(PhotonSpectrum):
-    def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra= "AM1.5G", BBtemp = 5800, mediumrefindex=1,
+    def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra= "AM1.5G", bbtemp = 5800, mediumrefindex=1,
                  solidangle=SOLAR_SOLID_ANGLE):
         """
         Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
@@ -222,14 +223,14 @@ class PhotocurrentSpectrum(PhotonSpectrum):
         global tilt standard,
         the AM1.5D is the direct+circumsolar standard,
         the AM0Etr spectrum is a non-standard zero air-mass spectrum -- Please compare to the ASTM E490 standard
-        :param BBtemp: Temperature of the blackbody, default is about that of the Sun
+        :param bbtemp: Temperature of the blackbody, default is about that of the Sun
         :param mediumrefindex: refractive index of the medium surrounding the blackbody
         :param solidangle: solid angle of the black body seen by the viewer. E.g. the sun's solid angle on the earth is
         the default value, ~5.79e-5 steradians. The solid angle seen by two parallel plates is 2pi. A solar cell with
         a source encompassing the whole sphere it can see is 4pi.
         :return:
         """
-        super(PhotocurrentSpectrum, self).__init__(start_w, stop_w, spectra, BBtemp, mediumrefindex, solidangle)
+        super(PhotocurrentSpectrum, self).__init__(start_w, stop_w, spectra, bbtemp, mediumrefindex, solidangle)
         self.spectrum[:, 1] *= constants.e
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 

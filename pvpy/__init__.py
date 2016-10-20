@@ -1,6 +1,7 @@
 from os import path
 import numpy as np
 from pvpy.PowerSpectrum import *
+from pvpy.SolarCell import *
 from pvpy import PowerSpectrum
 
 try:
@@ -22,7 +23,6 @@ except IOError as e:
 #        except:
 #            print("Unable to open file")  # Does not exist OR no read permissions
 #            raise
-
 
 def jsc(*args, **kwargs):
     """
@@ -49,3 +49,4 @@ def jsc(*args, **kwargs):
     spec = PowerSpectrum.PhotocurrentSpectrum(spec_in[0, 0], spec_in[-1, 0], spectra)
     spec.weight_spectrum(spec_in, kind=kind)
     return spec.integrate() * .1
+
