@@ -26,8 +26,8 @@ class PowerSpectrum(object):
         a source encompassing the whole sphere it can see is 4pi.
         :return:
         """
-        self.start_w = int(round(start_w))
-        self.stop_w = int(round(stop_w))
+        self.start_w = int(np.around(start_w))
+        self.stop_w = int(np.around(stop_w)) + 1
         # the first column should be the wavelength in nanometers, the second is the tilt power density/nm in
         # W/(m**2 nm) = J s^-1 m^-2 nm^-1 = C V m^-2 nm^-1
         spectras = {
@@ -59,16 +59,15 @@ class PowerSpectrum(object):
         self.mediumrefindex = mediumrefindex
         self.bbtemp = bbtemp
         # Initilize wavelengths
-        spectrum = np.zeros((self.stop_w - self.start_w, 2))
-        spectrum[:, 0] = np.arange(self.start_w, self.stop_w) * 1e-9
+        wavelengths = np.arange(self.start_w, self.stop_w, dtype=int)
+        spectrum = np.vstack((wavelengths, np.ones(wavelengths.shape))).T
+        wavelengths = wavelengths = np.arange(self.start_w, self.stop_w, dtype=float) * 1e-9
         # 2n^2hc^2/lambda^5*(exp(-hc/k lambda T)-1) gives units of W sr^-1 m^-3
         numerator = 2 * (self.mediumrefindex ** 2) * constants.h * constants.c ** 2
-        exponential = np.exp(constants.h * constants.c / (constants.k * spectrum[:, 0] * bbtemp))
-        spectrum[:, 1] = numerator / ((spectrum[:, 0] ** 5) * (exponential - 1))
+        exponential = np.exp(constants.h * constants.c / (constants.k * wavelengths * bbtemp))
+        spectrum[:, 1] = numerator / ((wavelengths ** 5) * (exponential - 1))
         # Use provided solid angle to and 1m=1-9 get Power Flux per nanometer
         spectrum[:, 1] *= 1e-9 * self.solidangle
-        # convert back to nm
-        spectrum[:, 0] *= 1e9
         return spectrum
 
     @staticmethod

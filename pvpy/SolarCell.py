@@ -30,11 +30,11 @@ class SolarCell(object):
         self.celltemp = celltemp
         # give the cell an initial perfect absorptivity for SQ type analysis
         start_w = 280
-        stop_w = int(round(self.bandgap_lambda))+1
-        self.absorptivity = np.ones((stop_w - start_w, 2))
-        self.absorptivity[:, 0] = np.arange(start_w, stop_w, dtype=int)
+        stop_w = int(np.around(self.bandgap_lambda))
+        wavelengths = np.arange(start_w, stop_w + 1, dtype=int)
+        self.absorptivity = np.vstack((wavelengths, np.ones(wavelengths.shape))).T
         # give the cell a black body spectrum
-        self.cell_bb_spectrum = PowerSpectrum(start_w, stop_w, bbtemp=self.celltemp, spectra="BlackBody",
+        self.cell_bb_spectrum = PowerSpectrum(start_w=start_w, stop_w=stop_w, bbtemp=self.celltemp, spectra="BlackBody",
                                               solidangle=self.solid_emission_angle)
         self.cell_bb_spectrum.weight_spectrum(self.absorptivity)
         self.voltage = 0
@@ -47,6 +47,7 @@ class SolarCell(object):
     def set_absorptivity(self, alpha):
         self.absorptivity = alpha
         self.cell_bb_spectrum.weight_spectrum(self.absorptivity)
+        self.luminescencespectrum = self.cell_bb_spectrum.copy()
         return
 
     def set_generation(self, photonspectrum):
