@@ -10,7 +10,7 @@ SOLAR_SOLID_ANGLE = 2 * constants.pi * (1 - np.cos(.009303575/2))  # ~6.798e-05 
 
 class PowerSpectrum(object):
     def __init__(self, start_w=280.0, stop_w=4000.0, spectra="AM1.5G", bbtemp=5800, mediumrefindex=1,
-                 solidangle=SOLAR_SOLID_ANGLE):
+                 solidangle=SOLAR_SOLID_ANGLE, userspectrum=None):
         """
         Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
         :param start_w: shortest wavelength in nanometers
@@ -30,11 +30,16 @@ class PowerSpectrum(object):
         self.stop_w = int(np.around(stop_w)) + 1
         # the first column should be the wavelength in nanometers, the second is the tilt power density/nm in
         # W/(m**2 nm) = J s^-1 m^-2 nm^-1 = C V m^-2 nm^-1
+        if userspectrum is not None:
+            spectra = "User"
         spectras = {
             "AM0Etr": 1,
             "AM1.5G": 2,
             "AM1.5D": 3,
-            "BlackBody": 4}
+            "BlackBody": 4,
+            "Dark": 5,
+            "User": 6
+        }
         spectra_ind = spectras[spectra]
         if spectra_ind in range(4):
             self.spectrum = np.genfromtxt(path.join(path.dirname(__file__), './ASTMG173.csv'), delimiter=",",
@@ -44,6 +49,13 @@ class PowerSpectrum(object):
                 self.spectrum = self.sub_spectrum(start_w, stop_w)
         elif spectra == "BlackBody":
             self.spectrum = self.blackbody_spectrum(mediumrefindex, solidangle, bbtemp)
+        elif spectra == "Dark":
+            wavelengths = np.arange(self.start_w, self.stop_w, dtype=int)
+            self.spectrum = np.vstack((wavelengths, np.zeros(wavelengths.shape))).T
+            self.bbtemp = 0
+        elif spectra == "User":
+            assert isinstance(userspectrum, np.ndarray), "Weight spectrum is not a 2D numpy array."
+            self.spectrum = userspectrum
         # create the PowerSpectrum interpolator
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 
@@ -190,7 +202,7 @@ class PowerSpectrum(object):
 
 class PhotonSpectrum(PowerSpectrum):
     def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra= "AM1.5G", bbtemp = 5800, mediumrefindex=1,
-                 solidangle=SOLAR_SOLID_ANGLE):
+                 solidangle=SOLAR_SOLID_ANGLE, userspectrum=None):
         """
         Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
         :param start_w: shortest wavelength in nanometers
@@ -213,7 +225,7 @@ class PhotonSpectrum(PowerSpectrum):
 
 class PhotocurrentSpectrum(PhotonSpectrum):
     def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra= "AM1.5G", bbtemp = 5800, mediumrefindex=1,
-                 solidangle=SOLAR_SOLID_ANGLE):
+                 solidangle=SOLAR_SOLID_ANGLE, userspectrum=None):
         """
         Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
         :param start_w: shortest wavelength in nanometers
@@ -232,5 +244,3 @@ class PhotocurrentSpectrum(PhotonSpectrum):
         super(PhotocurrentSpectrum, self).__init__(start_w, stop_w, spectra, bbtemp, mediumrefindex, solidangle)
         self.spectrum[:, 1] *= constants.e
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
-
-#TODO: add custom spectrum input support for user defined spectra
