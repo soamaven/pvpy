@@ -34,15 +34,18 @@ class SolarCell(object):
         wavelengths = np.arange(start_w, stop_w + 1, dtype=int)
         self.absorptivity = np.vstack((wavelengths, np.ones(wavelengths.shape))).T
         # give the cell a black body spectrum
-        self.cell_bb_spectrum = PowerSpectrum(start_w=start_w, stop_w=stop_w, bbtemp=self.celltemp, spectra="BlackBody",
+        self.cell_bb_spectrum = PhotocurrentSpectrum(start_w=start_w, stop_w=stop_w, bbtemp=self.celltemp, spectra="BlackBody",
                                               solidangle=self.solid_emission_angle)
         self.cell_bb_spectrum.weight_spectrum(self.absorptivity)
         self.voltage = 0
         self.luminescencespectrum = self.cell_bb_spectrum.copy()
-        # Initilize the ERE as perfect by copying the unity absorptivity (i.e. normalized absorption)
-        self.ERE = self.absorptivity.copy()
+        # Initilize the IQE as perfect by copying the unity absorptivity (i.e. normalized absorption)
+        self.IQE = self.absorptivity.copy()
         self.generation = 0
-        self.illuminationspectrum = None
+        # Default illumination spectrum is unconcentrated sunlight
+        self.illuminationspectrum = PhotocurrentSpectrum(start_w=start_w, stop_w=stop_w, spectra="Dark")
+        self.j_nonrad = 0  # Units of amp/m^2
+        self.ideality = 1
 
     def set_absorptivity(self, alpha):
         self.absorptivity = alpha
@@ -51,7 +54,12 @@ class SolarCell(object):
         return
 
     def set_generation(self, photonspectrum):
-        self.generation = photonspectrum.integrate() * self.area * np.cos(self.tilt)
+        # weight the illumination spectrum by the cells probability of absorbing light, and the probability that
+        # it will generate an electron-hole pair
+        weight = self.absorptivity.copy()
+        weight[:, 1] = self.absorptivity[:, 1] * self.IQE[:, 1] * self.area * np.cos(self.tilt)
+        photonspectrum.weight_spectrum(weight)
+        self.generation = photonspectrum.integrate()
         return self.generation
 
     def luminescence_spectrum(self, v=0):
@@ -60,7 +68,7 @@ class SolarCell(object):
         vweight = luminescence_spectrum.get_spectrum()
         vweight[:, 1] *= np.exp(v / Vc)
         luminescence_spectrum.weight_spectrum(vweight)
-        return luminescence_spectrum.get_spectrum()
+        return luminescence_spectrum
 
     def set_voltage(self, v=0):
         self.luminescencespectrum = self.luminescence_spectrum(v)
@@ -70,3 +78,26 @@ class SolarCell(object):
     def set_illumination(self, illuminationspectrum):
         self.illuminationspectrum = illuminationspectrum
         return
+
+    def get_current(self):
+        # Following Eqn 3.10 of Shockley-Queisser 1961
+        # First, get the generation from the illumination spectrum
+        self.set_generation(self.illuminationspectrum)
+        external_generation = self.generation
+        # Next, get the blackbody radiation from the cell at 0 voltage
+        # cell_generation0 = self.luminescence_spectrum()
+        # cell_generation0 = cell_generation0.integrate()
+        # Next, get the blackbody generation from the cell at v voltage
+        cell_generationV = self.luminescence_spectrum(self.voltage)
+        cell_generationV = cell_generationV.integrate()
+        # Next, get the non-radiative recombination at v = 0
+        cell_nonrad_recombination = self.j_nonrad
+        # Next, get the radiative recombination at v
+        Vc = constants.k * self.celltemp / constants.e
+        n = self.ideality
+        v = self.voltage
+        # TODO: Implement Double Diode Model Here?
+        cell_rad_recombination = cell_nonrad_recombination * np.exp(v / (Vc * n))
+        current = external_generation - cell_generationV + cell_nonrad_recombination - cell_rad_recombination
+        # current = np.vstack((cell_generationV[:, 0], current))
+        return current

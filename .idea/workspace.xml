@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5585c180-ca0b-412d-8811-e1a52b376147" name="Default" comment="">
+    <list default="true" id="5585c180-ca0b-412d-8811-e1a52b376147" name="Default" comment="Added ability to input custom user spectrum.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pvpy/PowerSpectrum.py" afterPath="$PROJECT_DIR$/pvpy/PowerSpectrum.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pvpy/SolarCell.py" afterPath="$PROJECT_DIR$/pvpy/SolarCell.py" />
     </list>
     <ignored path="solspec.iws" />
@@ -38,7 +37,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PowerSpectrum.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PowerSpectrum.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pvpy/PowerSpectrum.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="198">
@@ -63,15 +62,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SolarCell.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SolarCell.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pvpy/SolarCell.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="98" column="50" selection-start-line="98" selection-start-column="50" selection-end-line="98" selection-end-column="50" />
+            <state relative-caret-position="174">
+              <caret line="99" column="43" selection-start-line="99" selection-start-column="43" selection-end-line="99" selection-end-column="43" />
               <folding>
                 <element signature="e#52#148#0" expanded="false" />
-                <element signature="e#3142#3239#0" expanded="false" />
-                <element signature="e#3303#3366#0" expanded="false" />
+                <element signature="e#3127#3224#0" expanded="false" />
+                <element signature="e#3288#3351#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -107,8 +106,8 @@
         <option value="$PROJECT_DIR$/license.txt" />
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/pvpy/__init__.py" />
-        <option value="$PROJECT_DIR$/pvpy/SolarCell.py" />
         <option value="$PROJECT_DIR$/pvpy/PowerSpectrum.py" />
+        <option value="$PROJECT_DIR$/pvpy/SolarCell.py" />
       </list>
     </option>
   </component>
@@ -486,7 +485,14 @@
       <option name="project" value="LOCAL" />
       <updated>1477077568578</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Added ability to input custom user spectrum.">
+      <created>1477093166742</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1477093166742</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TodoView">
@@ -587,7 +593,8 @@
     <MESSAGE value="Moved blackbody spectrum to its own method." />
     <MESSAGE value="Started Building SolarCell class." />
     <MESSAGE value="Fixed cell_bb_spectrum stop wavelength being off by 1." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed cell_bb_spectrum stop wavelength being off by 1." />
+    <MESSAGE value="Added ability to input custom user spectrum." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added ability to input custom user spectrum." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1224,18 +1231,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pvpy/SolarCell.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="98" column="50" selection-start-line="98" selection-start-column="50" selection-end-line="98" selection-end-column="50" />
-          <folding>
-            <element signature="e#52#148#0" expanded="false" />
-            <element signature="e#3142#3239#0" expanded="false" />
-            <element signature="e#3303#3366#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pvpy/PowerSpectrum.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -1255,6 +1250,18 @@
             <element signature="e#7754#7858#0" expanded="false" />
             <element signature="e#7943#8004#0" expanded="false" />
             <element signature="e#10374#11726#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pvpy/SolarCell.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="99" column="43" selection-start-line="99" selection-start-column="43" selection-end-line="99" selection-end-column="43" />
+          <folding>
+            <element signature="e#52#148#0" expanded="false" />
+            <element signature="e#3127#3224#0" expanded="false" />
+            <element signature="e#3288#3351#0" expanded="false" />
           </folding>
         </state>
       </provider>
