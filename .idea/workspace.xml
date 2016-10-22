@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5585c180-ca0b-412d-8811-e1a52b376147" name="Default" comment="Added ability to input custom user spectrum.">
+    <list default="true" id="5585c180-ca0b-412d-8811-e1a52b376147" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pvpy/PowerSpectrum.py" afterPath="$PROJECT_DIR$/pvpy/PowerSpectrum.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pvpy/SolarCell.py" afterPath="$PROJECT_DIR$/pvpy/SolarCell.py" />
     </list>
     <ignored path="solspec.iws" />
@@ -40,8 +41,8 @@
       <file leaf-file-name="PowerSpectrum.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pvpy/PowerSpectrum.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="56" column="99" selection-start-line="56" selection-start-column="99" selection-end-line="56" selection-end-column="99" />
+            <state relative-caret-position="684">
+              <caret line="59" column="84" selection-start-line="59" selection-start-column="84" selection-end-line="59" selection-end-column="84" />
               <folding>
                 <element signature="e#15#36#0" expanded="true" />
                 <element signature="e#129#218#0" expanded="false" />
@@ -52,11 +53,12 @@
                 <element signature="e#4995#5107#0" expanded="false" />
                 <element signature="e#6599#6965#0" expanded="false" />
                 <element signature="e#6902#6965#0" expanded="false" />
+                <element signature="e#7004#8297#0" expanded="false" />
                 <element signature="e#7457#7516#0" expanded="false" />
                 <element signature="e#7543#7934#0" expanded="false" />
                 <element signature="e#7754#7858#0" expanded="false" />
                 <element signature="e#7943#8004#0" expanded="false" />
-                <element signature="e#10374#11726#0" expanded="false" />
+                <element signature="e#10378#11730#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -65,12 +67,11 @@
       <file leaf-file-name="SolarCell.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pvpy/SolarCell.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="99" column="43" selection-start-line="99" selection-start-column="43" selection-end-line="99" selection-end-column="43" />
+            <state relative-caret-position="18">
+              <caret line="1" column="51" selection-start-line="1" selection-start-column="51" selection-end-line="1" selection-end-column="51" />
               <folding>
-                <element signature="e#52#148#0" expanded="false" />
-                <element signature="e#3127#3224#0" expanded="false" />
-                <element signature="e#3288#3351#0" expanded="false" />
+                <element signature="e#173#269#0" expanded="false" />
+                <element signature="e#3409#3472#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -141,18 +142,11 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pvpy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane />
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -492,7 +486,14 @@
       <option name="project" value="LOCAL" />
       <updated>1477093166742</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="SolarCell seems to output the correct shortcircuit current under AM1.5G for silicon and GaAs Eg. Needs more testing with voltage biasing though.">
+      <created>1477094044640</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1477094044640</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TodoView">
@@ -508,13 +509,12 @@
     <frame x="0" y="30" width="1366" height="738" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24962743" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32885906" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962743" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.50298065" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.49701938" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36073825" sideWeight="0.7846498" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.49701938" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22652757" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22652757" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33557048" sideWeight="0.49403876" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -524,6 +524,7 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.49701938" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -594,7 +595,8 @@
     <MESSAGE value="Started Building SolarCell class." />
     <MESSAGE value="Fixed cell_bb_spectrum stop wavelength being off by 1." />
     <MESSAGE value="Added ability to input custom user spectrum." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added ability to input custom user spectrum." />
+    <MESSAGE value="SolarCell seems to output the correct shortcircuit current under AM1.5G for silicon and GaAs Eg. Needs more testing with voltage biasing though." />
+    <option name="LAST_COMMIT_MESSAGE" value="SolarCell seems to output the correct shortcircuit current under AM1.5G for silicon and GaAs Eg. Needs more testing with voltage biasing though." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -617,11 +619,12 @@
             <element signature="e#4995#5107#0" expanded="false" />
             <element signature="e#6599#6965#0" expanded="false" />
             <element signature="e#6902#6965#0" expanded="false" />
+            <element signature="e#7004#8297#0" expanded="false" />
             <element signature="e#7457#7516#0" expanded="false" />
             <element signature="e#7543#7934#0" expanded="false" />
             <element signature="e#7754#7858#0" expanded="false" />
             <element signature="e#7943#8004#0" expanded="false" />
-            <element signature="e#10374#11726#0" expanded="false" />
+            <element signature="e#10378#11730#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -670,11 +673,12 @@
             <element signature="e#4995#5107#0" expanded="false" />
             <element signature="e#6599#6965#0" expanded="false" />
             <element signature="e#6902#6965#0" expanded="false" />
+            <element signature="e#7004#8297#0" expanded="false" />
             <element signature="e#7457#7516#0" expanded="false" />
             <element signature="e#7543#7934#0" expanded="false" />
             <element signature="e#7754#7858#0" expanded="false" />
             <element signature="e#7943#8004#0" expanded="false" />
-            <element signature="e#10374#11726#0" expanded="false" />
+            <element signature="e#10378#11730#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -723,11 +727,12 @@
             <element signature="e#4995#5107#0" expanded="false" />
             <element signature="e#6599#6965#0" expanded="false" />
             <element signature="e#6902#6965#0" expanded="false" />
+            <element signature="e#7004#8297#0" expanded="false" />
             <element signature="e#7457#7516#0" expanded="false" />
             <element signature="e#7543#7934#0" expanded="false" />
             <element signature="e#7754#7858#0" expanded="false" />
             <element signature="e#7943#8004#0" expanded="false" />
-            <element signature="e#10374#11726#0" expanded="false" />
+            <element signature="e#10378#11730#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -776,11 +781,12 @@
             <element signature="e#4995#5107#0" expanded="false" />
             <element signature="e#6599#6965#0" expanded="false" />
             <element signature="e#6902#6965#0" expanded="false" />
+            <element signature="e#7004#8297#0" expanded="false" />
             <element signature="e#7457#7516#0" expanded="false" />
             <element signature="e#7543#7934#0" expanded="false" />
             <element signature="e#7754#7858#0" expanded="false" />
             <element signature="e#7943#8004#0" expanded="false" />
-            <element signature="e#10374#11726#0" expanded="false" />
+            <element signature="e#10378#11730#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -829,11 +835,12 @@
             <element signature="e#4995#5107#0" expanded="false" />
             <element signature="e#6599#6965#0" expanded="false" />
             <element signature="e#6902#6965#0" expanded="false" />
+            <element signature="e#7004#8297#0" expanded="false" />
             <element signature="e#7457#7516#0" expanded="false" />
             <element signature="e#7543#7934#0" expanded="false" />
             <element signature="e#7754#7858#0" expanded="false" />
             <element signature="e#7943#8004#0" expanded="false" />
-            <element signature="e#10374#11726#0" expanded="false" />
+            <element signature="e#10378#11730#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -886,11 +893,12 @@
             <element signature="e#4995#5107#0" expanded="false" />
             <element signature="e#6599#6965#0" expanded="false" />
             <element signature="e#6902#6965#0" expanded="false" />
+            <element signature="e#7004#8297#0" expanded="false" />
             <element signature="e#7457#7516#0" expanded="false" />
             <element signature="e#7543#7934#0" expanded="false" />
             <element signature="e#7754#7858#0" expanded="false" />
             <element signature="e#7943#8004#0" expanded="false" />
-            <element signature="e#10374#11726#0" expanded="false" />
+            <element signature="e#10378#11730#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -931,11 +939,12 @@
             <element signature="e#4995#5107#0" expanded="false" />
             <element signature="e#6599#6965#0" expanded="false" />
             <element signature="e#6902#6965#0" expanded="false" />
+            <element signature="e#7004#8297#0" expanded="false" />
             <element signature="e#7457#7516#0" expanded="false" />
             <element signature="e#7543#7934#0" expanded="false" />
             <element signature="e#7754#7858#0" expanded="false" />
             <element signature="e#7943#8004#0" expanded="false" />
-            <element signature="e#10374#11726#0" expanded="false" />
+            <element signature="e#10378#11730#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -966,11 +975,12 @@
             <element signature="e#4995#5107#0" expanded="false" />
             <element signature="e#6599#6965#0" expanded="false" />
             <element signature="e#6902#6965#0" expanded="false" />
+            <element signature="e#7004#8297#0" expanded="false" />
             <element signature="e#7457#7516#0" expanded="false" />
             <element signature="e#7543#7934#0" expanded="false" />
             <element signature="e#7754#7858#0" expanded="false" />
             <element signature="e#7943#8004#0" expanded="false" />
-            <element signature="e#10374#11726#0" expanded="false" />
+            <element signature="e#10378#11730#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1001,11 +1011,12 @@
             <element signature="e#4995#5107#0" expanded="false" />
             <element signature="e#6599#6965#0" expanded="false" />
             <element signature="e#6902#6965#0" expanded="false" />
+            <element signature="e#7004#8297#0" expanded="false" />
             <element signature="e#7457#7516#0" expanded="false" />
             <element signature="e#7543#7934#0" expanded="false" />
             <element signature="e#7754#7858#0" expanded="false" />
             <element signature="e#7943#8004#0" expanded="false" />
-            <element signature="e#10374#11726#0" expanded="false" />
+            <element signature="e#10378#11730#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1036,11 +1047,12 @@
             <element signature="e#4995#5107#0" expanded="false" />
             <element signature="e#6599#6965#0" expanded="false" />
             <element signature="e#6902#6965#0" expanded="false" />
+            <element signature="e#7004#8297#0" expanded="false" />
             <element signature="e#7457#7516#0" expanded="false" />
             <element signature="e#7543#7934#0" expanded="false" />
             <element signature="e#7754#7858#0" expanded="false" />
             <element signature="e#7943#8004#0" expanded="false" />
-            <element signature="e#10374#11726#0" expanded="false" />
+            <element signature="e#10378#11730#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1071,11 +1083,12 @@
             <element signature="e#4995#5107#0" expanded="false" />
             <element signature="e#6599#6965#0" expanded="false" />
             <element signature="e#6902#6965#0" expanded="false" />
+            <element signature="e#7004#8297#0" expanded="false" />
             <element signature="e#7457#7516#0" expanded="false" />
             <element signature="e#7543#7934#0" expanded="false" />
             <element signature="e#7754#7858#0" expanded="false" />
             <element signature="e#7943#8004#0" expanded="false" />
-            <element signature="e#10374#11726#0" expanded="false" />
+            <element signature="e#10378#11730#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1106,11 +1119,12 @@
             <element signature="e#4995#5107#0" expanded="false" />
             <element signature="e#6599#6965#0" expanded="false" />
             <element signature="e#6902#6965#0" expanded="false" />
+            <element signature="e#7004#8297#0" expanded="false" />
             <element signature="e#7457#7516#0" expanded="false" />
             <element signature="e#7543#7934#0" expanded="false" />
             <element signature="e#7754#7858#0" expanded="false" />
             <element signature="e#7943#8004#0" expanded="false" />
-            <element signature="e#10374#11726#0" expanded="false" />
+            <element signature="e#10378#11730#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1161,7 +1175,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-20194">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1233,8 +1246,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pvpy/PowerSpectrum.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="56" column="99" selection-start-line="56" selection-start-column="99" selection-end-line="56" selection-end-column="99" />
+        <state relative-caret-position="684">
+          <caret line="59" column="84" selection-start-line="59" selection-start-column="84" selection-end-line="59" selection-end-column="84" />
           <folding>
             <element signature="e#15#36#0" expanded="true" />
             <element signature="e#129#218#0" expanded="false" />
@@ -1245,23 +1258,23 @@
             <element signature="e#4995#5107#0" expanded="false" />
             <element signature="e#6599#6965#0" expanded="false" />
             <element signature="e#6902#6965#0" expanded="false" />
+            <element signature="e#7004#8297#0" expanded="false" />
             <element signature="e#7457#7516#0" expanded="false" />
             <element signature="e#7543#7934#0" expanded="false" />
             <element signature="e#7754#7858#0" expanded="false" />
             <element signature="e#7943#8004#0" expanded="false" />
-            <element signature="e#10374#11726#0" expanded="false" />
+            <element signature="e#10378#11730#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pvpy/SolarCell.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="99" column="43" selection-start-line="99" selection-start-column="43" selection-end-line="99" selection-end-column="43" />
+        <state relative-caret-position="18">
+          <caret line="1" column="51" selection-start-line="1" selection-start-column="51" selection-end-line="1" selection-end-column="51" />
           <folding>
-            <element signature="e#52#148#0" expanded="false" />
-            <element signature="e#3127#3224#0" expanded="false" />
-            <element signature="e#3288#3351#0" expanded="false" />
+            <element signature="e#173#269#0" expanded="false" />
+            <element signature="e#3409#3472#0" expanded="false" />
           </folding>
         </state>
       </provider>

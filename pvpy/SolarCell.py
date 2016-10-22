@@ -1,4 +1,6 @@
-from PowerSpectrum import *
+import numpy as np
+from scipy import interpolate, integrate, constants
+from PowerSpectrum import PowerSpectrum, PhotocurrentSpectrum, PhotonSpectrum
 
 
 def ev_to_nm(ev):

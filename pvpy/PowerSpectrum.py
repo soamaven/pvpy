@@ -190,7 +190,7 @@ class PowerSpectrum(object):
         assert spec_in.shape[1] == 2, "Weight spectrum is not a 2D numpy array."
         #TODO: Catch errors for when there aren't enough points for default kind, i.e. uncommon case of <4 points in weight
         spec_fun = interpolate.interp1d(spec_in[:, 0], spec_in[:, 1], kind=kind)
-        if spec_in[0, 0] != self.start_w or spec_in[-1, 0] != self.stop_w:
+        if spec_in[0, 0] != self.start_w or spec_in[-1, 0] != self.stop_w - 1:
             self.spectrum = self.sub_spectrum(spec_in[0, 0], spec_in[-1, 0])
         spec_wt = self.spectrum
         spec_wt[:, 1] = spec_fun(spec_wt[:, 0]) * spec_wt[:, 1]
