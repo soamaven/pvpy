@@ -37,8 +37,7 @@ class PowerSpectrum(object):
             "AM1.5G": 2,
             "AM1.5D": 3,
             "BlackBody": 4,
-            "Dark": 5,
-            "User": 6
+            "User": 5
         }
         spectra_ind = spectras[spectra]
         if spectra_ind in range(4):
@@ -49,17 +48,13 @@ class PowerSpectrum(object):
                 self.spectrum = self.sub_spectrum(start_w, stop_w)
         elif spectra == "BlackBody":
             self.spectrum = self.blackbody_spectrum(mediumrefindex, solidangle, bbtemp)
-        elif spectra == "Dark":
-            wavelengths = np.arange(self.start_w, self.stop_w, dtype=int)
-            self.spectrum = np.vstack((wavelengths, np.zeros(wavelengths.shape))).T
-            self.bbtemp = 0
         elif spectra == "User":
             assert isinstance(userspectrum, np.ndarray), "Weight spectrum is not a 2D numpy array."
             self.spectrum = userspectrum
         # create the PowerSpectrum interpolator
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 
-    def blackbody_spectrum(self, mediumrefindex=1, solidangle=4*constants.pi, bbtemp=5800):
+    def blackbody_spectrum(self, mediumrefindex=1, solidangle=4*constants.pi, bbtemp=5400):
         """
         Creates a blackbody distribution of power flux for a given solid angle. Default is entire sphere for the sun.
         :param mediumrefindex: refractive index of medium surrounding blackbody
@@ -73,7 +68,7 @@ class PowerSpectrum(object):
         # Initilize wavelengths
         wavelengths = np.arange(self.start_w, self.stop_w, dtype=int)
         spectrum = np.vstack((wavelengths, np.ones(wavelengths.shape))).T
-        wavelengths = wavelengths = np.arange(self.start_w, self.stop_w, dtype=float) * 1e-9
+        wavelengths = np.arange(self.start_w, self.stop_w, dtype=float) * 1e-9
         # 2n^2hc^2/lambda^5*(exp(-hc/k lambda T)-1) gives units of W sr^-1 m^-3
         numerator = 2 * (self.mediumrefindex ** 2) * constants.h * constants.c ** 2
         exponential = np.exp(constants.h * constants.c / (constants.k * wavelengths * bbtemp))
@@ -85,7 +80,7 @@ class PowerSpectrum(object):
     @staticmethod
     def solid_angle(theta, phi, degrees=True):
         if degrees:
-            theta *= constants.pi/180.
+            theta *= constants.pi / 180.
             phi *= constants.pi / 180.
         return phi - phi * np.cos(theta)
 
@@ -141,7 +136,7 @@ class PowerSpectrum(object):
 
     def integrate(self, *w):
         """
-        Integrates the solar spectrum. By defualt the full width of the spectrum is integrated, but inputting 2 floats
+        Integrates the solar spectrum. By default the full width of the spectrum is integrated, but inputting 2 floats
         within the PowerSpectrum bounds will give the integration of sub-spectrum.
         :param w: (floats, ints) shortest and longest wavelengths for a sub-spectrum
         :return power_f: (float) the integrated power of the sub-spectrum
@@ -149,17 +144,10 @@ class PowerSpectrum(object):
         # deal with subspectrums if necessary
         if not w:
             spectrum = self.spectrum
-            # interp = self.interp
         else:
             assert len(w) >= 2 and w[0] < w[
                 1], 'Error: Too few wavelengths or start wavelength is not shorter than the longest wavelength.'
             spectrum = self.sub_spectrum(w[0], w[1])
-            # TODO: Decide if to use quad and interp1d obj for integration or not. trapz is faster & close in result
-            # interp = interpolate.interp1d(spectrum[:, 0], spectrum[:, 1])
-        # get the total number of discrete wavelengths as a bin limit
-        # bin_limit = len(spectrum[:, 0])
-        # integrate the power
-        # power_f = integrate.quad(interp, spectrum[0, 0], spectrum[-1, 0], full_output=1, limit=bin_limit)
         power_f = integrate.trapz(spectrum[:, 1], spectrum[:, 0])
         return power_f  # Units Watts/meters^2
 
