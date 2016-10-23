@@ -11,3 +11,6 @@
 ./.idea/workspace.xml
 build/bdist.linux-x86_64/
 pvpy/__pycache__/
+/HZB_Optimization.ipynb
+.ipynb_checkpoints/
+HZB_Optimization.ipynb

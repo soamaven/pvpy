@@ -46,7 +46,7 @@ def jsc(*args, **kwargs):
     else:
         spec_in = args[0]
     spec_in = np.squeeze(spec_in)
-    spec = PowerSpectrum.PhotocurrentSpectrum(spec_in[0, 0], spec_in[-1, 0], spectra)
+    spec = PhotocurrentSpectrum(spec_in[0, 0], spec_in[-1, 0], spectra)
     spec.weight_spectrum(spec_in, kind=kind)
     return spec.integrate() * .1
 
