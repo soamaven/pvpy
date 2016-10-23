@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5585c180-ca0b-412d-8811-e1a52b376147" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="solspec.iws" />
@@ -68,8 +67,8 @@
       <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-218">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="72">
+              <caret line="10" column="21" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -525,7 +524,21 @@
       <option name="project" value="LOCAL" />
       <updated>1477198159492</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Accurate implementation of getting Voc and current">
+      <created>1477198202824</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1477198202825</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;">
+      <created>1477198253811</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1477198253811</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TodoView">
@@ -621,7 +634,6 @@
     <MESSAGE value="Added a Black-body spectrum with the solar temperature 5800K as default." />
     <MESSAGE value="Added pip install" />
     <MESSAGE value="Correctly implemented blackbody radiation for arbitrary solid angle, default is the solid angle subtended by the sun on earth's surface at 1AMU." />
-    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;" />
     <MESSAGE value="Fixed some static method bugs and updated the docstrings" />
     <MESSAGE value="Moved blackbody spectrum to its own method." />
     <MESSAGE value="Started Building SolarCell class." />
@@ -630,7 +642,8 @@
     <MESSAGE value="SolarCell seems to output the correct shortcircuit current under AM1.5G for silicon and GaAs Eg. Needs more testing with voltage biasing though." />
     <MESSAGE value="Fixed wavelengths bounds check method" />
     <MESSAGE value="Accurate implementation of getting Voc and current" />
-    <option name="LAST_COMMIT_MESSAGE" value="Accurate implementation of getting Voc and current" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1160,8 +1173,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-218">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="72">
+          <caret line="10" column="21" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="21" />
           <folding />
         </state>
       </provider>
