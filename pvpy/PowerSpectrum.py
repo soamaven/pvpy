@@ -10,7 +10,7 @@ SOLAR_SOLID_ANGLE = 2 * constants.pi * (1 - np.cos(.009303575/2))  # ~6.798e-05 
 
 class PowerSpectrum(object):
     def __init__(self, start_w=280.0, stop_w=4000.0, spectra="AM1.5G", bbtemp=5800, mediumrefindex=1,
-                 solidangle=SOLAR_SOLID_ANGLE, userspectrum=None):
+                 solidangle=SOLAR_SOLID_ANGLE, userspectrum=None, v=0):
         """
         Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
         :param start_w: shortest wavelength in nanometers
@@ -26,8 +26,12 @@ class PowerSpectrum(object):
         a source encompassing the whole sphere it can see is 4pi.
         :return:
         """
-        self.start_w = int(np.around(start_w))
-        self.stop_w = int(np.around(stop_w)) + 1
+        self.bbtemp = bbtemp
+        self.mediumrefindex = mediumrefindex
+        self.solidangle = solidangle
+        self.v = v
+        self.start_w = start_w
+        self.stop_w = stop_w
         # the first column should be the wavelength in nanometers, the second is the tilt power density/nm in
         # W/(m**2 nm) = J s^-1 m^-2 nm^-1 = C V m^-2 nm^-1
         if userspectrum is not None:
@@ -43,10 +47,12 @@ class PowerSpectrum(object):
         if spectra_ind in range(4):
             self.spectrum = np.genfromtxt(path.join(path.dirname(__file__), './ASTMG173.csv'), delimiter=",",
                                           skip_header=2)[:, [0, spectra_ind]]
-            # build custom spectrum if necessary
             if start_w != 280.0 or stop_w != 4000.0:
                 self.spectrum = self.sub_spectrum(start_w, stop_w)
+                print(self.spectrum[-1])
         elif spectra == "BlackBody":
+            self.start_w = start_w
+            self.stop_w = stop_w + 1
             self.spectrum = self.blackbody_spectrum(mediumrefindex, solidangle, bbtemp)
         elif spectra == "User":
             assert isinstance(userspectrum, np.ndarray), "Weight spectrum is not a 2D numpy array."
@@ -54,7 +60,7 @@ class PowerSpectrum(object):
         # create the PowerSpectrum interpolator
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 
-    def blackbody_spectrum(self, mediumrefindex=1, solidangle=4*constants.pi, bbtemp=5400):
+    def blackbody_spectrum(self, mediumrefindex=1, solidangle=4*constants.pi, bbtemp=5400, v=0):
         """
         Creates a blackbody distribution of power flux for a given solid angle. Default is entire sphere for the sun.
         :param mediumrefindex: refractive index of medium surrounding blackbody
@@ -71,7 +77,7 @@ class PowerSpectrum(object):
         wavelengths = np.arange(self.start_w, self.stop_w, dtype=float) * 1e-9
         # 2n^2hc^2/lambda^5*(exp(-hc/k lambda T)-1) gives units of W sr^-1 m^-3
         numerator = 2 * (self.mediumrefindex ** 2) * constants.h * constants.c ** 2
-        exponential = np.exp(constants.h * constants.c / (constants.k * wavelengths * bbtemp))
+        exponential = np.exp((constants.h * constants.c - v) / (constants.k * wavelengths * bbtemp))
         spectrum[:, 1] = numerator / ((wavelengths ** 5) * (exponential - 1))
         # Use provided solid angle to and 1m=1-9 get Power Flux per nanometer
         spectrum[:, 1] *= 1e-9 * self.solidangle
@@ -116,9 +122,9 @@ class PowerSpectrum(object):
             if not lowerb <= w <= upperb:
                 print("Wavelength %0.2f nm out of spectra bounds" % w)
                 if w < lowerb:
-                    raise IndexError("Please use the lower bound of %0.2f nm." % lowerb)
+                    raise IndexError("Wavelength %0.2f too short. Please use the lower bound of %0.2f nm." % (w, lowerb))
                 elif w > upperb:
-                    raise IndexError("Please use the upper bound of %0.2f nm." % upperb)
+                    raise IndexError("Wavelength %0.2f too large. Please use the upper bound of %0.2f nm." % (w, upperb))
             else:
                 pass
         return
@@ -151,6 +157,10 @@ class PowerSpectrum(object):
         power_f = integrate.trapz(spectrum[:, 1], spectrum[:, 0])
         return power_f  # Units Watts/meters^2
 
+    def get_incident_power(self):
+        # Does not include sub-bandgap power
+        return self.integrate()
+
     def get_spectrum(self):
         """
         Returns a copy of the spectrum.
@@ -178,7 +188,7 @@ class PowerSpectrum(object):
         assert spec_in.shape[1] == 2, "Weight spectrum is not a 2D numpy array."
         #TODO: Catch errors for when there aren't enough points for default kind, i.e. uncommon case of <4 points in weight
         spec_fun = interpolate.interp1d(spec_in[:, 0], spec_in[:, 1], kind=kind)
-        if spec_in[0, 0] != self.start_w or spec_in[-1, 0] != self.stop_w - 1:
+        if spec_in[0, 0] >= self.start_w or spec_in[-1, 0] <= self.stop_w:
             self.spectrum = self.sub_spectrum(spec_in[0, 0], spec_in[-1, 0])
         spec_wt = self.spectrum
         spec_wt[:, 1] = spec_fun(spec_wt[:, 0]) * spec_wt[:, 1]
@@ -187,10 +197,21 @@ class PowerSpectrum(object):
     def copy(self):
         return copy(self)
 
+    def to_PhotonSpectrum(self):
+        self.spectrum[:, 1] *= (self.spectrum[:, 0] * 1e-9 / (constants.c * constants.h))
+        self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
+        self.__class__ = PhotonSpectrum
+        return
+
+    def to_PhotoCurrentSpectrum(self):
+        self.to_PhotonSpectrum()
+        self.to_PhotoCurrentSpectrum()
+        return
+
 
 class PhotonSpectrum(PowerSpectrum):
-    def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra= "AM1.5G", bbtemp = 5800, mediumrefindex=1,
-                 solidangle=SOLAR_SOLID_ANGLE, userspectrum=None):
+    def __init__(self, start_w=280.0, stop_w=4000.0, spectra="AM1.5G", bbtemp=5800, mediumrefindex=1,
+                 solidangle=SOLAR_SOLID_ANGLE, userspectrum=None, v=0):
         """
         Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
         :param start_w: shortest wavelength in nanometers
@@ -206,14 +227,38 @@ class PhotonSpectrum(PowerSpectrum):
         a source encompassing the whole sphere it can see is 4pi.
         :return:
         """
-        super(PhotonSpectrum, self).__init__(start_w, stop_w, spectra, bbtemp, mediumrefindex, solidangle)
-        self.spectrum[:, 1] = self.spectrum[:, 1] * (self.spectrum[:, 0] * 1e-9 / (constants.c * constants.h))
+        super(PhotonSpectrum, self).__init__(start_w=start_w,
+                                             stop_w=stop_w,
+                                             spectra=spectra,
+                                             bbtemp=bbtemp,
+                                             mediumrefindex=mediumrefindex,
+                                             solidangle=solidangle,
+                                             userspectrum=userspectrum,
+                                             v=v)
+        self.spectrum[:, 1] *= (self.spectrum[:, 0] * 1e-9 / (constants.c * constants.h))
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
+
+    def to_PowerSpectrum(self):
+        self.spectrum[:, 1] /= (self.spectrum[:, 0] * 1e-9 / (constants.c * constants.h))
+        self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
+        self.__class__ = PowerSpectrum
+        return
+
+    def to_PhotoCurrentSpectrum(self):
+        self.spectrum[:, 1] *= constants.e
+        self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
+        self.__class__ = PhotocurrentSpectrum
+        return
+
+    def get_incident_power(self):
+        spectrum_copy = self.copy()
+        spectrum_copy.to_PowerSpectrum()
+        return spectrum_copy.get_incident_power()
 
 
 class PhotocurrentSpectrum(PhotonSpectrum):
-    def __init__(self, start_w= 280.0, stop_w= 4000.0, spectra= "AM1.5G", bbtemp = 5800, mediumrefindex=1,
-                 solidangle=SOLAR_SOLID_ANGLE, userspectrum=None):
+    def __init__(self, start_w=280.0, stop_w=4000.0, spectra="AM1.5G", bbtemp= 5800, mediumrefindex=1,
+                 solidangle=SOLAR_SOLID_ANGLE, userspectrum=None, v=0):
         """
         Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
         :param start_w: shortest wavelength in nanometers
@@ -229,6 +274,24 @@ class PhotocurrentSpectrum(PhotonSpectrum):
         a source encompassing the whole sphere it can see is 4pi.
         :return:
         """
-        super(PhotocurrentSpectrum, self).__init__(start_w, stop_w, spectra, bbtemp, mediumrefindex, solidangle)
+        super(PhotocurrentSpectrum, self).__init__(start_w=start_w,
+                                                   stop_w=stop_w,
+                                                   spectra=spectra,
+                                                   bbtemp=bbtemp,
+                                                   mediumrefindex=mediumrefindex,
+                                                   solidangle=solidangle,
+                                                   userspectrum=userspectrum,
+                                                   v=v)
         self.spectrum[:, 1] *= constants.e
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
+
+    def to_PhotonSpectrum(self):
+        self.spectrum[:, 1] /= constants.e
+        self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
+        self.__class__ = PhotonSpectrum
+        return
+
+    def to_PowerSpectrum(self):
+        self.to_PhotonSpectrum()
+        self.to_PowerSpectrum()
+        return
