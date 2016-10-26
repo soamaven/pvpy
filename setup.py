@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='pvpy',
-    version='1.01.alpha',
+    version='1.02.alpha',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: MIT License',

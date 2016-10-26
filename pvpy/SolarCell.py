@@ -43,14 +43,12 @@ class SolarCell(object):
                                                                 solidangle=self.solid_emission_angle)
         # give the cell an initial perfect absorptivity for SQ type analysis
         self.absorptivity = self.illuminationspectrumAmbient.get_spectrum()
-        print(self.absorptivity[-1])
         self.absorptivity[:, 1] = np.ones(self.absorptivity[:, 1].shape)
         # This is an artifact of the ASTM spectrums having nonuniform bins, we have to set
         # the cell band gap to its nearest wavelength
         self.bandgap_lambda = self.absorptivity[-1, 0]
         # give the cell a black body spectrum
-        # TODO: Figure out why I can't put in the bandgap wavelength to stop_w without dividing by zero
-        self.cell_bb_spectrum = PhotocurrentSpectrum(start_w=start_w, stop_w=5000, bbtemp=self.celltemp,
+        self.cell_bb_spectrum = PhotocurrentSpectrum(start_w=start_w, stop_w=stop_w, bbtemp=self.celltemp,
                                                      spectra="BlackBody",
                                                      solidangle=self.solid_emission_angle)
         self.cell_bb_spectrum.weight_spectrum(self.absorptivity)
@@ -61,6 +59,7 @@ class SolarCell(object):
         self.LED_eff = 1
         self.generation = 0
         self.illuminationspectrum = self.illuminationspectrumAmbient
+        self.set_illumination(self.illuminationspectrumAmbient)
         self.incident_power = self.illuminationspectrum.get_incident_power()
         self.j_nonrad = 0  # Units of amp/m^2
         self.Voc = self.get_Voc()
@@ -83,9 +82,7 @@ class SolarCell(object):
         # it will generate an electron-hole pair
         weight = self.absorptivity.copy()
         weight[:, 1] = self.absorptivity[:, 1] * self.IQE[:, 1] * np.cos(self.tilt)
-        print(weight[-1])
-        weightfun = interpolate.interp1d(weight[:, 0], weight[:, 1])
-        print(photocurrentspec.get_spectrum())
+        weightfun = interpolate.interp1d(weight[:, 0], weight[:, 1], kind='linear')
         weight = photocurrentspec.sub_spectrum(weight[0, 0], weight[-1, 0])
         weight[:, 1] = weightfun(weight[:, 0])
         photocurrentspec.weight_spectrum(weight)
@@ -147,7 +144,6 @@ class SolarCell(object):
         return current
 
     def get_Voc(self):
-        self.__set_generation(self.illuminationspectrum)
         external_generation = self.generation
         cell_recombination0 = self.cell_bb_spectrum.integrate()
         Vc = self.Vc
