@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5585c180-ca0b-412d-8811-e1a52b376147" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/setup.py" afterPath="$PROJECT_DIR$/setup.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pvpy/PowerSpectrum.py" afterPath="$PROJECT_DIR$/pvpy/PowerSpectrum.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pvpy/__init__.py" afterPath="$PROJECT_DIR$/pvpy/__init__.py" />
     </list>
     <ignored path="solspec.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,19 +27,19 @@
       <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pvpy/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="50" column="32" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
+            <state relative-caret-position="450">
+              <caret line="40" column="59" selection-start-line="40" selection-start-column="59" selection-end-line="40" selection-end-column="59" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
                 <element signature="e#142#237#0" expanded="false" />
                 <element signature="e#347#446#0" expanded="false" />
-                <element signature="e#1108#1471#1" expanded="true" />
+                <element signature="e#1109#1472#1" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="setup.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="setup.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/setup.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="72">
@@ -48,16 +49,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PowerSpectrum.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PowerSpectrum.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pvpy/PowerSpectrum.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-816">
-              <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="107" selection-end-column="69" />
+            <state relative-caret-position="-1926">
+              <caret line="48" column="77" selection-start-line="48" selection-start-column="77" selection-end-line="48" selection-end-column="77" />
               <folding>
                 <element signature="e#15#36#0" expanded="true" />
-                <element signature="e#9048#9139#0" expanded="false" />
-                <element signature="e#10208#12773#0" expanded="false" />
-                <element signature="e#12824#15068#0" expanded="false" />
+                <element signature="e#9390#9481#0" expanded="false" />
+                <element signature="e#13166#15410#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -66,7 +66,7 @@
       <file leaf-file-name="SolarCell.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pvpy/SolarCell.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1872">
+            <state relative-caret-position="870">
               <caret line="112" column="83" selection-start-line="112" selection-start-column="83" selection-end-line="112" selection-end-column="83" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -104,19 +104,18 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/setup.cfg" />
         <option value="$PROJECT_DIR$/license.txt" />
-        <option value="$PROJECT_DIR$/pvpy/__init__.py" />
         <option value="$PROJECT_DIR$/HZB_Optimization.ipynb" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/pvpy/PowerSpectrum.py" />
         <option value="$PROJECT_DIR$/pvpy/SolarCell.py" />
         <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/pvpy/__init__.py" />
+        <option value="$PROJECT_DIR$/pvpy/PowerSpectrum.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="30" />
-    <option name="width" value="1366" />
-    <option name="height" value="738" />
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -143,8 +142,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -165,6 +162,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -561,7 +560,14 @@
       <option name="project" value="LOCAL" />
       <updated>1477500794160</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Fixed illumination spectrum weighting to handle blackbody spectrums below 4000nm and ASTM spectrums from 280-4000 even though it is spaced unevenly.">
+      <created>1477502128724</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1477502128724</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TodoView">
@@ -574,48 +580,28 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="30" width="1366" height="738" extended-state="6" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24888226" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24841772" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.50298065" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32885906" sideWeight="0.49701938" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36073825" sideWeight="0.7846498" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32718122" sideWeight="0.49701938" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.50298065" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36073825" sideWeight="0.7846498" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32718122" sideWeight="0.49701938" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22652757" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33557048" sideWeight="0.49403876" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32885906" sideWeight="0.49701938" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.50298065" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36073825" sideWeight="0.7846498" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.49701938" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33557048" sideWeight="0.49403876" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962743" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.49701938" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22652757" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -695,7 +681,7 @@
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#142#237#0" expanded="false" />
             <element signature="e#347#446#0" expanded="false" />
-            <element signature="e#1108#1471#1" expanded="true" />
+            <element signature="e#1109#1472#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -706,9 +692,8 @@
           <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
           <folding>
             <element signature="e#15#36#0" expanded="true" />
-            <element signature="e#9048#9139#0" expanded="false" />
-            <element signature="e#10208#12773#0" expanded="false" />
-            <element signature="e#12824#15068#0" expanded="false" />
+            <element signature="e#9390#9481#0" expanded="false" />
+            <element signature="e#13166#15410#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -739,7 +724,7 @@
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#142#237#0" expanded="false" />
             <element signature="e#347#446#0" expanded="false" />
-            <element signature="e#1108#1471#1" expanded="true" />
+            <element signature="e#1109#1472#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -750,9 +735,8 @@
           <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
           <folding>
             <element signature="e#15#36#0" expanded="true" />
-            <element signature="e#9048#9139#0" expanded="false" />
-            <element signature="e#10208#12773#0" expanded="false" />
-            <element signature="e#12824#15068#0" expanded="false" />
+            <element signature="e#9390#9481#0" expanded="false" />
+            <element signature="e#13166#15410#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -783,7 +767,7 @@
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#142#237#0" expanded="false" />
             <element signature="e#347#446#0" expanded="false" />
-            <element signature="e#1108#1471#1" expanded="true" />
+            <element signature="e#1109#1472#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -794,9 +778,8 @@
           <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
           <folding>
             <element signature="e#15#36#0" expanded="true" />
-            <element signature="e#9048#9139#0" expanded="false" />
-            <element signature="e#10208#12773#0" expanded="false" />
-            <element signature="e#12824#15068#0" expanded="false" />
+            <element signature="e#9390#9481#0" expanded="false" />
+            <element signature="e#13166#15410#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -827,7 +810,7 @@
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#142#237#0" expanded="false" />
             <element signature="e#347#446#0" expanded="false" />
-            <element signature="e#1108#1471#1" expanded="true" />
+            <element signature="e#1109#1472#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -838,9 +821,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#15#36#0" expanded="true" />
-            <element signature="e#9048#9139#0" expanded="false" />
-            <element signature="e#10208#12773#0" expanded="false" />
-            <element signature="e#12824#15068#0" expanded="false" />
+            <element signature="e#9390#9481#0" expanded="false" />
+            <element signature="e#13166#15410#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -863,7 +845,7 @@
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#142#237#0" expanded="false" />
             <element signature="e#347#446#0" expanded="false" />
-            <element signature="e#1108#1471#1" expanded="true" />
+            <element signature="e#1109#1472#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -876,7 +858,7 @@
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#142#237#0" expanded="false" />
             <element signature="e#347#446#0" expanded="false" />
-            <element signature="e#1108#1471#1" expanded="true" />
+            <element signature="e#1109#1472#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -887,9 +869,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#15#36#0" expanded="true" />
-            <element signature="e#9048#9139#0" expanded="false" />
-            <element signature="e#10208#12773#0" expanded="false" />
-            <element signature="e#12824#15068#0" expanded="false" />
+            <element signature="e#9390#9481#0" expanded="false" />
+            <element signature="e#13166#15410#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -912,7 +893,7 @@
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#142#237#0" expanded="false" />
             <element signature="e#347#446#0" expanded="false" />
-            <element signature="e#1108#1471#1" expanded="true" />
+            <element signature="e#1109#1472#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -923,9 +904,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#15#36#0" expanded="true" />
-            <element signature="e#9048#9139#0" expanded="false" />
-            <element signature="e#10208#12773#0" expanded="false" />
-            <element signature="e#12824#15068#0" expanded="false" />
+            <element signature="e#9390#9481#0" expanded="false" />
+            <element signature="e#13166#15410#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -938,7 +918,7 @@
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#142#237#0" expanded="false" />
             <element signature="e#347#446#0" expanded="false" />
-            <element signature="e#1108#1471#1" expanded="true" />
+            <element signature="e#1109#1472#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -949,9 +929,8 @@
           <caret line="129" column="14" selection-start-line="129" selection-start-column="14" selection-end-line="129" selection-end-column="14" />
           <folding>
             <element signature="e#15#36#0" expanded="true" />
-            <element signature="e#9048#9139#0" expanded="false" />
-            <element signature="e#10208#12773#0" expanded="false" />
-            <element signature="e#12824#15068#0" expanded="false" />
+            <element signature="e#9390#9481#0" expanded="false" />
+            <element signature="e#13166#15410#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -964,7 +943,7 @@
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#142#237#0" expanded="false" />
             <element signature="e#347#446#0" expanded="false" />
-            <element signature="e#1108#1471#1" expanded="true" />
+            <element signature="e#1109#1472#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -975,9 +954,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#15#36#0" expanded="true" />
-            <element signature="e#9048#9139#0" expanded="false" />
-            <element signature="e#10208#12773#0" expanded="false" />
-            <element signature="e#12824#15068#0" expanded="false" />
+            <element signature="e#9390#9481#0" expanded="false" />
+            <element signature="e#13166#15410#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -990,7 +968,7 @@
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#142#237#0" expanded="false" />
             <element signature="e#347#446#0" expanded="false" />
-            <element signature="e#1108#1471#1" expanded="true" />
+            <element signature="e#1109#1472#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1001,9 +979,8 @@
           <caret line="129" column="14" selection-start-line="129" selection-start-column="14" selection-end-line="129" selection-end-column="14" />
           <folding>
             <element signature="e#15#36#0" expanded="true" />
-            <element signature="e#9048#9139#0" expanded="false" />
-            <element signature="e#10208#12773#0" expanded="false" />
-            <element signature="e#12824#15068#0" expanded="false" />
+            <element signature="e#9390#9481#0" expanded="false" />
+            <element signature="e#13166#15410#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1016,7 +993,7 @@
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#142#237#0" expanded="false" />
             <element signature="e#347#446#0" expanded="false" />
-            <element signature="e#1108#1471#1" expanded="true" />
+            <element signature="e#1109#1472#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1027,9 +1004,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#15#36#0" expanded="true" />
-            <element signature="e#9048#9139#0" expanded="false" />
-            <element signature="e#10208#12773#0" expanded="false" />
-            <element signature="e#12824#15068#0" expanded="false" />
+            <element signature="e#9390#9481#0" expanded="false" />
+            <element signature="e#13166#15410#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1042,7 +1018,7 @@
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#142#237#0" expanded="false" />
             <element signature="e#347#446#0" expanded="false" />
-            <element signature="e#1108#1471#1" expanded="true" />
+            <element signature="e#1109#1472#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1053,9 +1029,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#15#36#0" expanded="true" />
-            <element signature="e#9048#9139#0" expanded="false" />
-            <element signature="e#10208#12773#0" expanded="false" />
-            <element signature="e#12824#15068#0" expanded="false" />
+            <element signature="e#9390#9481#0" expanded="false" />
+            <element signature="e#13166#15410#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1163,48 +1138,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pvpy/PowerSpectrum.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-816">
-          <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="107" selection-end-column="69" />
-          <folding>
-            <element signature="e#15#36#0" expanded="true" />
-            <element signature="e#9048#9139#0" expanded="false" />
-            <element signature="e#10208#12773#0" expanded="false" />
-            <element signature="e#12824#15068#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pvpy/ASTMG173.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="1912" column="39" selection-start-line="1911" selection-start-column="0" selection-end-line="1912" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pvpy/SolarCell.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1872">
-          <caret line="112" column="83" selection-start-line="112" selection-start-column="83" selection-end-line="112" selection-end-column="83" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#194#290#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pvpy/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="50" column="32" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#142#237#0" expanded="false" />
-            <element signature="e#347#446#0" expanded="false" />
-            <element signature="e#1108#1471#1" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1213,6 +1150,42 @@
         <state relative-caret-position="72">
           <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pvpy/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="40" column="59" selection-start-line="40" selection-start-column="59" selection-end-line="40" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#142#237#0" expanded="false" />
+            <element signature="e#347#446#0" expanded="false" />
+            <element signature="e#1109#1472#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pvpy/SolarCell.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="870">
+          <caret line="112" column="83" selection-start-line="112" selection-start-column="83" selection-end-line="112" selection-end-column="83" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#194#290#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pvpy/PowerSpectrum.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1926">
+          <caret line="48" column="77" selection-start-line="48" selection-start-column="77" selection-end-line="48" selection-end-column="77" />
+          <folding>
+            <element signature="e#15#36#0" expanded="true" />
+            <element signature="e#9390#9481#0" expanded="false" />
+            <element signature="e#13166#15410#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

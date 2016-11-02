@@ -24,6 +24,7 @@ except IOError as e:
 #            print("Unable to open file")  # Does not exist OR no read permissions
 #            raise
 
+
 def jsc(*args, **kwargs):
     """
     Gives the absorbed photocurrent in mA/cm**2 of a normalized spectrum.
@@ -46,7 +47,7 @@ def jsc(*args, **kwargs):
     else:
         spec_in = args[0]
     spec_in = np.squeeze(spec_in)
-    spec = PhotocurrentSpectrum(spec_in[0, 0], spec_in[-1, 0], spectra)
+    spec = PhotocurrentSpectrum(start_w=spec_in[0, 0], stop_w=[-1, 0], spectra=spectra)
     spec.weight_spectrum(spec_in, kind=kind)
     return spec.integrate() * .1
 

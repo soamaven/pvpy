@@ -140,6 +140,10 @@ class PowerSpectrum(object):
             irradiance = float(self.interp(w))
             yield irradiance
 
+    def __call__(self, wavelengths):
+        self.value_at_wavelength(wavelengths)
+        return None
+
     def integrate(self, *w):
         """
         Integrates the solar spectrum. By default the full width of the spectrum is integrated, but inputting 2 floats
@@ -167,6 +171,16 @@ class PowerSpectrum(object):
         :return: (ndarray) The discrete spectrum with the wavelengths in [:,0] and the values in [:,1]
         """
         return self.spectrum.copy()
+
+    def __getitem__(self, index):
+        return self.spectrum[index]
+
+    def __setitem__(self, key, value):
+        self.spectrum[key] = value
+        return None
+
+    def __delitem__(self, key):
+        self.spectrum.__delitem__(key)
 
     def weight_spectrum(self, spec_in, kind="linear"):
         """
