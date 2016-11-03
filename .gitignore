@@ -8,7 +8,7 @@
 /*.egg-info
 /*.egg
 
-./.idea/workspace.xml
+.idea/workspace.xml
 build/bdist.linux-x86_64/
 pvpy/__pycache__/
 /HZB_Optimization.ipynb
