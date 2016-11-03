@@ -1,5 +1,5 @@
 # coding=utf-8
-from copy import copy
+from copy import deepcopy
 import numpy as np
 from scipy import interpolate, integrate, constants
 from os import path
@@ -187,6 +187,7 @@ class PowerSpectrum(object):
 
     def __delitem__(self, key):
         self.spectrum.__delitem__(key)
+        return None
 
     def weight_spectrum(self, spec_in, kind="linear"):
         """
@@ -212,21 +213,21 @@ class PowerSpectrum(object):
             self.spectrum = self.sub_spectrum(spec_in[0, 0], spec_in[0, -1])
         spec_wt = self.spectrum
         spec_wt[1] = spec_fun(spec_wt[0]) * spec_wt[1]
-        return
+        return None
 
     def copy(self):
-        return copy(self)
+        return deepcopy(self)
 
     def to_PhotonSpectrum(self):
         self.spectrum[1] *= (self.spectrum[0] * 1e-9 / (constants.c * constants.h))
         self.interp = interpolate.interp1d(self.spectrum[0], self.spectrum[1])
         self.__class__ = PhotonSpectrum
-        return
+        return None
 
     def to_PhotoCurrentSpectrum(self):
         self.to_PhotonSpectrum()
         self.to_PhotoCurrentSpectrum()
-        return
+        return None
 
 
 class PhotonSpectrum(PowerSpectrum):
@@ -262,13 +263,13 @@ class PhotonSpectrum(PowerSpectrum):
         self.spectrum[1] /= (self.spectrum[0] * 1e-9 / (constants.c * constants.h))
         self.interp = interpolate.interp1d(self.spectrum[0], self.spectrum[1])
         self.__class__ = PowerSpectrum
-        return
+        return None
 
     def to_PhotoCurrentSpectrum(self):
         self.spectrum[1] *= constants.e
         self.interp = interpolate.interp1d(self.spectrum[0], self.spectrum[1])
         self.__class__ = PhotocurrentSpectrum
-        return
+        return None
 
     def get_incident_power(self):
         spectrum_copy = self.copy()
@@ -309,9 +310,14 @@ class PhotocurrentSpectrum(PhotonSpectrum):
         self.spectrum[1] /= constants.e
         self.interp = interpolate.interp1d(self.spectrum[0], self.spectrum[1])
         self.__class__ = PhotonSpectrum
-        return
+        return None
 
     def to_PowerSpectrum(self):
         self.to_PhotonSpectrum()
         self.to_PowerSpectrum()
-        return
+        return None
+
+    def get_incident_power(self):
+        spectrum_copy = self.copy()
+        spectrum_copy.to_PowerSpectrum()
+        return spectrum_copy.get_incident_power()

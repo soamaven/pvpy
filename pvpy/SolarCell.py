@@ -80,6 +80,8 @@ class SolarCell(object):
     def __set_generation(self, photocurrentspec):
         # weight the illumination spectrum by the cells probability of absorbing light, and the probability that
         # it will generate an electron-hole pair
+        if not isinstance(photocurrentspec, PhotocurrentSpectrum):
+            photocurrentspec.to_PhotoCurrentSpectrum()
         weight = self.absorptivity.copy()
         weight[1] = self.absorptivity[1] * self.IQE[1] * np.cos(self.tilt)
         weightfun = interpolate.interp1d(weight[0], weight[1], kind='linear')
@@ -163,7 +165,7 @@ class SolarCell(object):
         self.ff = self.maxpower / (self.Voc * self.Isc)
         return self.ff
 
-    def get_effciency(self):
+    def get_efficiency(self):
         self.get_fill_factor()
-        self.effciency = self.ff * self.Isc * self.Voc / self.incident_power
-        return self.effciency
+        self.efficiency = self.ff * self.Isc * self.Voc / self.incident_power
+        return self.efficiency

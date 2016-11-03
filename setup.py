@@ -18,7 +18,7 @@ setup(
               'photovoltaics',
               'shockley',
               'queisser',
-              'yalonovitch',
+              'yablonovitch',
               'short-circuit current',
               'open-circuit voltage'],
     license='MIT',
