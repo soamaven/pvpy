@@ -43,10 +43,10 @@ class SolarCell(object):
                                                                 solidangle=self.solid_emission_angle)
         # give the cell an initial perfect absorptivity for SQ type analysis
         self.absorptivity = self.illuminationspectrumAmbient.get_spectrum()
-        self.absorptivity[:, 1] = np.ones(self.absorptivity[:, 1].shape)
+        self.absorptivity[1] = np.ones(self.absorptivity[1].shape)
         # This is an artifact of the ASTM spectrums having nonuniform bins, we have to set
         # the cell band gap to its nearest wavelength
-        self.bandgap_lambda = self.absorptivity[-1, 0]
+        self.bandgap_lambda = self.absorptivity[0, -1]
         # give the cell a black body spectrum
         self.cell_bb_spectrum = PhotocurrentSpectrum(start_w=start_w, stop_w=stop_w, bbtemp=self.celltemp,
                                                      spectra="BlackBody",
@@ -81,10 +81,10 @@ class SolarCell(object):
         # weight the illumination spectrum by the cells probability of absorbing light, and the probability that
         # it will generate an electron-hole pair
         weight = self.absorptivity.copy()
-        weight[:, 1] = self.absorptivity[:, 1] * self.IQE[:, 1] * np.cos(self.tilt)
-        weightfun = interpolate.interp1d(weight[:, 0], weight[:, 1], kind='linear')
-        weight = photocurrentspec.sub_spectrum(weight[0, 0], weight[-1, 0])
-        weight[:, 1] = weightfun(weight[:, 0])
+        weight[1] = self.absorptivity[1] * self.IQE[1] * np.cos(self.tilt)
+        weightfun = interpolate.interp1d(weight[0], weight[1], kind='linear')
+        weight = photocurrentspec.sub_spectrum(weight[0, 0], weight[0, -1])
+        weight[1] = weightfun(weight[0])
         photocurrentspec.weight_spectrum(weight)
         self.generation = photocurrentspec.integrate()
         return self.generation
