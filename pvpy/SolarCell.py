@@ -111,11 +111,10 @@ class SolarCell(object):
 
     def set_illumination(self, illuminationspectrum):
         self.illuminationspectrum = illuminationspectrum
+        # Important to get the overall incident_power of the spectrum before
+        # it is truncated to the bandgap with __set_generation
+        self.incident_power = illuminationspectrum.get_incident_power()
         self.__set_generation(self.illuminationspectrum)
-        # TODO: Figure out when to set incident power. If user puts in a spectrum that is only defined to the bandgap
-        # then the "incident power" is lower than it should be. This is avoided by just using the default start_w stop_w
-        # for incident spectrums, but perhaps should require the user explicitly input?
-        # self.incident_power = illuminationspectrum.get_incident_power()
         self.Voc = self.get_Voc()
         self.Isc = self.get_current()
         return
