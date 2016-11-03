@@ -1,8 +1,8 @@
 from os import path
-import numpy as np
 from pvpy.PowerSpectrum import *
 from pvpy.SolarCell import *
 from pvpy import PowerSpectrum
+import numpy as np
 
 try:
     filename = 'ASTMG173.csv'
@@ -28,7 +28,7 @@ except IOError as e:
 def jsc(*args, **kwargs):
     """
     Gives the absorbed photocurrent in mA/cm**2 of a normalized spectrum.
-    :param args: (array like) ideally (N,2)D numpy array with spec_in[:,0] as the wavelengths in nm and spec_in[:,1] as
+    :param args: (array like) ideally (2,N)D numpy array with spec_in[:,0] as the wavelengths in nm and spec_in[:,1] as
      the values, but can also be two lists/vectors
     :param kind: (str) interpolation kind. see scipy.interpolate.interp1d
     :param spectra:
@@ -41,13 +41,13 @@ def jsc(*args, **kwargs):
             "arg1 is %g, arg2 is %g. The inputs should be the same sizes." % (args[0].size, args[1].size)
         args = [np.asarray(arg) if type(arg) is list else arg for arg in args]
         spec_in = np.column_stack((args[0], args[1]))
-        assert np.shape(spec_in)[1] == 2, "The input arguments could not be converted to a (N,2) dimensional array."
-    elif len(args[0].shape) > 1 and args[0].shape[1] != 1:
+        assert np.shape(spec_in)[0] == 2, "The input arguments could not be converted to a (N,2) dimensional array."
+    elif len(args[0].shape) > 1 and args[0].shape[0] != 2:
         spec_in = args[0].transpose()
     else:
         spec_in = args[0]
     spec_in = np.squeeze(spec_in)
-    spec = PhotocurrentSpectrum(start_w=spec_in[0, 0], stop_w=[-1, 0], spectra=spectra)
+    spec = PhotocurrentSpectrum(start_w=spec_in[0, 0], stop_w=spec_in[0, -1], spectra=spectra)
     spec.weight_spectrum(spec_in, kind=kind)
     return spec.integrate() * .1
 

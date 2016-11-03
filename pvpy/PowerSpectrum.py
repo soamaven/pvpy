@@ -47,9 +47,9 @@ class PowerSpectrum(object):
         if spectra_ind in range(4):
             self.spectrum = np.genfromtxt(path.join(path.dirname(__file__), './ASTMG173.csv'), delimiter=",",
                                           skip_header=2)[:, [0, spectra_ind]]
+            self.spectrum = self.spectrum.T
             if start_w != 280.0 or stop_w != 4000.0:
                 self.spectrum = self.sub_spectrum(start_w, stop_w)
-                print(self.spectrum[-1])
         elif spectra == "BlackBody":
             self.start_w = start_w
             self.stop_w = stop_w + 1
@@ -58,7 +58,7 @@ class PowerSpectrum(object):
             assert isinstance(userspectrum, np.ndarray), "Weight spectrum is not a 2D numpy array."
             self.spectrum = userspectrum
         # create the PowerSpectrum interpolator
-        self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
+        self.interp = interpolate.interp1d(self.spectrum[0], self.spectrum[1])
 
     def blackbody_spectrum(self, mediumrefindex=1, solidangle=4*constants.pi, bbtemp=5400, v=0):
         """
@@ -73,14 +73,14 @@ class PowerSpectrum(object):
         self.bbtemp = bbtemp
         # Initilize wavelengths
         wavelengths = np.arange(self.start_w, self.stop_w, dtype=int)
-        spectrum = np.vstack((wavelengths, np.ones(wavelengths.shape))).T
+        spectrum = np.vstack((wavelengths, np.ones(wavelengths.shape)))
         wavelengths = np.arange(self.start_w, self.stop_w, dtype=float) * 1e-9
         # 2n^2hc^2/lambda^5*(exp(-hc/k lambda T)-1) gives units of W sr^-1 m^-3
         numerator = 2 * (self.mediumrefindex ** 2) * constants.h * constants.c ** 2
         exponential = np.exp((constants.h * constants.c - v) / (constants.k * wavelengths * bbtemp))
-        spectrum[:, 1] = numerator / ((wavelengths ** 5) * (exponential - 1))
+        spectrum[1] = numerator / ((wavelengths ** 5) * (exponential - 1))
         # Use provided solid angle to and 1m=1-9 get Power Flux per nanometer
-        spectrum[:, 1] *= 1e-9 * self.solidangle
+        spectrum[1] *= 1e-9 * self.solidangle
         return spectrum
 
     @staticmethod
@@ -104,9 +104,9 @@ class PowerSpectrum(object):
         :return: subspec (ndarray) the spectrum between start_w and stop_w
         """
         self.__bounds_check(*[start_w, stop_w])
-        start_ind = np.where(start_w <= self.spectrum[:, 0])[0][0]
-        stop_ind = np.where(self.spectrum[:, 0] <= stop_w)[0][-1] + 1
-        subspec = self.spectrum[start_ind:stop_ind, :].copy()
+        start_ind = np.where(start_w <= self.spectrum[0])[0][0]
+        stop_ind = np.where(self.spectrum[0] <= stop_w)[0][-1] + 1
+        subspec = self.spectrum[:, start_ind:stop_ind].copy()
         return subspec
 
     def __bounds_check(self, *wavelengths):
@@ -115,8 +115,8 @@ class PowerSpectrum(object):
         :param wavelengths: (float) wavelength in nanometers
         :returns: none
         """
-        lowerb = self.spectrum[:, 0][0]
-        upperb = self.spectrum[:, 0][-1]
+        lowerb = self.spectrum[0, 0]
+        upperb = self.spectrum[0, -1]
         # See if the wavelength(s) is out of bounds, throw error
         for w in wavelengths:
             if not lowerb <= w <= upperb:
@@ -135,14 +135,20 @@ class PowerSpectrum(object):
         :param: wavelengths (float, list) wavelength(s) of interest in nanometers
         :returns: values
         """
+        try:
+            iterable = iter(wavelengths)
+        except TypeError:
+            try:
+                wavelengths = [wavelengths]
+            except:
+                raise ValueError("Could not convert input to list")
         self.__bounds_check(*wavelengths)
         for w in wavelengths:
             irradiance = float(self.interp(w))
             yield irradiance
 
     def __call__(self, wavelengths):
-        self.value_at_wavelength(wavelengths)
-        return None
+        return np.array([x for x in self.value_at_wavelength(wavelengths)])
 
     def integrate(self, *w):
         """
@@ -158,7 +164,7 @@ class PowerSpectrum(object):
             assert len(w) >= 2 and w[0] < w[
                 1], 'Error: Too few wavelengths or start wavelength is not shorter than the longest wavelength.'
             spectrum = self.sub_spectrum(w[0], w[1])
-        power_f = integrate.trapz(spectrum[:, 1], spectrum[:, 0])
+        power_f = integrate.trapz(spectrum[1], spectrum[0])
         return power_f  # Units Watts/meters^2
 
     def get_incident_power(self):
@@ -193,27 +199,27 @@ class PowerSpectrum(object):
         spec_in[:,1]
         :return: (np.ndarray) a weighted spectrum in the same format as spec_in
         """
-        if spec_in.shape[1] != 2:
+        if spec_in.shape[0] != 2:
             try:
                 spec_in = spec_in.transpose()
             except:
                 pass
         spec_in = np.squeeze(spec_in)
-        assert spec_in.shape[1] == 2, "Weight spectrum is not a 2D numpy array."
+        assert spec_in.shape[0] == 2, "Weight spectrum is not a 2D numpy array."
         #TODO: Catch errors for when there aren't enough points for default kind, i.e. uncommon case of <4 points in weight
-        spec_fun = interpolate.interp1d(spec_in[:, 0], spec_in[:, 1], kind=kind)
-        if spec_in[0, 0] >= self.start_w or spec_in[-1, 0] <= self.stop_w:
-            self.spectrum = self.sub_spectrum(spec_in[0, 0], spec_in[-1, 0])
+        spec_fun = interpolate.interp1d(spec_in[0], spec_in[1], kind=kind)
+        if spec_in[0, 0] >= self.start_w or spec_in[0, -1] <= self.stop_w:
+            self.spectrum = self.sub_spectrum(spec_in[0, 0], spec_in[0, -1])
         spec_wt = self.spectrum
-        spec_wt[:, 1] = spec_fun(spec_wt[:, 0]) * spec_wt[:, 1]
+        spec_wt[1] = spec_fun(spec_wt[0]) * spec_wt[1]
         return
 
     def copy(self):
         return copy(self)
 
     def to_PhotonSpectrum(self):
-        self.spectrum[:, 1] *= (self.spectrum[:, 0] * 1e-9 / (constants.c * constants.h))
-        self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
+        self.spectrum[1] *= (self.spectrum[0] * 1e-9 / (constants.c * constants.h))
+        self.interp = interpolate.interp1d(self.spectrum[0], self.spectrum[1])
         self.__class__ = PhotonSpectrum
         return
 
@@ -249,18 +255,18 @@ class PhotonSpectrum(PowerSpectrum):
                                              solidangle=solidangle,
                                              userspectrum=userspectrum,
                                              v=v)
-        self.spectrum[:, 1] *= (self.spectrum[:, 0] * 1e-9 / (constants.c * constants.h))
-        self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
+        self.spectrum[1] *= (self.spectrum[0] * 1e-9 / (constants.c * constants.h))
+        self.interp = interpolate.interp1d(self.spectrum[0], self.spectrum[1])
 
     def to_PowerSpectrum(self):
-        self.spectrum[:, 1] /= (self.spectrum[:, 0] * 1e-9 / (constants.c * constants.h))
-        self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
+        self.spectrum[1] /= (self.spectrum[0] * 1e-9 / (constants.c * constants.h))
+        self.interp = interpolate.interp1d(self.spectrum[0], self.spectrum[1])
         self.__class__ = PowerSpectrum
         return
 
     def to_PhotoCurrentSpectrum(self):
-        self.spectrum[:, 1] *= constants.e
-        self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
+        self.spectrum[1] *= constants.e
+        self.interp = interpolate.interp1d(self.spectrum[0], self.spectrum[1])
         self.__class__ = PhotocurrentSpectrum
         return
 
@@ -271,7 +277,7 @@ class PhotonSpectrum(PowerSpectrum):
 
 
 class PhotocurrentSpectrum(PhotonSpectrum):
-    def __init__(self, start_w=280.0, stop_w=4000.0, spectra="AM1.5G", bbtemp= 5800, mediumrefindex=1,
+    def __init__(self, start_w=280.0, stop_w=4000.0, spectra="AM1.5G", bbtemp=5800, mediumrefindex=1,
                  solidangle=SOLAR_SOLID_ANGLE, userspectrum=None, v=0):
         """
         Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
@@ -296,12 +302,12 @@ class PhotocurrentSpectrum(PhotonSpectrum):
                                                    solidangle=solidangle,
                                                    userspectrum=userspectrum,
                                                    v=v)
-        self.spectrum[:, 1] *= constants.e
-        self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
+        self.spectrum[1] *= constants.e
+        self.interp = interpolate.interp1d(self.spectrum[0], self.spectrum[1])
 
     def to_PhotonSpectrum(self):
-        self.spectrum[:, 1] /= constants.e
-        self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
+        self.spectrum[1] /= constants.e
+        self.interp = interpolate.interp1d(self.spectrum[0], self.spectrum[1])
         self.__class__ = PhotonSpectrum
         return
 
