@@ -4,8 +4,6 @@
     <list default="true" id="5585c180-ca0b-412d-8811-e1a52b376147" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pvpy/PowerSpectrum.py" afterPath="$PROJECT_DIR$/pvpy/PowerSpectrum.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pvpy/SolarCell.py" afterPath="$PROJECT_DIR$/pvpy/SolarCell.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/setup.py" afterPath="$PROJECT_DIR$/setup.py" />
     </list>
     <ignored path="solspec.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PowerSpectrum.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PowerSpectrum.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pvpy/PowerSpectrum.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="320" column="0" selection-start-line="320" selection-start-column="0" selection-end-line="320" selection-end-column="0" />
+            <state relative-caret-position="136">
+              <caret line="44" column="44" selection-start-line="44" selection-start-column="44" selection-end-line="44" selection-end-column="44" />
               <folding>
                 <element signature="e#15#40#0" expanded="true" />
               </folding>
@@ -61,11 +59,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SolarCell.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SolarCell.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pvpy/SolarCell.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="153" column="18" selection-start-line="153" selection-start-column="18" selection-end-line="153" selection-end-column="18" />
+            <state relative-caret-position="136">
+              <caret line="142" column="48" selection-start-line="142" selection-start-column="48" selection-end-line="142" selection-end-column="48" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
                 <element signature="e#194#290#0" expanded="false" />
@@ -106,8 +104,8 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/pvpy/__init__.py" />
         <option value="$PROJECT_DIR$/setup.py" />
-        <option value="$PROJECT_DIR$/pvpy/PowerSpectrum.py" />
         <option value="$PROJECT_DIR$/pvpy/SolarCell.py" />
+        <option value="$PROJECT_DIR$/pvpy/PowerSpectrum.py" />
       </list>
     </option>
   </component>
@@ -571,7 +569,14 @@
       <option name="project" value="LOCAL" />
       <updated>1478140528628</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Fixed a bug in the get_incident_power and converting between spectrum types using deepcopy versus copy.">
+      <created>1478146097010</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1478146097010</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TodoView">
@@ -660,7 +665,8 @@
     <MESSAGE value="Fixed illumination spectrum weighting to handle blackbody spectrums below 4000nm and ASTM spectrums from 280-4000 even though it is spaced unevenly." />
     <MESSAGE value="Added getitem, setitem, delitem, and call functionality to PowerSpectrum" />
     <MESSAGE value="Retooled spectrum __getitem__ so that spectrum has been transposed. This makes calling the spectrum a bit easier syntactically." />
-    <option name="LAST_COMMIT_MESSAGE" value="Retooled spectrum __getitem__ so that spectrum has been transposed. This makes calling the spectrum a bit easier syntactically." />
+    <MESSAGE value="Fixed a bug in the get_incident_power and converting between spectrum types using deepcopy versus copy." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed a bug in the get_incident_power and converting between spectrum types using deepcopy versus copy." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1137,23 +1143,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pvpy/PowerSpectrum.py">
+    <entry file="file://$PROJECT_DIR$/pvpy/SolarCell.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="320" column="0" selection-start-line="320" selection-start-column="0" selection-end-line="320" selection-end-column="0" />
+        <state relative-caret-position="136">
+          <caret line="142" column="48" selection-start-line="142" selection-start-column="48" selection-end-line="142" selection-end-column="48" />
           <folding>
-            <element signature="e#15#40#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#194#290#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pvpy/SolarCell.py">
+    <entry file="file://$PROJECT_DIR$/pvpy/PowerSpectrum.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="153" column="18" selection-start-line="153" selection-start-column="18" selection-end-line="153" selection-end-column="18" />
+        <state relative-caret-position="136">
+          <caret line="44" column="44" selection-start-line="44" selection-start-column="44" selection-end-line="44" selection-end-column="44" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#194#290#0" expanded="false" />
+            <element signature="e#15#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
