@@ -8,6 +8,9 @@ import warnings
 def ev_to_nm(ev):
     return constants.h * constants.c / (ev * constants.physical_constants["electron volt"][0]) * 1e9
 
+def nm_to_ev(nm):
+    return constants.h * constants.c / (nm * constants.physical_constants["electron volt"][0]) * 1e9
+
 
 class SolarCell(object):
     def __init__(self, bandgap=1.1, tilt=0, degrees=True, back_reflector=True, celltemp=300):
@@ -19,8 +22,7 @@ class SolarCell(object):
         :param celltemp:
         :param back_reflector:
         """
-        if bandgap < 0.2:
-            warnings.warn("These results will be inaccurate for bandgaps smaller than 0.2eV.")
+
         self.bandgap = bandgap
         self.bandgap_lambda = ev_to_nm(bandgap)
         if degrees:
@@ -30,6 +32,8 @@ class SolarCell(object):
         self.celltemp = celltemp
         self.ideality = 1
         self.Vc = constants.k * self.celltemp * self.ideality / constants.e
+        if bandgap < self.Vc:
+            warnings.warn("These results will be inaccurate for bandgaps smaller than kT~%0.2feV." % self.Vc)
         start_w = 280
         stop_w = int(np.around(self.bandgap_lambda))
         if back_reflector:
