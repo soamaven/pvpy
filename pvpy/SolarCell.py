@@ -33,7 +33,7 @@ class SolarCell(object):
         self.ideality = 1
         self.Vc = constants.k * self.celltemp * self.ideality / constants.e
         if bandgap < self.Vc:
-            warnings.warn("These results will be inaccurate for bandgaps smaller than kT~%0.2feV." % self.Vc)
+            warnings.warn("These results will be inaccurate for bandgaps smaller than kT~%0.2f eV." % self.Vc)
         start_w = 280
         stop_w = int(np.around(self.bandgap_lambda))
         if back_reflector:
@@ -60,6 +60,7 @@ class SolarCell(object):
         self.luminescencespectrum = self.cell_bb_spectrum.copy()
         # Initilize the IQE as perfect by copying the unity absorptivity (i.e. normalized absorption)
         self.IQE = self.absorptivity.copy()
+        self.IQEfun = interpolate.interp1d(self.IQE[0], self.IQE[1], kind='linear')
         self.LED_eff = 1
         self.generation = 0
         self.illuminationspectrum = self.illuminationspectrumAmbient
@@ -79,6 +80,9 @@ class SolarCell(object):
         self.absorptivity = alpha
         self.cell_bb_spectrum.weight_spectrum(self.absorptivity)
         self.luminescencespectrum = self.cell_bb_spectrum.copy()
+        # The cell absorptivity is usually defined on the interger wavelength, and since IQE is initilized to be defined
+        # on the same wavelengths, we need to update the IQE for multiplications later, such as in __set_generation()
+        self.IQE = self.IQEfun(self.cell_bb_spectrum[0])
         return
 
     def __set_generation(self, photocurrentspec):
@@ -114,7 +118,7 @@ class SolarCell(object):
         return
 
     def set_illumination(self, illuminationspectrum):
-        self.illuminationspectrum = illuminationspectrum
+        self.illuminationspectrum = illuminationspectrum.copy()
         # Important to get the overall incident_power of the spectrum before
         # it is truncated to the bandgap with __set_generation
         self.incident_power = illuminationspectrum.get_incident_power()
@@ -141,7 +145,7 @@ class SolarCell(object):
         n = self.ideality
         if v is None:
             v = self.voltage
-        assert isinstance(v, (int, float, list, np.ndarray)), "Voltage %g is not an int or float." % v
+        assert isinstance(v, (int, float, list, np.ndarray)), "Voltage %g is not a valid input." % v
         # TODO: Implement Double Diode Model Here?
         # Rv = R0 * np.exp(v / (Vc * n))  # R(V)
         # print("Fs: %g, FcV: %g, R(0): %g, R(V): %g" % (Fs, FcV, R0, Rv))  # For Debugging
