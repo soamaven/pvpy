@@ -1,7 +1,9 @@
-from os import path
-from pvpy.PowerSpectrum import *
-from pvpy.SolarCell import *
-from pvpy import PowerSpectrum
+from __future__ import division, print_function, absolute_import
+
+from .PowerSpectrum import *
+
+from .SolarCell import *
+
 import numpy as np
 
 try:
