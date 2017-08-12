@@ -4,6 +4,7 @@ import numpy as np
 from scipy import interpolate, integrate, constants
 from os import path
 
+PI = constants.pi
 #Solar Solid angular diameter from earth surface is 1919 arcseconds = 0.009303575 radians
 # Source: http://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html accessed on on October 19 2016
 SOLAR_SOLID_ANGLE = 2 * constants.pi * (1 - np.cos(.009303575/2))  # ~6.798e-05 steradians
@@ -231,6 +232,20 @@ class PowerSpectrum(object):
         self.to_PhotoCurrentSpectrum()
         return None
 
+
+class AngularPowerSpectrum(PowerSpectrum):
+    def __init__(self, start_w=280.0, stop_w=4000.0, spectra="AM1.5G", bbtemp=5800, mediumrefindex=1,
+                 solidangle=SOLAR_SOLID_ANGLE, v=0):
+        super(AngularPowerSpectrum, self).__init__(start_w=start_w,
+                                                   stop_w=stop_w,
+                                                   spectra=spectra,
+                                                   bbtemp=bbtemp,
+                                                   mediumrefindex=mediumrefindex,
+                                                   solidangle=solidangle,
+                                                   v=v,
+                                                   theta0=0,
+                                                   theta1=90,
+                                                   )
 
 class PhotonSpectrum(PowerSpectrum):
     def __init__(self, start_w=280.0, stop_w=4000.0, spectra="AM1.5G", bbtemp=5800, mediumrefindex=1,

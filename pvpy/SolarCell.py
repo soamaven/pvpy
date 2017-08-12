@@ -177,3 +177,7 @@ class SolarCell(object):
         self.get_fill_factor()
         self.efficiency = self.ff * self.Isc * self.Voc / self.incident_power
         return self.efficiency
+
+class ConcSolarCell(SolarCell):
+    def __init__(self, bandgap=1.1, tilt=0, degrees=True, back_reflector=True, celltemp=300):
+        pass

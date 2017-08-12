@@ -1,6 +1,8 @@
-import photovoltaic as pv
 import matplotlib.pyplot as plt
 import numpy as np
+
+import pveducation.photovoltaic as pv
+
 losses = pv.Pf_total(2, 0.035, 0.2, 1.6e-6, 50, 0.01, 0.001, 0.650)
 Sf = np.linspace(0.01,0.5)
 Ptotal, Presistivity, Pshading, Psheet  = pv.Pf_total(2.0,0.035,Sf, 1.6e-6, 50, 100e-4, 0.5e-4, 0.650)
