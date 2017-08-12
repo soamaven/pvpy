@@ -7,7 +7,6 @@ eV = q
 k = 1.38064852e-23  # (J/K)
 Wien = 2.898e-3
 Stefan_Boltzmann = 5.670367e-08  # (W m^-2 K^-4)
-π = np.pi
 h = 6.62607004e-34  # (J.s)
 c = 299792458.0  # (m s^-1)
 hc_q = h * c / q
