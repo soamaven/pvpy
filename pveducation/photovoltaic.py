@@ -1,10 +1,10 @@
-from pvpy.pveducation.conversions import *
-from pvpy.pveducation.optics import *
-from pvpy.pveducation.solrad import *
+# This Python file uses the following encoding: utf-8
+# -*- coding: utf-8 -*-
 
-from pveducation.semiconductors import *
+from .semiconductors import *
 
-# coding=utf-8
+import numpy as np
+
 """ Basic photovoltaic functions
 Alpha Version 0.02
 
@@ -26,23 +26,12 @@ The first line on all input files is ignored to allow for column headers
 Contributions by: sgbowden, ?, ? etc
 """
 
-'''
-User comments
-#suggested by Josh nm2ev = photon_nm2eV
-'''
-
-# objective is to have as few imports as possible.
-
-
-
-
 # define constants
 q = 1.60217662e-19  # (C) (units go after the comment line)
 eV = q
 k = 1.38064852e-23  # (J/K)
 Wien = 2.898e-3
 Stefan_Boltzmann = 5.670367e-08  # (W m^-2 K^-4)
-π = np.pi
 h = 6.62607004e-34  # (J.s)
 c = 299792458.0  # (m s^-1)
 hc_q = h * c / q
@@ -51,21 +40,10 @@ pi = np.pi
 toRad = pi / 180  # use to convert to radians
 toDeg = 180 / pi  # use to convert to degress
 
-# python helpers that are not pv
-
-
-
-
-
-
-
-
-
-
-
 # Solar Cells
 
-def impliedV(Δn, N, T=298.15):
+
+def implied_v(Δn, N, T=298.15):
     """return voltage
     given doping and excess carrier concentration """
     return Vt(T) * np.log((Δn + N) * Δn / ni_Si(T) ** 2)
@@ -79,7 +57,7 @@ def implied_carrier(V, N, T=298.15):
 
 
 def J0side(ni, W, N, D, L, S):
-    F = (S * np.cosh(W / L) + D / L * np.sinh(W * L)) / (De / L * np.cosh(W * L) + S * np.sinh(W / L))
+    F = (S * np.cosh(W / L) + D / L * np.sinh(W * L)) / (D / L * np.cosh(W * L) + S * np.sinh(W / L))
     return q * ni ** 2 * (F * D / (L * N))
 
 
