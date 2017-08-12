@@ -2,7 +2,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-import pveducation.photovoltaic as pv
+import photovoltaic as pv
 
 Se = 100
 Le = 1e-4

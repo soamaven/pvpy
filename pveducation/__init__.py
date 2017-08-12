@@ -10,5 +10,3 @@ from .optics import *
 from .solrad import *
 
 from .semiconductors import *
-
-from
