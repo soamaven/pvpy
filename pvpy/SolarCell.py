@@ -1,12 +1,13 @@
 import numpy as np
 from scipy import constants, interpolate
 from scipy.optimize import fmin
-from PowerSpectrum import PowerSpectrum, PhotocurrentSpectrum
+from .PowerSpectrum import PowerSpectrum, PhotocurrentSpectrum
 import warnings
 
 
 def ev_to_nm(ev):
     return constants.h * constants.c / (ev * constants.physical_constants["electron volt"][0]) * 1e9
+
 
 def nm_to_ev(nm):
     return constants.h * constants.c / (nm * constants.physical_constants["electron volt"][0]) * 1e9
@@ -41,8 +42,7 @@ class SolarCell(object):
         if not back_reflector:
             self.solid_emission_angle = PowerSpectrum.solid_angle(180, 360)
         # Default illumination spectrum is ambient blackbody
-        self.illuminationspectrumAmbient = PhotocurrentSpectrum(start_w=start_w, stop_w=stop_w,
-                                                                spectra="BlackBody",
+        self.illuminationspectrumAmbient = PhotocurrentSpectrum(start_w=start_w, stop_w=stop_w, spectra="BlackBody",
                                                                 bbtemp=self.celltemp,
                                                                 solidangle=self.solid_emission_angle)
         # give the cell an initial perfect absorptivity for SQ type analysis
@@ -52,9 +52,8 @@ class SolarCell(object):
         # the cell band gap to its nearest wavelength
         self.bandgap_lambda = self.absorptivity[0, -1]
         # give the cell a black body spectrum
-        self.cell_bb_spectrum = PhotocurrentSpectrum(start_w=start_w, stop_w=stop_w, bbtemp=self.celltemp,
-                                                     spectra="BlackBody",
-                                                     solidangle=self.solid_emission_angle)
+        self.cell_bb_spectrum = PhotocurrentSpectrum(start_w=start_w, stop_w=stop_w, spectra="BlackBody",
+                                                     bbtemp=self.celltemp, solidangle=self.solid_emission_angle)
         self.cell_bb_spectrum.weight_spectrum(self.absorptivity)
         self.voltage = 0
         self.luminescencespectrum = self.cell_bb_spectrum.copy()
@@ -71,7 +70,7 @@ class SolarCell(object):
         self.Isc = self.get_current()
         # Initilize with some empirical guesses
         # use initial empirical guess of Martin Green
-        self.ff = (self.Voc/self.Vc - np.log(self.Voc/self.Vc + .72)) / (self.Voc/self.Vc + 1)
+        self.ff = (self.Voc / self.Vc - np.log(self.Voc / self.Vc + .72)) / (self.Voc / self.Vc + 1)
         self.Vmpp = self.ff * self.Isc
         self.Impp = self.ff * self.Voc
         self.maxpower = self.Vmpp * self.Impp
@@ -102,11 +101,8 @@ class SolarCell(object):
 
     def luminescence_spectrum(self, v=0):
         # TODO: Determine if the chemical potential dependent blackbody spectrum will work for non-ideal diodes
-        luminescence_spectrum = PhotocurrentSpectrum(start_w=280, stop_w=self.bandgap_lambda,
-                                                     bbtemp=self.celltemp,
-                                                     spectra="BlackBody",
-                                                     solidangle=self.solid_emission_angle,
-                                                     v=v)
+        luminescence_spectrum = PhotocurrentSpectrum(start_w=280, stop_w=self.bandgap_lambda, spectra="BlackBody",
+                                                     bbtemp=self.celltemp, solidangle=self.solid_emission_angle, v=v)
         luminescence_spectrum.weight_spectrum(self.absorptivity)
         return luminescence_spectrum
 
@@ -177,6 +173,7 @@ class SolarCell(object):
         self.get_fill_factor()
         self.efficiency = self.ff * self.Isc * self.Voc / self.incident_power
         return self.efficiency
+
 
 class ConcSolarCell(SolarCell):
     def __init__(self, bandgap=1.1, tilt=0, degrees=True, back_reflector=True, celltemp=300):

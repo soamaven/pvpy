@@ -11,9 +11,13 @@ SOLAR_SOLID_ANGLE = 2 * constants.pi * (1 - np.cos(.009303575/2))  # ~6.798e-05 
 
 class PowerSpectrum(object):
     def __init__(self, start_w=280.0, stop_w=4000.0, spectra="AM1.5G", bbtemp=5800, mediumrefindex=1,
-                 solidangle=SOLAR_SOLID_ANGLE, v=0):
+                 solidangle=SOLAR_SOLID_ANGLE, v=0, theta0=0, theta1=90):
         """
         Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
+        :param theta0:
+        :type theta0:
+        :param theta1:
+        :type theta1:
         :param start_w: shortest wavelength in nanometers
         :param stop_w: longest wavelength in nanometers
         :param spectra: the name of the spectrum you want to use. AM1.5G is most popular and is the ASTMG173-03
@@ -235,23 +239,19 @@ class PowerSpectrum(object):
 
 class AngularPowerSpectrum(PowerSpectrum):
     def __init__(self, start_w=280.0, stop_w=4000.0, spectra="AM1.5G", bbtemp=5800, mediumrefindex=1,
-                 solidangle=SOLAR_SOLID_ANGLE, v=0):
-        super(AngularPowerSpectrum, self).__init__(start_w=start_w,
-                                                   stop_w=stop_w,
-                                                   spectra=spectra,
-                                                   bbtemp=bbtemp,
-                                                   mediumrefindex=mediumrefindex,
-                                                   solidangle=solidangle,
-                                                   v=v,
-                                                   theta0=0,
-                                                   theta1=90,
-                                                   )
+                 solidangle=SOLAR_SOLID_ANGLE, v=0, theta0=0, theta1=90):
+        super(AngularPowerSpectrum, self).__init__(start_w=start_w, stop_w=stop_w, spectra=spectra, bbtemp=bbtemp,
+                                                   mediumrefindex=mediumrefindex, solidangle=solidangle, v=v)
 
 class PhotonSpectrum(PowerSpectrum):
     def __init__(self, start_w=280.0, stop_w=4000.0, spectra="AM1.5G", bbtemp=5800, mediumrefindex=1,
-                 solidangle=SOLAR_SOLID_ANGLE, v=0):
+                 solidangle=SOLAR_SOLID_ANGLE, v=0, theta0=0, theta1=90):
         """
         Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
+        :param theta0:
+        :type theta0:
+        :param theta1:
+        :type theta1:
         :param start_w: shortest wavelength in nanometers
         :param stop_w: longest wavelength in nanometers
         :param spectra: the name of the spectrum you want to use. AM1.5G is most popular and is the ASTMG173-03
@@ -265,13 +265,8 @@ class PhotonSpectrum(PowerSpectrum):
         a source encompassing the whole sphere it can see is 4pi.
         :return:
         """
-        super(PhotonSpectrum, self).__init__(start_w=start_w,
-                                             stop_w=stop_w,
-                                             spectra=spectra,
-                                             bbtemp=bbtemp,
-                                             mediumrefindex=mediumrefindex,
-                                             solidangle=solidangle,
-                                             v=v)
+        super(PhotonSpectrum, self).__init__(start_w=start_w, stop_w=stop_w, spectra=spectra, bbtemp=bbtemp,
+                                             mediumrefindex=mediumrefindex, solidangle=solidangle, v=v)
         self.spectrum[1] *= (self.spectrum[0] * 1e-9 / (constants.c * constants.h))
         self.interp = interpolate.interp1d(self.spectrum[0], self.spectrum[1])
 
@@ -295,9 +290,13 @@ class PhotonSpectrum(PowerSpectrum):
 
 class PhotocurrentSpectrum(PhotonSpectrum):
     def __init__(self, start_w=280.0, stop_w=4000.0, spectra="AM1.5G", bbtemp=5800, mediumrefindex=1,
-                 solidangle=SOLAR_SOLID_ANGLE, v=0):
+                 solidangle=SOLAR_SOLID_ANGLE, v=0, theta0=0, theta1=90):
         """
         Initilizer for PowerSpectrum class. Builds custom spectrum if variables are passed when creating instance.
+        :param theta0:
+        :type theta0:
+        :param theta1:
+        :type theta1:
         :param start_w: shortest wavelength in nanometers
         :param stop_w: longest wavelength in nanometers
         :param spectra: the name of the spectrum you want to use. AM1.5G is most popular and is the ASTMG173-03
@@ -311,13 +310,8 @@ class PhotocurrentSpectrum(PhotonSpectrum):
         a source encompassing the whole sphere it can see is 4pi.
         :return:
         """
-        super(PhotocurrentSpectrum, self).__init__(start_w=start_w,
-                                                   stop_w=stop_w,
-                                                   spectra=spectra,
-                                                   bbtemp=bbtemp,
-                                                   mediumrefindex=mediumrefindex,
-                                                   solidangle=solidangle,
-                                                   v=v)
+        super(PhotocurrentSpectrum, self).__init__(start_w=start_w, stop_w=stop_w, spectra=spectra, bbtemp=bbtemp,
+                                                   mediumrefindex=mediumrefindex, solidangle=solidangle, v=v)
         self.spectrum[1] *= constants.e
         self.interp = interpolate.interp1d(self.spectrum[0], self.spectrum[1])
 
