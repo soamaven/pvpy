@@ -44,29 +44,48 @@ toDeg = 180 / pi  # use to convert to degress
 
 
 def implied_v(Δn, N, T=298.15):
-    """return voltage
-    given doping and excess carrier concentration """
+    """
+    Return voltage given doping and excess carrier concentration.
+
+    :param Δn: excess carrier concentration
+    :type Δn: float
+    :param N: float
+    :type N: doping level
+    :param T: Temperature in Kelvin
+    :type T: float
+    :return: implied voltage of Si solar cell
+    :rtype: float
+    """
     return Vt(T) * np.log((Δn + N) * Δn / ni_Si(T) ** 2)
 
 
 def implied_carrier(V, N, T=298.15):
-    """ return carrier concentration
-    Given voltage and doping determine """
+    """
+     Given voltage and doping in Si solar cell determine return carrier concentration.
+    :param V: voltage
+    :type V: float
+    :param N: doping level
+    :type N: float
+    :param T: Temperature in Kelvin
+    :type T: float
+    :return: excess carrier concentration
+    :rtype: float
+    """
     Δn = (-N + np.sqrt(N ** 2 + 4 * ni_Si(T) ** 2 * np.exp(V / Vt(T)))) / 2
     return Δn
 
 
-def J0side(ni, W, N, D, L, S):
-    F = (S * np.cosh(W / L) + D / L * np.sinh(W * L)) / (D / L * np.cosh(W * L) + S * np.sinh(W / L))
-    return q * ni ** 2 * (F * D / (L * N))
+def j0side(ni, W, N, D, L, S):
+    f = (S * np.cosh(W / L) + D / L * np.sinh(W * L)) / (D / L * np.cosh(W * L) + S * np.sinh(W / L))
+    return q * ni ** 2 * (f * D / (L * N))
 
 
-def efficiency(Voc, Isc, FF, A=1):
+def efficiency(v_oc, i_sc, ff, A=1):
     """Return efficiency
-    given Voc (volts), Isc in (amps), FF
+    given voc (volts), Isc in (amps), FF
     also works for Jsc since area of 1 is assumed
     """
-    return 1000 * Voc * Isc * FF / A
+    return 1000 * v_oc * i_sc * ff / A
 
 
 def current2gen(I):
@@ -85,31 +104,70 @@ def current2gen(I):
 #    return J0
 
 
-def I_diode(V, I0, T=298.15):
+def ideal_diode(V, I0, T=298.15):
     """ideal diode equation
     Return the current given the voltage and saturation"""
     return I0 * np.exp(V / Vt(T))
 
 
-def I_cell(V, IL, I0, T=298.15):
-    """ return current (amps) of a solar cell
+def solarcell_light_current(V, IL, I0, T=298.15, seriesResistance=None, shuntResistance=None, units="amps"):
+    """
+    Return current (amps) of a solar cell
     given voltage, light generated current, I0
     also works for J0
+    :param V: voltage
+    :type V: float
+    :param IL: light current
+    :type IL: float
+    :param I0: saturation current
+    :type I0: float
+    :param T: temperature in kelvin
+    :type T: float
+    :param seriesResistance: series resistance of a solar cell in the circuit model
+    :type seriesResistance: float
+    :param shuntResistance: shunt resistance of a solar cell in the circuit model
+    :type shuntResistance: float
+    :param units: SI units of current output
+    :type units: str
+    :return: Current in amps
+    :rtype: float
     """
-    return IL - I0 * np.exp(V / Vt(T))
+    if shuntResistance and seriesResistance:
+        current = IL - I0 * np.exp(V / Vt(T)) - V / shuntResistance
+    elif shuntResistance:
+        current = IL - I0 * np.exp(V / Vt(T)) - V / shuntResistance
+    elif seriesResistance:
+        #TODO: implement finding current when there is series resistance, remove the error below
+        raise NotImplementedError("Series resistance method is not implemented yet.")
+    else:
+        current = IL - I0 * np.exp(V / Vt(T))
+    return current
 
 
 def I_cell_Rshunt(V, IL, I0, Rshunt, T=298.15):
     """ return current (A) of a solar cell from   """
+    Warning("Deprecated. Use solarcell_light_current() instead.")
     return IL - I0 * np.exp(V / Vt(T)) - V / Rshunt
 
 
-def Voc(IL, I0, n=1,  T=298.15):
-    """return the open circuit voltage, Voc, (volts) from IL(A) and I0(A).
+def voc(IL, I0, n=1, T=298.15):
+    """
+    Return the open circuit voltage, voc, (volts) from IL(A) and I0(A).
     IL and Io must be in the same units, Eg, (A), (mA) etc
     Using (mA/cm**2) uses J0 and JL instead.
+    :param IL:
+    :type IL:
+    :param I0:
+    :type I0:
+    :param n:
+    :type n:
+    :param T:
+    :type T:
+    :return:
+    :rtype:
     """
     return n * Vt(T) * np.log(IL / I0 + 1)
+
 
 def V_cell(I, IL, I0,  T=298.15):
     """return cell voltage (volts)
@@ -176,7 +234,7 @@ def FF(Vmp, Jmp, Voc, Isc):
 def FF_ideal(Voc, ideality=1, T=298.15):
     """Return the FF (units)
     Given:
-        Voc - open circuit voltage (volts)
+        voc - open circuit voltage (volts)
     """
     voc = normalised_Voc(Voc, ideality, T)
     FF0 = (voc - np.log(voc + 0.72)) / (voc + 1)
@@ -190,9 +248,9 @@ def normalised_Voc(Voc, ideality, T=298.15):
 def FF_Rs(Voc, Isc, Rseries, ideality=1, T=298.15):
     """Return the FF (units)
     Given:
-        Voc - open circuit voltage (volts)
+        voc - open circuit voltage (volts)
     """
-    # voc = normalised_Voc(Voc, ideality, T)
+    # voc = normalised_Voc(voc, ideality, T)
     RCH = Voc / Isc
     rs = Rseries / RCH
     FF0 = FF_ideal(Voc, ideality, T)
@@ -203,7 +261,7 @@ def FF_Rs(Voc, Isc, Rseries, ideality=1, T=298.15):
 def FF_Rsh(Voc, Isc, Rshunt, ideality=1, T=298.15):
     """Return the FF (units)
     Given:
-        Voc - open circuit voltage (volts)
+        voc - open circuit voltage (volts)
     """
     voc = normalised_Voc(Voc, ideality, T)
     RCH = Voc / Isc
@@ -307,4 +365,4 @@ def lifetime_SRH(N, Nt, Et, σ_n, σ_p, Δn, T=298.15):
 
 
 
-# write LIV() input v and I or J as x and y. returns *Voc, Jsc, FF, MP, bastardized Rsh, bastardized Rs
+# write LIV() input v and I or J as x and y. returns *voc, Jsc, FF, MP, bastardized Rsh, bastardized Rs
