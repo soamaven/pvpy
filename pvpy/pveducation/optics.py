@@ -1,5 +1,5 @@
 # coding=utf-8
-from pveducation.conversions import *
+from pvpy.pveducation.conversions import *
 
 
 # Optics

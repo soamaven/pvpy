@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-import pveducation as pv
+from pvpy import pveducation as pv
 
 losses = pv.Pf_total(2, 0.035, 0.2, 1.6e-6, 50, 0.01, 0.001, 0.650)
 Sf = np.linspace(0.01,0.5)
