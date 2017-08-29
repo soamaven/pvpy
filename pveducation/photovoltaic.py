@@ -43,12 +43,12 @@ toDeg = 180 / pi  # use to convert to degress
 # Solar Cells
 
 
-def implied_v(Δn, N, T=298.15):
+def implied_v(del_n, N, T=298.15):
     """
     Return voltage given doping and excess carrier concentration.
 
-    :param Δn: excess carrier concentration
-    :type Δn: float
+    :param del_n: excess carrier concentration
+    :type del_n: float
     :param N: float
     :type N: doping level
     :param T: Temperature in Kelvin
@@ -56,7 +56,7 @@ def implied_v(Δn, N, T=298.15):
     :return: implied voltage of Si solar cell
     :rtype: float
     """
-    return Vt(T) * np.log((Δn + N) * Δn / ni_Si(T) ** 2)
+    return Vt(T) * np.log((del_n + N) * del_n / ni_Si(T) ** 2)
 
 
 def implied_carrier(V, N, T=298.15):
@@ -71,8 +71,8 @@ def implied_carrier(V, N, T=298.15):
     :return: excess carrier concentration
     :rtype: float
     """
-    Δn = (-N + np.sqrt(N ** 2 + 4 * ni_Si(T) ** 2 * np.exp(V / Vt(T)))) / 2
-    return Δn
+    del_n = (-N + np.sqrt(N ** 2 + 4 * ni_Si(T) ** 2 * np.exp(V / Vt(T)))) / 2
+    return del_n
 
 
 def j0side(ni, W, N, D, L, S):
@@ -346,19 +346,19 @@ def convertQEtoSR(wavelength, spectral_response):
 
 
 
-def lifetime_SRH(N, Nt, Et, σ_n, σ_p, Δn, T=298.15):
+def lifetime_SRH(N, Nt, Et, sigma_n, sigma_p, del_n, T=298.15):
     Nv = 31000000000000000000 * (T / 300) ** 1.85
     Nc = 28600000000000000000 * (T / 300) ** 1.58
     Eg = 1.1246
     vth = 11000000 * (T / 300) ** 0.5
     p0 = N
     n0 = (ni_Si(300) ** 2) / N
-    τ_n0 = 1 / (Nt * σ_n * vth)
-    τ_p0 = 1 / (Nt * σ_p * vth)
+    τ_n0 = 1 / (Nt * sigma_n * vth)
+    τ_p0 = 1 / (Nt * sigma_p * vth)
     n1 = Nc * np.exp(-Et / Vt())
     p1 = Nv * np.exp((-Et - Eg) / Vt())
-    k_ratio = σ_n / σ_p
-    τ_SRH = (τ_p0 * (n0 + n1 + Δn) + τ_n0 * (p0 + p1 + Δn)) / (n0 + p0 + Δn)
+    k_ratio = sigma_n / sigma_p
+    τ_SRH = (τ_p0 * (n0 + n1 + del_n) + τ_n0 * (p0 + p1 + del_n)) / (n0 + p0 + del_n)
     return τ_SRH
 
 
