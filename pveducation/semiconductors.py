@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from conversions import *
 
 
@@ -32,14 +33,14 @@ def Vt(T=298.15):
 
 def masetti_mobility(N):
     """ mobility model """
-    µmax = 1414
-    µmin = 68.5
+    mu_max = 1414
+    mu_min = 68.5
     u1 = 56.1
     Nref1 = 9.20e16
     Nref2 = 3.41e20
     a = 0.711
     b = 1.98
-    return µmin + (µmax - µmin) / (1 + ((N / Nref1) ** a)) - u1 / (1 + ((Nref2 / N) ** b))
+    return mu_min + (mu_max - mu_min) / (1 + ((N / Nref1) ** a)) - u1 / (1 + ((Nref2 / N) ** b))
 
 
 def phos_active(T):

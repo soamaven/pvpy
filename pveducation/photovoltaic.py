@@ -353,13 +353,13 @@ def lifetime_SRH(N, Nt, Et, sigma_n, sigma_p, del_n, T=298.15):
     vth = 11000000 * (T / 300) ** 0.5
     p0 = N
     n0 = (ni_Si(300) ** 2) / N
-    τ_n0 = 1 / (Nt * sigma_n * vth)
-    τ_p0 = 1 / (Nt * sigma_p * vth)
+    tau_n0 = 1 / (Nt * sigma_n * vth)
+    tau_p0 = 1 / (Nt * sigma_p * vth)
     n1 = Nc * np.exp(-Et / Vt())
     p1 = Nv * np.exp((-Et - Eg) / Vt())
     k_ratio = sigma_n / sigma_p
-    τ_SRH = (τ_p0 * (n0 + n1 + del_n) + τ_n0 * (p0 + p1 + del_n)) / (n0 + p0 + del_n)
-    return τ_SRH
+    tau_SRH = (tau_p0 * (n0 + n1 + del_n) + tau_n0 * (p0 + p1 + del_n)) / (n0 + p0 + del_n)
+    return tau_SRH
 
 
 

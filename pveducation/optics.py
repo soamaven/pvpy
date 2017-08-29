@@ -3,17 +3,17 @@ from pveducation.conversions import *
 
 
 # Optics
-def snell(n1, n2, θ1):
+def snell(n1, n2, theta1):
     """ return the refracted angle
     given refractive index of incident medium, transmission medium and incident angle"""
-    θ2 = np.degrees(np.arcsin(n1 / n2 * np.sin(np.radians(θ1))))
-    return θ2
+    theta2 = np.degrees(np.arcsin(n1 / n2 * np.sin(np.radians(theta_1))))
+    return theta2
 
 
 def extinction2abs(kd, wavelength):
     """absorption coefficienct (cm-1) from extinction coefficient (units)
     what is the wavelength in?"""
-    return 1e7 * 4 * π * kd / wavelength
+    return 1e7 * 4 * pi * kd / wavelength
 
 
 def FresReflect(ni, d):
@@ -57,9 +57,9 @@ def ARC_refl(wavelength, n0, n1, nSemi, thickness):
 
     r1 = (n0 - n1) / (n0 + n1)
     r2 = (n1 - nSemi) / (n1 + nSemi)
-    θ = (2 * π * n1 * thickness) / wavelength
-    Refl = 100 * (r1 * r1 + r2 * r2 + 2 * r1 * r2 * np.cos(2 * θ)) / (
-        1 + r1 * r1 * r2 * r2 + 2 * r1 * r2 * np.cos(2 * θ))
+    theta = (2 * pi * n1 * thickness) / wavelength
+    Refl = 100 * (r1 * r1 + r2 * r2 + 2 * r1 * r2 * np.cos(2 * theta)) / (
+        1 + r1 * r1 * r2 * r2 + 2 * r1 * r2 * np.cos(2 * theta))
     return Refl
 
 
@@ -74,14 +74,14 @@ def DLARC_refl(wavelength, n0, n1, n2, nSemi, thickness1, thickness2):
     r1 = (n0 - n1) / (n0 + n1)
     r2 = (n1 - n2) / (n1 + n2)
     r3 = (n2 - nSemi) / (n2 + nSemi)
-    θ1 = (2 * π * n1 * thickness1) / wavelength
-    θ2 = (2 * π * n2 * thickness2) / wavelength
+    theta1 = (2 * pi * n1 * thickness1) / wavelength
+    theta2 = (2 * pi * n2 * thickness2) / wavelength
 
     numerator = r1 * r1 + r2 * r2 + r3 * r3 + r1 * r1 * r2 * r2 * r3 * r3 + 2 * r1 * r2 * (1 + r3 * r3) * np.cos(
-        2 * θ1) + 2 * r2 * r3 * (1 + r1 * r1) * np.cos(2 * θ2) + 2 * r1 * r3 * np.cos(
-        2 * (θ1 + θ2)) + 2 * r1 * r2 * r2 * r3 * np.cos(2 * (θ1 - θ2))
+        2 * theta1) + 2 * r2 * r3 * (1 + r1 * r1) * np.cos(2 * theta2) + 2 * r1 * r3 * np.cos(
+        2 * (theta1 + theta2)) + 2 * r1 * r2 * r2 * r3 * np.cos(2 * (theta1 - theta2))
     denominator = 1 + r1 * r1 * r2 * r2 + r1 * r1 * r3 * r3 + r3 * r3 * r2 * r2 + 2 * r1 * r2 * (1 + r3 * r3) * np.cos(
-        2 * θ1) + 2 * r2 * r3 * (1 + r1 * r1) * np.cos(2 * θ2) + 2 * r1 * r3 * np.cos(
-        2 * (θ1 + θ2)) + 2 * r1 * r2 * r2 * r3 * np.cos(2 * (θ1 - θ2))
+        2 * theta1) + 2 * r2 * r3 * (1 + r1 * r1) * np.cos(2 * theta2) + 2 * r1 * r3 * np.cos(
+        2 * (theta1 + theta2)) + 2 * r1 * r2 * r2 * r3 * np.cos(2 * (theta1 - theta2))
 
     return numerator / denominator
