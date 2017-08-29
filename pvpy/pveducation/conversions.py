@@ -98,7 +98,7 @@ def si_units(fun):
     exp_premodifiers = {"cubic": 3.0, "square": 2.0, "per": -1.0, "inverse": -1.0}
     exp_postmodifiers = {"cubed": 3.0, "squared": 2.0}
 
-    def units_wrapper(units, *args, **kwargs):
+    def units_wrapper(units='', *args, **kwargs):
         matches = regex_parser.findall(units)
         unit_factors = np.ones((len(matches)))
         for match, i in zip(matches, range(len(unit_factors))):
@@ -130,6 +130,6 @@ def si_units(fun):
             else:
                 raise(SyntaxError("{:s} can't be used in a units string.".format(match)))
 
-        return fun
+        return fun(*args, **kwargs) * 10
 
     return units_wrapper
