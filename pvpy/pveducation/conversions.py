@@ -97,7 +97,7 @@ def si_units(fun):
     # Special english modifiers for units
     exp_premodifiers = {"cubic": 3.0, "square": 2.0, "per": -1.0, "inverse": -1.0}
     exp_postmodifiers = {"cubed": 3.0, "squared": 2.0}
-
+    @wraps(fun)
     def units_wrapper(units='', *args, **kwargs):
         matches = regex_parser.findall(units)
         unit_factors = np.ones((len(matches)))

@@ -1,26 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list id="5585c180-ca0b-412d-8811-e1a52b376147" name="Default" comment="Python2 doesn't allow non ASCII characters in variable names">
+    <list id="e9298852-624a-4f09-8a5e-0b32dbc64453" name="syntax" comment="Python2 does not support non-ASCII characters in variable names" />
+    <list default="true" id="5585c180-ca0b-412d-8811-e1a52b376147" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
-    <list default="true" id="e9298852-624a-4f09-8a5e-0b32dbc64453" name="syntax" comment="Python2 does not support non-ASCII characters in variable names">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pvpy/pveducation/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pvpy/pveducation/conversions.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pveducation/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pveducation/conversions.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/pveducation/FingLoss_module.py" afterPath="$PROJECT_DIR$/pvpy/pveducation/FingLoss_module.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/pveducation/OpticalPropertiesOfSilicon.txt" afterPath="$PROJECT_DIR$/pvpy/pveducation/OpticalPropertiesOfSilicon.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/pveducation/QE2.py" afterPath="$PROJECT_DIR$/pvpy/pveducation/QE2.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/pveducation/optics.py" afterPath="$PROJECT_DIR$/pvpy/pveducation/optics.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/pveducation/photovoltaic.py" afterPath="$PROJECT_DIR$/pvpy/pveducation/photovoltaic.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/pveducation/semiconductors.py" afterPath="$PROJECT_DIR$/pvpy/pveducation/semiconductors.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/pveducation/solrad.py" afterPath="$PROJECT_DIR$/pvpy/pveducation/solrad.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pvpy/pveducation/conversions.py" afterPath="$PROJECT_DIR$/pvpy/pveducation/conversions.py" />
     </list>
     <ignored path="solspec.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <file path="$PROJECT_DIR$/.idea/workspace.xml" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,8 +26,8 @@
       <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pvpy/pveducation/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+            <state relative-caret-position="18">
+              <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
               <folding>
                 <element signature="e#0#64#0" expanded="true" />
               </folding>
@@ -51,7 +39,7 @@
         <entry file="file://$PROJECT_DIR$/pvpy/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="18">
-              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -60,12 +48,14 @@
       <file leaf-file-name="conversions.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pvpy/pveducation/conversions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="287">
+              <caret line="132" column="8" lean-forward="false" selection-start-line="132" selection-start-column="8" selection-end-line="132" selection-end-column="8" />
               <folding>
                 <element signature="e#15#33#0" expanded="true" />
                 <element signature="e#1227#1347#1" expanded="true" />
-                <element signature="e#2973#4514#0" expanded="false" />
+                <element signature="e#2991#4532#0" expanded="false" />
+                <element signature="e#4135#4424#0" expanded="false" />
+                <element signature="e#4185#4399#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -74,7 +64,7 @@
       <file leaf-file-name="optics.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pvpy/pveducation/optics.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1386">
+            <state relative-caret-position="1062">
               <caret line="77" column="20" lean-forward="false" selection-start-line="77" selection-start-column="20" selection-end-line="77" selection-end-column="20" />
               <folding>
                 <element signature="e#530#624#1" expanded="true" />
@@ -169,7 +159,6 @@
         <option value="$PROJECT_DIR$/pvpy/pveducation/photovoltaic.py" />
         <option value="$PROJECT_DIR$/pvpy/pveducation/semiconductors.py" />
         <option value="$PROJECT_DIR$/pvpy/pveducation/optics.py" />
-        <option value="$PROJECT_DIR$/pvpy/pveducation/conversions.py" />
         <option value="$PROJECT_DIR$/pvpy/pveducation/solrad.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/pveducation/FingLoss_module.py" />
@@ -182,13 +171,13 @@
         <option value="$PROJECT_DIR$/pveducation/__init__.py" />
         <option value="$PROJECT_DIR$/pvpy/pveducation/__init__.py" />
         <option value="$PROJECT_DIR$/pvpy/__init__.py" />
+        <option value="$PROJECT_DIR$/pvpy/pveducation/conversions.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1366" />
-    <option name="width" value="1024" />
-    <option name="height" value="558" />
+    <option name="width" value="1366" />
+    <option name="height" value="768" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -235,7 +224,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -258,6 +246,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -439,20 +428,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1458184728647</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;">
-      <created>1473806635078</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1473806635079</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Adding blackbody spectrum to PowerSpectrum">
-      <created>1476841439249</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1476841439249</updated>
     </task>
     <task id="LOCAL-00011" summary="Added get_spectrum to PowerSpectrum for easier use">
       <created>1476841547311</created>
@@ -783,7 +758,21 @@
       <option name="project" value="LOCAL" />
       <updated>1503968535947</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Corrected directory structure">
+      <created>1503970555433</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1503970555433</updated>
+    </task>
+    <task id="LOCAL-00059" summary="si_units wrapper is close to working">
+      <created>1503974187045</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1503974187046</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TodoView">
@@ -796,15 +785,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1366" y="0" width="1366" height="744" extended-state="6" />
+    <frame x="0" y="0" width="1366" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16009104" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16236722" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22809829" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.50298065" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32842106" sideWeight="0.49701938" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29967427" sideWeight="0.7846498" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3355049" sideWeight="0.49701938" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33713356" sideWeight="0.49701938" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22596154" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3344209" sideWeight="0.49403876" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -817,6 +806,7 @@
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="1466" y="100" width="1720" height="880" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32842106" sideWeight="0.49701938" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -859,8 +849,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="SHOW_UNVERSIONED_FILES_WHILE_COMMIT" value="false" />
-    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;" />
-    <MESSAGE value="Accurate implementation of getting Voc and current" />
     <MESSAGE value="Added fill factor and effciency. Need to fix set_illumination/weighting still. Code not usable right now." />
     <MESSAGE value="Fixed illumination spectrum weighting to handle blackbody spectrums below 4000nm and ASTM spectrums from 280-4000 even though it is spaced unevenly." />
     <MESSAGE value="Added getitem, setitem, delitem, and call functionality to PowerSpectrum" />
@@ -884,12 +872,14 @@
     <MESSAGE value="Fixed PowerSpectrum import for py3 in SolarCell" />
     <MESSAGE value="Python2 doesn't support non ASCII characters in variable names" />
     <MESSAGE value="Python2 does not support non-ASCII characters in variable names" />
-    <option name="LAST_COMMIT_MESSAGE" value="Python2 does not support non-ASCII characters in variable names" />
+    <MESSAGE value="Corrected directory structure" />
+    <MESSAGE value="si_units wrapper is close to working" />
+    <option name="LAST_COMMIT_MESSAGE" value="si_units wrapper is close to working" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="17" />
+      <option name="time" value="18" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1184,25 +1174,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="1" column="23" lean-forward="true" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
-          <folding>
-            <element signature="e#79#108#0" expanded="true" />
-            <element signature="e#990#1303#1" expanded="true" />
-            <element signature="e#1410#1710#1" expanded="true" />
-            <element signature="e#2028#2147#1" expanded="true" />
-            <element signature="e#2213#2279#1" expanded="true" />
-            <element signature="e#2981#3648#1" expanded="true" />
-            <element signature="e#4401#4725#1" expanded="true" />
-            <element signature="e#4809#4880#1" expanded="true" />
-            <element signature="e#5170#5429#1" expanded="true" />
-            <element signature="e#5494#5681#1" expanded="true" />
-            <element signature="e#5973#6160#1" expanded="true" />
-            <element signature="e#6502#6588#1" expanded="true" />
-            <element signature="e#6837#6923#1" expanded="true" />
-            <element signature="e#7169#7255#1" expanded="true" />
-            <element signature="e#8060#8192#1" expanded="true" />
-            <element signature="e#8670#8971#1" expanded="true" />
-            <marker date="1503968554792" expanded="true" signature="10476:10964" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1210,14 +1181,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="46" column="21" lean-forward="false" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pvpy/pveducation/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        <state relative-caret-position="18">
+          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding>
             <element signature="e#0#64#0" expanded="true" />
           </folding>
@@ -1227,14 +1197,14 @@
     <entry file="file://$PROJECT_DIR$/pvpy/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pvpy/pveducation/optics.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1386">
+        <state relative-caret-position="1062">
           <caret line="77" column="20" lean-forward="false" selection-start-line="77" selection-start-column="20" selection-end-line="77" selection-end-column="20" />
           <folding>
             <element signature="e#530#624#1" expanded="true" />
@@ -1247,12 +1217,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pvpy/pveducation/conversions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="287">
+          <caret line="132" column="8" lean-forward="false" selection-start-line="132" selection-start-column="8" selection-end-line="132" selection-end-column="8" />
           <folding>
             <element signature="e#15#33#0" expanded="true" />
             <element signature="e#1227#1347#1" expanded="true" />
-            <element signature="e#2973#4514#0" expanded="false" />
+            <element signature="e#2991#4532#0" expanded="false" />
+            <element signature="e#4135#4424#0" expanded="false" />
+            <element signature="e#4185#4399#0" expanded="false" />
           </folding>
         </state>
       </provider>
