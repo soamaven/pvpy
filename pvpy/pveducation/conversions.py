@@ -16,7 +16,10 @@ pi = np.pi
 
 toRad = pi / 180  # use to convert to radians
 toDeg = 180 / pi  # use to convert to degrees
-__factors = np.concatenate((np.arange(-24, -3, 3, ), np.arange(-3, 3), np.arange(3, 25, 3)))
+__factors = np.concatenate((np.arange(-24, -3, 3, dtype="float64"),  # up to milli (py2, neg int exponents invalid)
+                            np.arange(-3, 0, dtype="float64"),       # up to base (py2, neg int exponents invalid)
+                            np.arange(1, 3, dtype="int"),            # base up to hecta
+                            np.arange(3, 25, 3, dtype="int")))       # kilo to yotta
 __prefixes = np.array(
     [
         'yocto',
@@ -26,10 +29,9 @@ __prefixes = np.array(
         'pico',
         'nano',
         'micro',
-        'mili',
+        'milli',
         'centi',
         'deci',
-        '',
         'deca',
         'hecto',
         'kilo',
@@ -42,9 +44,16 @@ __prefixes = np.array(
         'yotta',
     ]
 )
-__units_dictionary = {}
-for prefix, factor in zip(__prefixes, __factors[::-1]):
-    __units_dictionary[prefix] = factor
+__si_mods = {}
+for prefix, fact in zip(__prefixes, __factors[::-1]):
+    __si_mods[prefix] = fact
+# Special english modifiers for units
+__pre_mods = {"cubic": 3, "square": 2, "per": -1.0, "inverse": -1.0}
+__post_mods = {"cubed": 3, "squared": 2}
+# Having a consolidated dictionary helps with looping
+__units_dict = {}
+for unit_dict in [__si_mods, __pre_mods, __post_mods]:
+    __units_dict.update(unit_dict)
 
 
 # python helpers that are not pv
@@ -94,42 +103,48 @@ def si_units(fun):
 
     regex_parser = re.compile(r"\w+", )
 
-    # Special english modifiers for units
-    exp_premodifiers = {"cubic": 3.0, "square": 2.0, "per": -1.0, "inverse": -1.0}
-    exp_postmodifiers = {"cubed": 3.0, "squared": 2.0}
     @wraps(fun)
-    def units_wrapper(units='', *args, **kwargs):
-        matches = regex_parser.findall(units)
-        unit_factors = np.ones((len(matches)))
-        for match, i in zip(matches, range(len(unit_factors))):
-            # See if any si prefixes are in each match and get the factor
-            # Will NOT capture odd redundant prefixes or modifiers, e.g. centi-centimeters or per per meter
-            si_factors = [si_factor for si_factor in __units_dictionary.keys() if si_factor in match]
-            if any(si_factors):
-                for si_fac in si_factors:
-                    unit_factors[i] *= __units_dictionary[si_fac]
-                continue
-            else:
-                # See if any pre-modifying words exist
-                premodifiers = [mod for mod in exp_premodifiers.keys() if mod in match]
-            if any(premodifiers):
-                for premod in premodifiers:
-                    assert premod != matches[-1], "{:s} unit modifier can't be last!"
-                    # Apply the postmodifying factor to the next modifier
-                    unit_factors[i + 1] *= exp_premodifiers[premod]
-                continue
-            else:
-                # See if any post-modifying words exist
-                postmodifiers = [mod for mod in exp_postmodifiers.keys() if mod in match]
-            if any(postmodifiers):
-                for postmod in postmodifiers:
-                    assert postmod != matches[0], "{:s} unit modifier can't be first!"
-                    # Apply the postmodifying factor to the previous modifier
-                    unit_factors[i - 1] *= exp_postmodifiers[postmod]
-                continue
-            else:
-                raise(SyntaxError("{:s} can't be used in a units string.".format(match)))
+    def units_wrapper(*args, **kwargs):
+        # check that the caller is trying to modify the units before doing anything
+        if "units" in kwargs.keys():
+            # remove the "units" keyword so it doesn't get passed to wrapped function
+            units = kwargs.pop("units")
+            # Capture all the words in the units string
+            matches = regex_parser.findall(units)
+            # pre-allocate a list of unity factors
+            unit_factors = [1] * len(matches)
 
-        return fun(*args, **kwargs) * 10
+            # Appropriately apply the factors
+            for i, match in enumerate(matches):
+                # Capture all the factors corresponding to the exponents of 10 needed to change units
+                # Will NOT capture odd redundant prefixes or modifiers, e.g. centi-centimeters or per per meter
+                si_keys = [value for value, key in zip(__si_mods.values(), __si_mods.keys()) if key in match]
+                pre_keys = [value for value, key in zip(__pre_mods.values(), __pre_mods.keys()) if key == match]
+                post_keys = [value for value, key in zip(__post_mods.values(), __post_mods.keys()) if key == match]
+                print(unit_factors)
+                if si_keys:
+                    unit_factors[i] *= si_keys[0]
+                    continue
+                elif pre_keys:
+                    # Apply the pre modifiers to the next position
+                    assert match is not matches[-1], "{:s} unit modifier can't be last!".format(match)
+                    unit_factors[i + 1] *= pre_keys[0]
+                    # unit_factors[i] = 0
+                    continue
+                elif post_keys:
+                    # Apply the pre modifiers to the previous position
+                    assert match is not matches[0], "{:s} unit modifier can't be first!".format(match)
+                    unit_factors[i - 1] *= post_keys[0]
+                    # unit_factors[i] = 0
+                    continue
+                else:
+                    raise(SyntaxError("{:s} can't be used in a units string.".format(match)))
+            # Last thing to do is get rid of all the unit factors
+            print(unit_factors)
+            unit_factors[:] = (factor for factor in unit_factors if factor != 1.0)
+            exponent = np.sum(unit_factors)
+            return fun(*args, **kwargs) * 10 ** exponent
+        else:
+            return fun(*args, **kwargs)
 
     return units_wrapper
