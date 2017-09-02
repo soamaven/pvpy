@@ -10,6 +10,7 @@ k = 1.38064852e-23  # (J/K)
 wien = 2.898e-3
 Stefan_Boltzmann = 5.670367e-08  # (W m^-2 K^-4)
 h = 6.62607004e-34  # (J.s)
+h_ev = 4.135667662e-15  # (eV.s)
 c = 299792458.0  # (m s^-1)
 hc_q = h * c / q
 pi = np.pi
@@ -57,29 +58,6 @@ __post_mods = {"cubed": 3, "squared": 2}
 
 # basics
 
-def photon_nm2eV(x):
-    """ Given wavelength of a photon in um return the energy in eV """
-    return hc_q * 1e9 / x
-
-
-def photon_wavelength(x, units='eV'):
-    """ return the energy of photon in eV and joules given teh wave.
-    Default return units are in electron-volts.
-    """
-    energy = h * c / x  # energy in eV, default return value
-    if units.upper().lower() == 'eV'.upper().lower():
-        return energy
-    elif units.upper().lower() is 'joules'.upper().lower():
-        energy *= q  # convert to joules
-    return energy
-
-
-def fermi_function(E, Ef, T):
-    """ Given the energies in electron volts return the fermi dirac function """
-    kt = k * T / q  # in eV
-    return 1 / (np.exp((E - Ef) / kt) + 1.0)
-
-
 # decorator to allow user to output preferred units from functions
 def si_units(fun):
     """
@@ -100,6 +78,7 @@ def si_units(fun):
             # remove the "units" keyword so it doesn't get passed to wrapped function
             units = kwargs.pop("units")
             assert isinstance(units, str), "Units should be a sentence like string."
+            units = units.lower()
             # Capture all the words in the units string
             matches = regex_parser.findall(units)
             # pre-allocate a list of unity factors
@@ -159,6 +138,61 @@ def si_units(fun):
             return fun(*args, **kwargs)
 
     return units_wrapper
+
+@si_units
+def photon_wavelength(x, e_units='eV'):
+    """
+    Get energy of photon in eV and joules given the wavelength.
+    Default return e_units are in electron-volts ('ev') but other option is 'joules'.
+    :param x: wavelength, in meters
+    :type x: float
+    :param e_units: either electron volts ('ev') or 'joules'
+    :type e_units: str
+    :return: energy of a photon
+    :rtype: float
+    """
+    energy = h_ev * c / x  # energy in eV, default return value
+    if e_units.upper().lower() == 'eV'.upper().lower():
+        return energy
+    elif e_units.upper().lower() == 'joules'.upper().lower():
+        energy *= q  # convert to joules
+        return energy
+
+
+def fermi_function(E, Ef, T, e_units='ev'):
+    """
+     Given the energies in electron volts return discrete points in the fermi dirac function
+    :param E: electron energy in electron volts
+    :type E: float
+    :param Ef: fermi energy in electron volts
+    :type Ef: float
+    :param T: absolute temperature, in Kelvin
+    :type T: float
+    :param e_units: which energy units the function uses
+    :type e_units: str
+    :return: f(E) for given Ef and T
+    :rtype: float
+    """
+    if e_units.lower() == 'joules':
+        kt = k * T  # in joules
+    else:
+        kt = k * T / q  # in eV
+
+    e = 1.0 / (np.exp((E - Ef) / kt) + 1.0)
+    return e
+
+
+@si_units
+def photon_nm2eV(x):
+    """
+     Given wavelength of a photon in meters, return the energy in eV.
+     Can give a 'units' keyword argument to change the output units.
+    :param x: photon wavelength in meters
+    :type x: float
+    :return: wavelength
+    :rtype: float
+    """
+    return hc_q / x
 
 
 if __name__ == '__main__':

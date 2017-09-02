@@ -22,7 +22,7 @@ def test_si_units(x, units):
 
 
 def gentestunits():
-    unit_combs = combinations(cnv.__si_mods.keys(), r=14)
+    unit_combs = combinations(cnv.__si_mods.keys(), r=3)
     for comb in unit_combs:
         yield (np.random.rand() * 100, ' '.join(comb))
 
@@ -38,3 +38,15 @@ def test_si_units2(x, units):
     wrappedfloater = cnv.si_units(myfloater)
     # with pytest.raises((KeyError, AssertionError)):
     wrappedfloater(x, units=units)
+
+
+def test_nm2ev():
+    assert cnv.photon_nm2eV(2.0, units='nanometers') == pytest.approx(619.9209872915753, 1e-16)
+
+
+def test_photonwavelength():
+    assert cnv.photon_wavelength(551.5, e_units='ev', units='nano') == pytest.approx(2.2481268791697064, 1e-16)
+
+
+def test_fermidirac():
+    assert cnv.fermi_function(2.0, 2.02, 300.23) == pytest.approx(0.68417860157406751, 1e-16)
