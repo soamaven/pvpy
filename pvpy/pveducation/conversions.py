@@ -7,7 +7,7 @@ from functools import wraps
 q = 1.60217662e-19  # (C) (units go after the comment line)
 eV = q
 k = 1.38064852e-23  # (J/K)
-Wien = 2.898e-3
+wien = 2.898e-3
 Stefan_Boltzmann = 5.670367e-08  # (W m^-2 K^-4)
 h = 6.62607004e-34  # (J.s)
 c = 299792458.0  # (m s^-1)
@@ -50,10 +50,6 @@ for prefix, fact in zip(__prefixes, __factors[::-1]):
 # Special english modifiers for units
 __pre_mods = {"cubic": 3, "square": 2, "per": -1.0, "inverse": -1.0}
 __post_mods = {"cubed": 3, "squared": 2}
-# Having a consolidated dictionary helps with looping
-__units_dict = {}
-for unit_dict in [__si_mods, __pre_mods, __post_mods]:
-    __units_dict.update(unit_dict)
 
 
 # python helpers that are not pv
@@ -91,15 +87,9 @@ def si_units(fun):
     requested easily.
     :param fun: function that outputs SI units and needs to be converted to prefixed units
     :type fun: function
-    :param args: pass all arguments
-    :type args: list
-    :param kwargs: pass all keyword arguments
-    :type kwargs: dict
     :return: converter function that scales fun
     :rtype: function
     """
-    # TODO: allow for multiprefix units such as "milliamps per centimeter"
-    # TODO: unit agnostic prefixes. Probably a regex filter to figure out that "milliamps" should use the "milli" prefix
 
     regex_parser = re.compile(r"\w+", )
 
@@ -113,34 +103,46 @@ def si_units(fun):
             matches = regex_parser.findall(units)
             # pre-allocate a list of unity factors
             unit_factors = [1] * len(matches)
+            items = []
 
             # Appropriately apply the factors
-            for i, match in enumerate(matches):
+            for match in matches:
                 # Capture all the factors corresponding to the exponents of 10 needed to change units
                 # Will NOT capture odd redundant prefixes or modifiers, e.g. centi-centimeters or per per meter
-                si_keys = [value for value, key in zip(__si_mods.values(), __si_mods.keys()) if key in match]
-                pre_keys = [value for value, key in zip(__pre_mods.values(), __pre_mods.keys()) if key == match]
-                post_keys = [value for value, key in zip(__post_mods.values(), __post_mods.keys()) if key == match]
-                print(unit_factors)
-                if si_keys:
-                    unit_factors[i] *= si_keys[0]
+                for (key, value) in zip(__si_mods.keys(), __si_mods.values()):
+                    if key in match:
+                        items.append((key, value))
+                for (key, value) in zip(__pre_mods.keys(), __pre_mods.values()):
+                    if key == match:
+                        items.append((key, value))
+                for (key, value) in zip(__post_mods.keys(), __post_mods.values()):
+                    if key == match:
+                        items.append((key, value))
+            for i, (item, match) in enumerate(zip(items, matches)):
+                if item[0] in __si_mods.keys():
+                    unit_factors[i] *= item[1]
                     continue
-                elif pre_keys:
+                elif item[0] in __pre_mods.keys():
                     # Apply the pre modifiers to the next position
                     assert match is not matches[-1], "{:s} unit modifier can't be last!".format(match)
-                    unit_factors[i + 1] *= pre_keys[0]
-                    # unit_factors[i] = 0
+                    unit_factors[i + 1] *= (item[1] * unit_factors[i])
+                    # If next modifier is also a pre modifier, propagate the modifiers forward
+                    if matches[i + 1] in __pre_mods.keys():
+                        unit_factors[i + 2] *= unit_factors[i + 1]
+                        unit_factors[i + 1] = 1
                     continue
-                elif post_keys:
-                    # Apply the pre modifiers to the previous position
+                elif item[0] in __post_mods.keys():
+                    # Apply the post modifiers to the previous position
                     assert match is not matches[0], "{:s} unit modifier can't be first!".format(match)
-                    unit_factors[i - 1] *= post_keys[0]
-                    # unit_factors[i] = 0
+                    unit_factors[i - 1] *= (item[1] * unit_factors[i])
+                    # If next modifier is also a modifier, propagate the modifiers
+                    if matches[i - 1] in __post_mods.keys():
+                        unit_factors[i] *= unit_factors[i - 1]
+                        unit_factors[i - 1] = 1
                     continue
                 else:
                     raise(SyntaxError("{:s} can't be used in a units string.".format(match)))
             # Last thing to do is get rid of all the unit factors
-            print(unit_factors)
             unit_factors[:] = (factor for factor in unit_factors if factor != 1.0)
             exponent = np.sum(unit_factors)
             return fun(*args, **kwargs) * 10 ** exponent
@@ -148,3 +150,15 @@ def si_units(fun):
             return fun(*args, **kwargs)
 
     return units_wrapper
+
+
+if __name__ == '__main__':
+    def myfloater(x):
+        return x
+
+    wrappedfloater = si_units(myfloater)
+    print(wrappedfloater(5, units="millimeters per centimeters cubed"))
+    print(wrappedfloater(5, units="milliamps per cubic centimeters"))
+    print(wrappedfloater(5, units="inverse cubic centimeter millimeters"))
+    print(wrappedfloater(5, units="inverse centimeters cubed millimeters"))
+    print(5 * 10 ** 3 * 10 ** (-2 * 3))

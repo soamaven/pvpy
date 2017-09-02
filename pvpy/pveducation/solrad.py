@@ -75,7 +75,7 @@ def H0(x):
 def blackbody_peak(T):
     """Return the peak wavelenth (nm)
     given the temperature (K)"""
-    return 1e9 * Wien / T
+    return 1e9 * wien / T
 
 
 def blackbody_integrated(T):
