@@ -1,7 +1,7 @@
 import numpy as np
 from scipy import constants, interpolate
 from scipy.optimize import fmin
-from PowerSpectrum import PowerSpectrum, PhotocurrentSpectrum
+from pvpy.PowerSpectrum import PowerSpectrum, PhotocurrentSpectrum
 import warnings
 
 

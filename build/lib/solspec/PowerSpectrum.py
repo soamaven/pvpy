@@ -139,7 +139,7 @@ class PhotonSpectrum(PowerSpectrum):
         :param spectra: the ASTM standard spectrum to use
         :return: None
         """
-        super().__init__(start_w, stop_w, spectra)
+        super(PowerSpectrum).__init__(start_w, stop_w, spectra)
         self.spectrum[:, 1] = self.spectrum[:, 1] * (self.spectrum[:, 0] * 1e-9 / (constants.c * constants.h))
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])
 
@@ -153,6 +153,6 @@ class PhotocurrentSpectrum(PhotonSpectrum):
         :param spectra: the ASTM standard spectrum to use
         :return: None
         """
-        super().__init__(start_w, stop_w, spectra)
+        super(PhotocurrentSpectrum).__init__(start_w, stop_w, spectra)
         self.spectrum[:, 1] *= constants.e
         self.interp = interpolate.interp1d(self.spectrum[:, 0], self.spectrum[:, 1])

@@ -4,9 +4,10 @@ import numpy as np
 from scipy import interpolate, integrate, constants
 from os import path
 
-#Solar Solid angular diameter from earth surface is 1919 arcseconds = 0.009303575 radians
+# Solar Solid angular diameter from earth surface is 1919 arcseconds = 0.009303575 radians
 # Source: http://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html accessed on on October 19 2016
-SOLAR_SOLID_ANGLE = 2 * constants.pi * (1 - np.cos(.009303575/2))  # ~6.798e-05 steradians
+SOLAR_SOLID_ANGLE = 2 * constants.pi * (1 - np.cos(.009303575 / 2))  # ~6.798e-05 steradians
+
 
 class PowerSpectrum(object):
     def __init__(self, start_w=280.0, stop_w=4000.0, spectra="AM1.5G", bbtemp=5800, mediumrefindex=1,
@@ -62,7 +63,7 @@ class PowerSpectrum(object):
         # create the PowerSpectrum interpolator
         self.interp = interpolate.interp1d(self.spectrum[0], self.spectrum[1])
 
-    def blackbody_spectrum(self, mediumrefindex=1, solidangle=4*constants.pi, bbtemp=5400, v=0):
+    def blackbody_spectrum(self, mediumrefindex=1, solidangle=4 * constants.pi, bbtemp=5400, v=0):
         """
         Creates a blackbody distribution of power flux for a given solid angle. Default is entire sphere for the sun.
         :param mediumrefindex: refractive index of medium surrounding blackbody
@@ -95,8 +96,8 @@ class PowerSpectrum(object):
     @staticmethod
     def circular_solid_angle(half_angle, degrees=True):
         if degrees:
-            half_angle *= constants.pi/180.
-        return 2*constants.pi * (1 - np.cos(half_angle))
+            half_angle *= constants.pi / 180.
+        return 2 * constants.pi * (1 - np.cos(half_angle))
 
     def sub_spectrum(self, start_w, stop_w):
         """
@@ -124,9 +125,11 @@ class PowerSpectrum(object):
             if not lowerb <= w <= upperb:
                 print("Wavelength %0.2f nm out of spectra bounds" % w)
                 if w < lowerb:
-                    raise IndexError("Wavelength %0.2f too short. Please use the lower bound of %0.2f nm." % (w, lowerb))
+                    raise IndexError(
+                        "Wavelength %0.2f too short. Please use the lower bound of %0.2f nm." % (w, lowerb))
                 elif w > upperb:
-                    raise IndexError("Wavelength %0.2f too large. Please use the upper bound of %0.2f nm." % (w, upperb))
+                    raise IndexError(
+                        "Wavelength %0.2f too large. Please use the upper bound of %0.2f nm." % (w, upperb))
             else:
                 pass
         return
@@ -209,7 +212,7 @@ class PowerSpectrum(object):
                 pass
         spec_in = np.squeeze(spec_in)
         assert spec_in.shape[0] == 2, "Weight spectrum is not a 2D numpy array."
-        #TODO: Catch errors for when there aren't enough points for default kind, i.e. uncommon case of <4 points in weight
+        # TODO: Catch errors for when there aren't enough points for default kind, i.e. uncommon case of <4 points in weight
         spec_fun = interpolate.interp1d(spec_in[0], spec_in[1], kind=kind)
         if spec_in[0, 0] >= self.start_w or spec_in[0, -1] <= self.stop_w:
             self.spectrum = self.sub_spectrum(spec_in[0, 0], spec_in[0, -1])
