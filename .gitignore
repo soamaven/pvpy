@@ -1,7 +1,7 @@
 # Compiled python modules.
 *.pyc
 
-.idea/
+.idea/*
 
 # Setuptools distribution folder.
 /dist/
@@ -11,6 +11,8 @@
 /*.egg
 
 .idea/workspace.xml
+build
+build/*
 build/bdist.linux-x86_64/
 pvpy/__pycache__/
 /HZB_Optimization.ipynb
