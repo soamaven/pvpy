@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5585c180-ca0b-412d-8811-e1a52b376147" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/pvpy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pvpy.iml" afterDir="false" />
+    <list default="true" id="5585c180-ca0b-412d-8811-e1a52b376147" name="Default" comment="Minor compatibility typos">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/solspec/PowerSpectrum.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/solspec/PowerSpectrum.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pvpy/PowerSpectrum.py" beforeDir="false" afterPath="$PROJECT_DIR$/pvpy/PowerSpectrum.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pvpy/SolarCell.py" beforeDir="false" afterPath="$PROJECT_DIR$/pvpy/SolarCell.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pvpy/lsc.py" beforeDir="false" afterPath="$PROJECT_DIR$/pvpy/lsc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <ignored path="solspec.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,7 +22,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pvpy/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
             <state>
@@ -34,6 +30,15 @@
                 <element signature="e#0#19#0" expanded="true" />
                 <element signature="e#347#446#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="87">
+              <caret line="3" column="6" lean-forward="true" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -63,7 +68,7 @@
         <entry file="file://$PROJECT_DIR$/build/lib/solspec/PowerSpectrum.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1019">
-              <caret line="158" lean-forward="true" selection-start-line="158" selection-end-line="158" />
+              <caret line="158" selection-start-line="158" selection-end-line="158" />
             </state>
           </provider>
         </entry>
@@ -72,7 +77,7 @@
         <entry file="file://$PROJECT_DIR$/pvpy/lsc.py">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="18" lean-forward="true" selection-start-column="18" selection-end-column="18" />
+              <caret column="18" selection-start-column="18" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -86,15 +91,6 @@
                 <element signature="e#0#18#0" expanded="true" />
                 <element signature="e#194#290#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build/lib/pvpy/SolarCell.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="961">
-              <caret line="178" column="8" selection-start-line="178" selection-start-column="8" selection-end-line="178" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -124,17 +120,17 @@
         <option value="$PROJECT_DIR$/../solspec/solspec/PowerSpectrum.py" />
         <option value="$PROJECT_DIR$/../solspec/README.md" />
         <option value="$PROJECT_DIR$/MANIFEST.in" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/setup.cfg" />
         <option value="$PROJECT_DIR$/license.txt" />
         <option value="$PROJECT_DIR$/HZB_Optimization.ipynb" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/pvpy/__init__.py" />
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/pvpy/SolarCell.py" />
         <option value="$PROJECT_DIR$/pvpy/lsc.py" />
         <option value="$PROJECT_DIR$/pvpy/PowerSpectrum.py" />
         <option value="$PROJECT_DIR$/build/lib/solspec/PowerSpectrum.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -146,7 +142,7 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
@@ -156,6 +152,16 @@
             <path>
               <item name="pvpy" type="b2602c69:ProjectViewProjectNode" />
               <item name="pvpy" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pvpy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pvpy" type="462c0819:PsiDirectoryNode" />
+              <item name=".cache" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pvpy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pvpy" type="462c0819:PsiDirectoryNode" />
+              <item name=".github" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pvpy" type="b2602c69:ProjectViewProjectNode" />
@@ -174,12 +180,39 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="pvpy" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="pvpy" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name=".github" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="pvpy" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name=".github" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="ISSUE_TEMPLATE" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="pvpy" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name=".idea" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="diff&#9;ACTION&#9;Diff.KeymapGroup&#10;todo&#9;ACTION&#9;ActivateTODOToolWindow" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="add_unversioned_files" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/pvpy/SolarCell.py" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -336,7 +369,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1458184728647</updated>
-      <workItem from="1543185014525" duration="274000" />
+      <workItem from="1543185014525" duration="559000" />
     </task>
     <task id="LOCAL-00001" summary="Package would not install properly because path to spectrum file was not working correctly. Fixed bug.">
       <created>1458187780955</created>
@@ -618,11 +651,18 @@
       <option name="project" value="LOCAL" />
       <updated>1478149527812</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Minor compatibility typos">
+      <created>1543185321901</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1543185321901</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="274000" />
+    <option name="totallyTimeSpent" value="559000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -635,12 +675,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-7" width="3840" height="2167" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" weight="0.22652757" />
-      <window_info id="Project" order="1" visible="true" weight="0.13097769" />
+      <window_info active="true" id="Project" order="1" visible="true" weight="0.13097769" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Inspection Results" visible="true" weight="0.3294979" />
+      <window_info anchor="bottom" id="Inspection Results" weight="0.3294979" />
       <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="Floobits" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -653,7 +694,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49403876" weight="0.33557048" />
       <window_info anchor="bottom" id="Messages" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50298065" side_tool="true" weight="0.32885906" />
-      <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.7846498" weight="0.36073825" />
+      <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.7846498" visible="true" weight="0.36035565" />
       <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.49701938" weight="0.32718122" />
       <window_info anchor="right" id="Database" />
       <window_info anchor="right" id="SciView" />
@@ -706,7 +747,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added the ability to give the jsc function a 2D input or two list/vector inputs." />
     <MESSAGE value="Added a TODO about custom spectra" />
     <MESSAGE value="Revert to Python2.7 compatibility, sadface." />
     <MESSAGE value="Adding blackbody spectrum to PowerSpectrum" />
@@ -731,7 +771,8 @@
     <MESSAGE value="Retooled custom spectrum input to make it easier to use." />
     <MESSAGE value="Decided to get the incident power during set_illumination, before the call to __get_generation" />
     <MESSAGE value="Added demo notebook for pvpy functionalities" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added demo notebook for pvpy functionalities" />
+    <MESSAGE value="Minor compatibility typos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor compatibility typos" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.idea/pvpy.iml">
@@ -769,16 +810,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="126">
-            <caret line="7" selection-start-line="7" selection-end-line="7" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MANIFEST.in">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -788,13 +819,6 @@
     </entry>
     <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/580632286/__builtin__.py" />
     <entry file="file://$PROJECT_DIR$/HZB_Optimization.ipynb" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="10" column="21" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pvpy/ASTMG173.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -819,14 +843,14 @@
     <entry file="file://$PROJECT_DIR$/pvpy/lsc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="18" lean-forward="true" selection-start-column="18" selection-end-column="18" />
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build/lib/solspec/PowerSpectrum.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1019">
-          <caret line="158" lean-forward="true" selection-start-line="158" selection-end-line="158" />
+          <caret line="158" selection-start-line="158" selection-end-line="158" />
         </state>
       </provider>
     </entry>
@@ -865,6 +889,23 @@
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#347#446#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="87">
+            <caret line="3" column="40" selection-start-line="3" selection-start-column="40" selection-end-line="3" selection-end-column="40" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="3" column="6" lean-forward="true" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
         </state>
       </provider>
     </entry>
